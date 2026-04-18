@@ -16,9 +16,9 @@ body {
     align-items: center;
     height: 100vh;
     overflow: hidden;
+    animation: pageFade 1.2s ease;
 }
 
-/* SOFT BACKGROUND LOGO */
 body::before {
     content: "";
     position: absolute;
@@ -29,50 +29,56 @@ body::before {
     right: -300px;
     top: 50%;
     transform: translateY(-50%);
+    animation: bgFloat 5s ease-in-out infinite alternate;
 }
 
-/* PANEL */
 .panel {
     position: relative;
     z-index: 2;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.68);
     padding: 50px 40px;
     border-radius: 20px;
-    border: 1px solid rgba(212,175,55,0.2);
+    border: 1px solid rgba(212,175,55,0.18);
     backdrop-filter: blur(10px);
     text-align: center;
     max-width: 650px;
+    box-shadow: 0 0 35px rgba(0,0,0,0.45);
+    animation: panelRise 1.3s ease;
 }
 
-/* LOGO FIX */
 .logo {
     width: 260px;
     margin-bottom: 20px;
-    filter: drop-shadow(0 0 15px rgba(212,175,55,0.2));
+    filter: drop-shadow(0 0 15px rgba(212,175,55,0.18));
+    animation: logoIn 1.4s ease;
 }
 
-/* TITLE */
 h1 {
     font-size: 48px;
     letter-spacing: 4px;
     margin: 10px 0;
-    color: #d4af37;
-    text-shadow: 0 0 10px rgba(212,175,55,0.3);
+    font-weight: 700;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #8a6a12, #d4af37, #fff1a8, #d4af37, #8a6a12);
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s ease-in-out infinite;
 }
 
-/* LINE */
 .line {
     width: 100px;
     height: 1px;
     background: linear-gradient(to right, transparent, #d4af37, transparent);
     margin: 20px auto;
+    animation: fadeIn 1.8s ease;
 }
 
-/* TEXT */
 p {
     color: #ddd;
-    line-height: 1.7;
+    line-height: 1.8;
     font-size: 15px;
+    animation: fadeIn 2s ease;
 }
 
 .highlight {
@@ -80,7 +86,6 @@ p {
     font-weight: bold;
 }
 
-/* BUTTON */
 .btn {
     display: inline-block;
     margin-top: 25px;
@@ -90,31 +95,79 @@ p {
     color: #d4af37;
     text-decoration: none;
     transition: 0.3s;
+    animation: fadeIn 2.2s ease;
 }
 
 .btn:hover {
     background: #d4af37;
     color: black;
-    box-shadow: 0 0 15px rgba(212,175,55,0.4);
+    box-shadow: 0 0 15px rgba(212,175,55,0.35);
+    transform: translateY(-2px);
 }
 
-/* FOOTER */
 .footer {
     margin-top: 20px;
     font-size: 11px;
     color: #777;
+    animation: fadeIn 2.4s ease;
+}
+
+@keyframes pageFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes panelRise {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes logoIn {
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% center; }
+    100% { background-position: -20% center; }
+}
+
+@keyframes bgFloat {
+    from { transform: translateY(-50%) translateX(0); }
+    to { transform: translateY(-50%) translateX(-20px); }
 }
 </style>
-
 </head>
 
 <body>
 
 <div class="panel">
+    <img src="profilepic.png" class="logo" alt="Prestige Group Logo">
 
-    <img src="profilepic.png" class="logo">
-
-    <h1>COMING SOON</h1>
+    <h1>Coming Soon</h1>
 
     <div class="line"></div>
 
@@ -122,12 +175,11 @@ p {
         <span class="highlight">Prestige Group</span> is preparing a refined digital experience built around quality, trust, and elegance.
     </p>
 
-    <a href="mailto:info@prestigegroupmt.com" class="btn">CONTACT US</a>
+    <a href="mailto:info@prestigegroupmt.com" class="btn">Contact Us</a>
 
     <div class="footer">
         © 2026 Prestige Group. All rights reserved.
     </div>
-
 </div>
 
 </body>
