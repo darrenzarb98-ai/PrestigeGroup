@@ -1,99 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Prestige Group</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prestige Group</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
-body {
-    margin: 0;
-    background: radial-gradient(circle at top, #111, #000);
-    color: white;
-    font-family: 'Segoe UI', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    overflow: hidden;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #f5e7b2;
+      background:
+        linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.88)),
+        url("Coverphoto.png") center center / cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
 
-.container {
-    max-width: 700px;
-    animation: fadeIn 1.5s ease-in-out;
-}
+    .container {
+      width: min(90%, 900px);
+      padding: 40px 20px;
+      animation: fadeUp 1.2s ease;
+      backdrop-filter: blur(2px);
+    }
 
-h1 {
-    font-size: 65px;
-    letter-spacing: 3px;
-    background: linear-gradient(90deg, #d4af37, #ffffff, #d4af37);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+    .logo {
+      width: min(420px, 80vw);
+      max-width: 100%;
+      height: auto;
+      filter: drop-shadow(0 0 18px rgba(212, 175, 55, 0.18));
+      margin-bottom: 20px;
+    }
 
-.line {
-    width: 100px;
-    height: 2px;
-    background: #d4af37;
-    margin: 30px auto;
-}
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: 2px;
+      color: #d4af37;
+      text-transform: uppercase;
+    }
 
-p {
-    color: #bbb;
-    font-size: 18px;
-    margin-top: 20px;
-    line-height: 1.6;
-}
+    .line {
+      width: 110px;
+      height: 2px;
+      margin: 22px auto 26px;
+      background: linear-gradient(to right, transparent, #d4af37, transparent);
+    }
 
-button {
-    margin-top: 35px;
-    padding: 14px 35px;
-    border: 1px solid #d4af37;
-    background: transparent;
-    color: #d4af37;
-    cursor: pointer;
-    letter-spacing: 1px;
-    transition: 0.4s;
-}
+    p {
+      margin: 0 auto;
+      max-width: 650px;
+      font-size: clamp(1rem, 1.6vw, 1.15rem);
+      line-height: 1.8;
+      color: #f3e7c0;
+    }
 
-button:hover {
-    background: #d4af37;
-    color: black;
-}
+    .highlight {
+      color: #d4af37;
+      font-weight: 600;
+    }
 
-.footer {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    font-size: 12px;
-    color: #555;
-}
+    .btn {
+      display: inline-block;
+      margin-top: 32px;
+      padding: 14px 32px;
+      border: 1px solid #d4af37;
+      color: #d4af37;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: 0.3s ease;
+      background: rgba(0, 0, 0, 0.35);
+    }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-</style>
+    .btn:hover {
+      background: #d4af37;
+      color: #111;
+      transform: translateY(-2px);
+    }
 
+    .footer {
+      position: fixed;
+      bottom: 16px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255, 235, 180, 0.65);
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 24px 16px;
+      }
+
+      .logo {
+        width: min(320px, 88vw);
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <img src="profilepic.png" alt="Prestige Group logo" class="logo" />
 
-<div class="container">
-    <h1>Prestige Group</h1>
     <div class="line"></div>
+
     <p>
-        Crafting premium digital experiences.<br>
-        Our platform is launching soon.
+      <span class="highlight">Prestige Group</span> is preparing a premium digital presence.
+      Our new website is launching soon with a refined experience built around quality, trust, and elegance.
     </p>
-    <button onclick="window.location.href='mailto:info@prestigegroupmt.com'">
-        Get In Touch
-    </button>
-</div>
 
-<div class="footer">
-    © 2026 Prestige Group — All Rights Reserved
-</div>
+    <a class="btn" href="mailto:info@prestigegroupmt.com">Contact Us</a>
+  </div>
 
+  <div class="footer">© 2026 Prestige Group. All rights reserved.</div>
 </body>
 </html>
