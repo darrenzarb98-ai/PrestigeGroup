@@ -1,181 +1,383 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prestige Group</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prestige Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      min-height: 100%;
-      font-family: Arial, sans-serif;
-      background: #000;
-    }
+  :root {
+    --gold: #d4af37;
+    --gold-light: #f5e27a;
+    --gold-dark: #8a6a12;
+    --bg: #070707;
+    --panel-bg: rgba(6, 5, 3, 0.82);
+  }
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background:
-        linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.82)),
-        url("Coverphoto.png") center center / cover no-repeat;
-      color: #f4e7b0;
-      overflow: hidden;
-    }
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--bg);
+    color: #e8d8a0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .overlay {
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
+  /* ── Canvas for particles ── */
+  #canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
 
-    .content {
-      text-align: center;
-      max-width: 760px;
-      animation: fadeUp 0.9s ease-out;
-    }
+  /* ── Background watermark logo ── */
+  .bg-logo {
+    position: fixed;
+    right: -12vw;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 55vw;
+    max-width: 780px;
+    opacity: 0.045;
+    filter: sepia(1) saturate(3) hue-rotate(5deg);
+    z-index: 0;
+    animation: bgDrift 8s ease-in-out infinite alternate;
+  }
 
-    .eyebrow {
-      color: #cfa63a;
-      font-size: 14px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
+  @keyframes bgDrift {
+    from { transform: translateY(-50%) translateX(0) scale(1); }
+    to   { transform: translateY(-50%) translateX(-22px) scale(1.03); }
+  }
 
-    h1 {
-      margin: 0;
-      font-size: clamp(3rem, 7vw, 5.8rem);
-      line-height: 0.95;
-      letter-spacing: 3px;
-      color: #d4af37;
-      text-transform: uppercase;
-      text-shadow: 0 0 20px rgba(212,175,55,0.12);
-    }
+  /* ── Animated corner ornaments ── */
+  .corner {
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    z-index: 1;
+    opacity: 0.35;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .corner--tl { top: 20px; left: 20px; }
+  .corner--tr { top: 20px; right: 20px; transform: scaleX(-1); }
+  .corner--bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+  .corner--br { bottom: 20px; right: 20px; transform: scale(-1); }
 
-    .divider {
-      width: 120px;
-      height: 1px;
-      margin: 28px auto 30px;
-      background: linear-gradient(to right, transparent, #d4af37, transparent);
-    }
+  /* ── Main panel ── */
+  .panel {
+    position: relative;
+    z-index: 10;
+    background: var(--panel-bg);
+    padding: 52px 48px 44px;
+    border-radius: 4px;
+    max-width: 660px;
+    width: 92vw;
+    text-align: center;
+    backdrop-filter: blur(18px) saturate(1.3);
+    animation: panelReveal 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    overflow: hidden;
+  }
 
-    p {
-      margin: 0 auto;
-      max-width: 680px;
-      color: rgba(255,255,255,0.86);
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      line-height: 1.8;
-    }
+  /* animated gold border via gradient rotation */
+  .panel::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 5px;
+    background: conic-gradient(
+      from var(--angle, 0deg),
+      transparent 0deg,
+      var(--gold) 60deg,
+      var(--gold-light) 120deg,
+      transparent 180deg,
+      transparent 360deg
+    );
+    z-index: -1;
+    animation: borderSpin 6s linear infinite;
+  }
+  .panel::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: 3px;
+    background: var(--panel-bg);
+    z-index: -1;
+  }
 
-    .highlight {
-      color: #d4af37;
-      font-weight: 700;
-    }
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+  @keyframes borderSpin {
+    to { --angle: 360deg; }
+  }
 
-    .actions {
-      margin-top: 36px;
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
+  @keyframes panelReveal {
+    from { opacity: 0; transform: translateY(36px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)   scale(1); }
+  }
 
-    .btn {
-      display: inline-block;
-      min-width: 180px;
-      padding: 14px 28px;
-      border: 1px solid #d4af37;
-      border-radius: 999px;
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-size: 0.92rem;
-      transition: all 0.25s ease;
-    }
+  /* ── Logo ── */
+  .logo-wrap {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 28px;
+    animation: logoReveal 1.8s cubic-bezier(0.22, 1, 0.36, 1) both 0.2s;
+  }
+  .logo-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -14px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,175,55,0.14) 0%, transparent 70%);
+    animation: pulse 3.5s ease-in-out infinite;
+  }
+  .logo {
+    width: 210px;
+    display: block;
+    filter: drop-shadow(0 0 20px rgba(212,175,55,0.22));
+  }
 
-    .btn-primary {
-      background: #d4af37;
-      color: #111;
-    }
+  @keyframes logoReveal {
+    from { opacity: 0; transform: scale(0.88); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.06); }
+  }
 
-    .btn-primary:hover {
-      background: #e1bf57;
-      transform: translateY(-2px);
-    }
+  /* ── Heading ── */
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(30px, 5vw, 46px);
+    font-weight: 700;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark));
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite, textReveal 1.6s ease both 0.4s;
+    margin-bottom: 10px;
+  }
 
-    .btn-secondary {
-      background: transparent;
-      color: #d4af37;
-    }
+  @keyframes shimmer {
+    0%   { background-position: 200% center; }
+    100% { background-position: -50% center; }
+  }
+  @keyframes textReveal {
+    from { opacity: 0; letter-spacing: 16px; }
+    to   { opacity: 1; letter-spacing: 8px; }
+  }
 
-    .btn-secondary:hover {
-      background: rgba(212,175,55,0.12);
-      transform: translateY(-2px);
-    }
+  /* ── Ornamental divider ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 18px auto 22px;
+    animation: fadeUp 1.6s ease both 0.6s;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .divider-diamond {
+    width: 7px; height: 7px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
 
-    .footer {
-      margin-top: 34px;
-      color: rgba(255,255,255,0.52);
-      font-size: 12px;
-      letter-spacing: 0.4px;
-    }
+  /* ── Body text ── */
+  p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.85;
+    color: #ccc;
+    animation: fadeUp 1.6s ease both 0.8s;
+    margin-bottom: 8px;
+  }
+  .highlight {
+    color: var(--gold);
+    font-weight: 600;
+    font-style: normal;
+  }
 
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(24px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+  /* ── CTA Button ── */
+  .btn {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 13px 36px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-radius: 0;
+    transition: background 0.35s, color 0.35s, box-shadow 0.35s, transform 0.25s;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 1.6s ease both 1s;
+  }
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-101%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+  }
+  .btn:hover::before { transform: translateX(0); }
+  .btn:hover {
+    color: #000;
+    box-shadow: 0 0 28px rgba(212,175,55,0.4);
+    transform: translateY(-2px);
+  }
 
-    @media (max-width: 640px) {
-      .actions {
-        flex-direction: column;
-        align-items: center;
-      }
+  /* ── Footer ── */
+  .footer {
+    margin-top: 22px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #4a4232;
+    text-transform: uppercase;
+    animation: fadeUp 1.6s ease both 1.2s;
+  }
 
-      .btn {
-        width: 100%;
-        max-width: 280px;
-      }
-
-      p {
-        padding: 0 8px;
-      }
-    }
-  </style>
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
 </head>
 <body>
-  <div class="overlay">
-    <div class="content">
-      <div class="eyebrow">Prestige Group</div>
-      <h1>Coming Soon</h1>
-      <div class="divider"></div>
-      <p>
-        A refined digital experience is on the way.
-        <span class="highlight">Prestige Group</span> is preparing a premium online presence built around quality, trust, and elegance.
-      </p>
 
-      <div class="actions">
-        <a class="btn btn-primary" href="mailto:info@prestigegroupmt.com">Contact Us</a>
-        <a class="btn btn-secondary" href="https://www.prestigegroupmt.com">Refresh Site</a>
-      </div>
+<canvas id="canvas"></canvas>
 
-      <div class="footer">© 2026 Prestige Group. All rights reserved.</div>
-    </div>
+<img src="Coverphoto.png" class="bg-logo" alt="">
+
+<!-- Corner ornaments -->
+<div class="corner corner--tl">
+  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5 95 L5 5 L95 5" stroke="#d4af37" stroke-width="1.5" fill="none"/>
+    <path d="M5 50 L30 5" stroke="#d4af37" stroke-width="0.7" fill="none" opacity="0.5"/>
+    <path d="M50 5 L5 30" stroke="#d4af37" stroke-width="0.7" fill="none" opacity="0.5"/>
+    <rect x="2" y="2" width="8" height="8" stroke="#d4af37" stroke-width="1" fill="none"/>
+  </svg>
+</div>
+<div class="corner corner--tr">
+  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5 95 L5 5 L95 5" stroke="#d4af37" stroke-width="1.5" fill="none"/>
+    <path d="M5 50 L30 5" stroke="#d4af37" stroke-width="0.7" fill="none" opacity="0.5"/>
+    <path d="M50 5 L5 30" stroke="#d4af37" stroke-width="0.7" fill="none" opacity="0.5"/>
+    <rect x="2" y="2" width="8" height="8" stroke="#d4af37" stroke-width="1" fill="none"/>
+  </svg>
+</div>
+<div class="corner corner--bl">
+  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5 95 L5 5 L95 5" stroke="#d4af37" stroke-width="1.5" fill="none"/>
+    <path d="M5 50 L30 5" stroke="#d4af37" stroke-width="0.7" fill="none" opacity="0.5"/>
+    <path d="M50 5 L5 30" stroke="#d4af37" stroke-width="0.7" fill="none" opacity="0.5"/>
+    <rect x="2" y="2" width="8" height="8" stroke="#d4af37" stroke-width="1" fill="none"/>
+  </svg>
+</div>
+<div class="corner corner--br">
+  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5 95 L5 5 L95 5" stroke="#d4af37" stroke-width="1.5" fill="none"/>
+    <path d="M5 50 L30 5" stroke="#d4af37" stroke-width="0.7" fill="none" opacity="0.5"/>
+    <path d="M50 5 L5 30" stroke="#d4af37" stroke-width="0.7" fill="none" opacity="0.5"/>
+    <rect x="2" y="2" width="8" height="8" stroke="#d4af37" stroke-width="1" fill="none"/>
+  </svg>
+</div>
+
+<div class="panel">
+  <div class="logo-wrap">
+    <img src="profilepic.png" class="logo" alt="Prestige Group Logo">
   </div>
+
+  <h1>Coming Soon</h1>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <p>
+    <span class="highlight">Prestige Group</span> is preparing a refined digital
+    experience built around quality, trust, and elegance.
+  </p>
+
+  <a href="mailto:info@prestigegroupmt.com" class="btn">Contact Us</a>
+
+  <div class="footer">© 2026 Prestige Group &nbsp;·&nbsp; All rights reserved.</div>
+</div>
+
+<script>
+// ── Floating gold dust particles ──
+const canvas = document.getElementById('canvas');
+const ctx    = canvas.getContext('2d');
+let W, H, particles;
+
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+class Particle {
+  constructor() { this.reset(true); }
+  reset(initial) {
+    this.x  = Math.random() * W;
+    this.y  = initial ? Math.random() * H : H + 10;
+    this.r  = Math.random() * 1.6 + 0.3;
+    this.vx = (Math.random() - 0.5) * 0.35;
+    this.vy = -(Math.random() * 0.45 + 0.15);
+    this.a  = 0;
+    this.maxA = Math.random() * 0.55 + 0.1;
+    this.life = 0;
+    this.maxLife = Math.random() * 280 + 180;
+  }
+  update() {
+    this.x  += this.vx + Math.sin(this.life * 0.025) * 0.3;
+    this.y  += this.vy;
+    this.life++;
+    const t = this.life / this.maxLife;
+    this.a = this.maxA * Math.sin(Math.PI * t);
+    if (this.life >= this.maxLife) this.reset(false);
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(212,175,55,${this.a})`;
+    ctx.fill();
+  }
+}
+
+particles = Array.from({ length: 90 }, () => new Particle());
+
+function loop() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(loop);
+}
+loop();
+</script>
 </body>
 </html>
