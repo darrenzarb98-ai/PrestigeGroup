@@ -1,186 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prestige Group</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prestige Group</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: radial-gradient(circle at center, #111, #000);
-    color: #f5e7b2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-    animation: pageFade 1.2s ease;
-}
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: Arial, sans-serif;
+      background: #000;
+    }
 
-body::before {
-    content: "";
-    position: absolute;
-    width: 1200px;
-    height: 1200px;
-    background: url("Coverphoto.png") center/contain no-repeat;
-    opacity: 0.08;
-    right: -300px;
-    top: 50%;
-    transform: translateY(-50%);
-    animation: bgFloat 5s ease-in-out infinite alternate;
-}
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.82)),
+        url("Coverphoto.png") center center / cover no-repeat;
+      color: #f4e7b0;
+      overflow: hidden;
+    }
 
-.panel {
-    position: relative;
-    z-index: 2;
-    background: rgba(0,0,0,0.68);
-    padding: 50px 40px;
-    border-radius: 20px;
-    border: 1px solid rgba(212,175,55,0.18);
-    backdrop-filter: blur(10px);
-    text-align: center;
-    max-width: 650px;
-    box-shadow: 0 0 35px rgba(0,0,0,0.45);
-    animation: panelRise 1.3s ease;
-}
+    .overlay {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
 
-.logo {
-    width: 260px;
-    margin-bottom: 20px;
-    filter: drop-shadow(0 0 15px rgba(212,175,55,0.18));
-    animation: logoIn 1.4s ease;
-}
+    .content {
+      text-align: center;
+      max-width: 760px;
+      animation: fadeUp 0.9s ease-out;
+    }
 
-h1 {
-    font-size: 48px;
-    letter-spacing: 4px;
-    margin: 10px 0;
-    font-weight: 700;
-    text-transform: uppercase;
-    background: linear-gradient(90deg, #8a6a12, #d4af37, #fff1a8, #d4af37, #8a6a12);
-    background-size: 220% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shimmer 3s ease-in-out infinite;
-}
+    .eyebrow {
+      color: #cfa63a;
+      font-size: 14px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
 
-.line {
-    width: 100px;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #d4af37, transparent);
-    margin: 20px auto;
-    animation: fadeIn 1.8s ease;
-}
+    h1 {
+      margin: 0;
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      line-height: 0.95;
+      letter-spacing: 3px;
+      color: #d4af37;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(212,175,55,0.12);
+    }
 
-p {
-    color: #ddd;
-    line-height: 1.8;
-    font-size: 15px;
-    animation: fadeIn 2s ease;
-}
+    .divider {
+      width: 120px;
+      height: 1px;
+      margin: 28px auto 30px;
+      background: linear-gradient(to right, transparent, #d4af37, transparent);
+    }
 
-.highlight {
-    color: #d4af37;
-    font-weight: bold;
-}
+    p {
+      margin: 0 auto;
+      max-width: 680px;
+      color: rgba(255,255,255,0.86);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.8;
+    }
 
-.btn {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 12px 28px;
-    border-radius: 30px;
-    border: 1px solid #d4af37;
-    color: #d4af37;
-    text-decoration: none;
-    transition: 0.3s;
-    animation: fadeIn 2.2s ease;
-}
+    .highlight {
+      color: #d4af37;
+      font-weight: 700;
+    }
 
-.btn:hover {
-    background: #d4af37;
-    color: black;
-    box-shadow: 0 0 15px rgba(212,175,55,0.35);
-    transform: translateY(-2px);
-}
+    .actions {
+      margin-top: 36px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
 
-.footer {
-    margin-top: 20px;
-    font-size: 11px;
-    color: #777;
-    animation: fadeIn 2.4s ease;
-}
+    .btn {
+      display: inline-block;
+      min-width: 180px;
+      padding: 14px 28px;
+      border: 1px solid #d4af37;
+      border-radius: 999px;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 0.92rem;
+      transition: all 0.25s ease;
+    }
 
-@keyframes pageFade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+    .btn-primary {
+      background: #d4af37;
+      color: #111;
+    }
 
-@keyframes panelRise {
-    from {
+    .btn-primary:hover {
+      background: #e1bf57;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #d4af37;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(212,175,55,0.12);
+      transform: translateY(-2px);
+    }
+
+    .footer {
+      margin-top: 34px;
+      color: rgba(255,255,255,0.52);
+      font-size: 12px;
+      letter-spacing: 0.4px;
+    }
+
+    @keyframes fadeUp {
+      from {
         opacity: 0;
-        transform: translateY(30px) scale(0.98);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes logoIn {
-    from {
-        opacity: 0;
-        transform: scale(0.92);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-    to {
+        transform: translateY(24px);
+      }
+      to {
         opacity: 1;
         transform: translateY(0);
+      }
     }
-}
 
-@keyframes shimmer {
-    0% { background-position: 200% center; }
-    100% { background-position: -20% center; }
-}
+    @media (max-width: 640px) {
+      .actions {
+        flex-direction: column;
+        align-items: center;
+      }
 
-@keyframes bgFloat {
-    from { transform: translateY(-50%) translateX(0); }
-    to { transform: translateY(-50%) translateX(-20px); }
-}
-</style>
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      p {
+        padding: 0 8px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="overlay">
+    <div class="content">
+      <div class="eyebrow">Prestige Group</div>
+      <h1>Coming Soon</h1>
+      <div class="divider"></div>
+      <p>
+        A refined digital experience is on the way.
+        <span class="highlight">Prestige Group</span> is preparing a premium online presence built around quality, trust, and elegance.
+      </p>
 
-<div class="panel">
-    <img src="profilepic.png" class="logo" alt="Prestige Group Logo">
+      <div class="actions">
+        <a class="btn btn-primary" href="mailto:info@prestigegroupmt.com">Contact Us</a>
+        <a class="btn btn-secondary" href="https://www.prestigegroupmt.com">Refresh Site</a>
+      </div>
 
-    <h1>Coming Soon</h1>
-
-    <div class="line"></div>
-
-    <p>
-        <span class="highlight">Prestige Group</span> is preparing a refined digital experience built around quality, trust, and elegance.
-    </p>
-
-    <a href="mailto:info@prestigegroupmt.com" class="btn">Contact Us</a>
-
-    <div class="footer">
-        © 2026 Prestige Group. All rights reserved.
+      <div class="footer">© 2026 Prestige Group. All rights reserved.</div>
     </div>
-</div>
-
+  </div>
 </body>
 </html>
