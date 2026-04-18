@@ -1,27 +1,81 @@
 <!DOCTYPE html>
-<html> 
+<html lang="en">
 <head>
-  <title>Prestige Group</title>
-  <style>
-    body {
-      margin: 0;
-      background: black;
-      color: white;
-      font-family: Arial;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-    }
-    h1 { font-size: 50px; }
-    p { color: #aaa; }
-  </style>
+<meta charset="UTF-8">
+<title>Prestige Group</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0a0a0a;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.container {
+    max-width: 700px;
+}
+
+h1 {
+    font-size: 60px;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #d4af37, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+p {
+    color: #aaa;
+    font-size: 18px;
+    margin-top: 20px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.line {
+    width: 80px;
+    height: 2px;
+    background: #d4af37;
+    margin: 30px auto;
+    animation: fadeIn 2.5s ease-in-out;
+}
+
+button {
+    margin-top: 30px;
+    padding: 12px 30px;
+    border: 1px solid #d4af37;
+    background: transparent;
+    color: #d4af37;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #d4af37;
+    color: black;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
 </head>
+
 <body>
-  <div>
+<div class="container">
     <h1>Prestige Group</h1>
-    <p>Something exceptional is coming soon.</p>
-  </div>
+    <div class="line"></div>
+    <p>We are building something exceptional.<br>Launching soon.</p>
+    <button onclick="window.location.href='mailto:info@prestigegroupmt.com'">
+        Contact Us
+    </button>
+</div>
 </body>
 </html>
