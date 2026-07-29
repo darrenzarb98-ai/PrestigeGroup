@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boxing Memberships · Prestige Group Malta</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+
+  :root {
+    --gold:       #d4af37;
+    --gold-light: #f5e27a;
+    --gold-pale:  #fff8dc;
+    --gold-dark:  #8a6a12;
+    --gold-deep:  #4a3800;
+    --bg:         #050403;
+    --bg2:        #0d0a05;
+    --panel-bg:   rgba(8,6,2,0.88);
+    --text-dim:   #9a8a60;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--bg);
+    color: #e8d8a0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Background layers ── */
+  .bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .bg-layer--vignette {
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 50%, transparent 30%, rgba(0,0,0,0.85) 100%),
+      radial-gradient(ellipse 40% 40% at 20% 20%, rgba(212,175,55,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 80% 80%, rgba(212,175,55,0.03) 0%, transparent 60%);
+  }
+  .bg-layer--noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    opacity: 0.6;
+    mix-blend-mode: overlay;
+  }
+  .bg-layer--scan {
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px);
+  }
+
+  canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+
+  /* ── Corner marks ── */
+  .corner {
+    position: fixed; width: 90px; height: 90px; z-index: 3;
+    opacity: 0.3; pointer-events: none;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .corner--tl { top: 14px; left: 14px; }
+  .corner--tr { top: 14px; right: 14px; transform: scaleX(-1); }
+  .corner--bl { bottom: 14px; left: 14px; transform: scaleY(-1); }
+  .corner--br { bottom: 14px; right: 14px; transform: scale(-1); }
+
+  /* ── Nav back button ── */
+  .nav-back {
+    position: fixed;
+    top: 22px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .nav-back a {
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: rgba(212,175,55,0.45);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-back a:hover { color: var(--gold); }
+  .nav-back-logo {
+    width: 36px; height: 36px;
+    filter: drop-shadow(0 0 12px rgba(212,175,55,0.4));
+  }
+
+  /* ── Main wrap ── */
+  .wrap {
+    position: relative;
+    z-index: 10;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 120px 24px 80px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    margin-bottom: 72px;
+    animation: fadeUp 1.6s cubic-bezier(0.22,1,0.36,1) both 0.2s;
+    opacity: 0;
+  }
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 6px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .hero-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(26px, 4vw, 48px);
+    font-weight: 700;
+    letter-spacing: 4px;
+    background: linear-gradient(105deg, var(--gold-deep) 0%, var(--gold-dark) 15%, var(--gold) 35%, var(--gold-light) 50%, var(--gold) 65%, var(--gold-dark) 85%, var(--gold-deep) 100%);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 5s linear infinite;
+    margin-bottom: 20px;
+  }
+  .hero-divider {
+    display: flex; align-items: center; gap: 12px;
+    max-width: 320px; margin: 0 auto 20px;
+  }
+  .hero-divider-line { flex:1; height:1px; background: linear-gradient(to right, transparent, rgba(212,175,55,0.5), transparent); }
+  .diamond { width:5px; height:5px; background:var(--gold); transform:rotate(45deg); box-shadow:0 0 8px rgba(212,175,55,0.5); }
+  .diamond--sm { width:3px; height:3px; opacity:0.5; }
+  .hero-sub {
+    font-size: 16px;
+    font-style: italic;
+    color: #b0a080;
+    line-height: 1.9;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── Cards grid ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3px;
+    margin-bottom: 60px;
+  }
+
+  .card {
+    background: rgba(8,6,2,0.75);
+    border: 1px solid rgba(212,175,55,0.1);
+    padding: 42px 32px 36px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: border-color 0.4s, transform 0.3s;
+    animation: fadeUp 1.6s cubic-bezier(0.22,1,0.36,1) both;
+    opacity: 0;
+  }
+  .card:nth-child(1) { animation-delay: 0.35s; }
+  .card:nth-child(2) { animation-delay: 0.5s; border-color: rgba(212,175,55,0.28); }
+  .card:nth-child(3) { animation-delay: 0.65s; }
+
+  .card:hover {
+    border-color: rgba(212,175,55,0.4);
+    transform: translateY(-4px);
+  }
+  .card--featured {
+    border-color: rgba(212,175,55,0.32) !important;
+    background: rgba(12,9,3,0.88);
+  }
+  .card--featured::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: conic-gradient(from var(--angle), transparent 0deg, rgba(212,175,55,0) 60deg, var(--gold-dark) 100deg, var(--gold) 140deg, var(--gold-light) 180deg, var(--gold) 220deg, var(--gold-dark) 260deg, rgba(212,175,55,0) 300deg, transparent 360deg);
+    animation: borderSpin 8s linear infinite;
+    z-index: -1;
+    border-radius: 1px;
+  }
+  .card--featured::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    background: rgba(12,9,3,0.92);
+    z-index: -1;
+  }
+
+  @keyframes borderSpin { to { --angle: 360deg; } }
+
+  .card-badge {
+    position: absolute;
+    top: -12px; left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: #000;
+    font-family: 'Cinzel', serif;
+    font-size: 7px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    white-space: nowrap;
+  }
+
+  .card-tier {
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 4px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .card-name {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(15px, 2vw, 19px);
+    color: #e8d8a0;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .card-sessions {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--text-dim);
+    margin-bottom: 24px;
+  }
+  .card-price {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(32px, 4vw, 44px);
+    background: linear-gradient(105deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .card-period {
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-bottom: 28px;
+  }
+  .card-rule {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212,175,55,0.2), transparent);
+    margin-bottom: 24px;
+  }
+  .card-features {
+    list-style: none;
+    margin-bottom: 32px;
+    flex: 1;
+  }
+  .card-features li {
+    font-size: 14px;
+    color: #b0a080;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(212,175,55,0.06);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-features li::before {
+    content: '◈';
+    color: var(--gold-dark);
+    font-size: 8px;
+    flex-shrink: 0;
+  }
+
+  /* ── Button ── */
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 15px 24px;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.35s, box-shadow 0.35s, transform 0.25s;
+    border: none;
+  }
+  .btn--gold {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+  }
+  .btn--solid {
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: #000;
+    border: 1px solid var(--gold);
+  }
+  .btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    z-index: 0;
+  }
+  .btn--solid::before { display: none; }
+  .btn span { position: relative; z-index: 1; }
+  .btn--gold:hover::before { transform: translateX(0); }
+  .btn--gold:hover { color: #000; box-shadow: 0 0 32px rgba(212,175,55,0.35); transform: translateY(-1px); }
+  .btn--solid:hover { box-shadow: 0 0 32px rgba(212,175,55,0.4); transform: translateY(-1px); }
+
+  /* ── Footer note ── */
+  .footer-note {
+    text-align: center;
+    animation: fadeUp 1.6s cubic-bezier(0.22,1,0.36,1) both 0.8s;
+    opacity: 0;
+  }
+  .footer-note-inner {
+    display: inline-block;
+    border: 1px solid rgba(212,175,55,0.1);
+    padding: 20px 36px;
+  }
+  .footer-note p {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+  .footer-note a {
+    color: rgba(212,175,55,0.6);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+    transition: color 0.3s;
+  }
+  .footer-note a:hover { color: var(--gold); }
+
+  .secure-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: rgba(212,175,55,0.25);
+    text-transform: uppercase;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: 200% center; }
+    100% { background-position: -100% center; }
+  }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 100px 16px 60px; }
+    .card { padding: 36px 22px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-layer bg-layer--vignette"></div>
+<div class="bg-layer bg-layer--noise"></div>
+<div class="bg-layer bg-layer--scan"></div>
+<canvas id="canvas"></canvas>
+
+<!-- Corners -->
+<div class="corner corner--tl"><svg viewBox="0 0 90 90" fill="none"><path d="M4 86 L4 4 L86 4" stroke="#d4af37" stroke-width="1"/><path d="M4 48 L32 4" stroke="#d4af37" stroke-width=".5" opacity=".45"/><path d="M48 4 L4 28" stroke="#d4af37" stroke-width=".5" opacity=".45"/></svg></div>
+<div class="corner corner--tr"><svg viewBox="0 0 90 90" fill="none"><path d="M4 86 L4 4 L86 4" stroke="#d4af37" stroke-width="1"/><path d="M4 48 L32 4" stroke="#d4af37" stroke-width=".5" opacity=".45"/><path d="M48 4 L4 28" stroke="#d4af37" stroke-width=".5" opacity=".45"/></svg></div>
+<div class="corner corner--bl"><svg viewBox="0 0 90 90" fill="none"><path d="M4 86 L4 4 L86 4" stroke="#d4af37" stroke-width="1"/><path d="M4 48 L32 4" stroke="#d4af37" stroke-width=".5" opacity=".45"/><path d="M48 4 L4 28" stroke="#d4af37" stroke-width=".5" opacity=".45"/></svg></div>
+<div class="corner corner--br"><svg viewBox="0 0 90 90" fill="none"><path d="M4 86 L4 4 L86 4" stroke="#d4af37" stroke-width="1"/><path d="M4 48 L32 4" stroke="#d4af37" stroke-width=".5" opacity=".45"/><path d="M48 4 L4 28" stroke="#d4af37" stroke-width=".5" opacity=".45"/></svg></div>
+
+<!-- Nav -->
+<div class="nav-back">
+  <a href="index.html">← Back</a>
+  <img src="profilepic.png" class="nav-back-logo" alt="Prestige Group">
+  <a href="mailto:info@prestigegroupmt.com">Contact Us</a>
+</div>
+
+<div class="wrap">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-eyebrow">Prince Boxing Club · Malta</div>
+    <h1 class="hero-title">Boxing Memberships</h1>
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <div class="diamond diamond--sm"></div>
+      <div class="diamond"></div>
+      <div class="diamond diamond--sm"></div>
+      <div class="hero-divider-line"></div>
+    </div>
+    <p class="hero-sub">Choose the plan that fits your commitment. All memberships are billed monthly and include access to our elite coaching team.</p>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards">
+
+    <!-- X3 Weekly -->
+    <div class="card">
+      <div class="card-tier">Tier 01</div>
+      <div class="card-name">X3 Weekly</div>
+      <div class="card-sessions">3 sessions per week</div>
+      <div class="card-price">€65</div>
+      <div class="card-period">per month</div>
+      <div class="card-rule"></div>
+      <ul class="card-features">
+        <li>3 training sessions weekly</li>
+        <li>Group classes included</li>
+        <li>All levels welcome</li>
+        <li>Professional coaching</li>
+      </ul>
+      <a href="https://buy.stripe.com/cNi5kCbvF3sGcnI0YZbbG02" class="btn btn--gold" target="_blank" rel="noopener">
+        <span>Join Now</span>
+      </a>
+    </div>
+
+    <!-- X5 Weekly + Sauna — FEATURED -->
+    <div class="card card--featured">
+      <div class="card-badge">Most Popular</div>
+      <div class="card-tier">Tier 02</div>
+      <div class="card-name">X5 Weekly + Sauna</div>
+      <div class="card-sessions">5 sessions per week · Sauna access included</div>
+      <div class="card-price">€140</div>
+      <div class="card-period">per month</div>
+      <div class="card-rule"></div>
+      <ul class="card-features">
+        <li>5 training sessions weekly</li>
+        <li>Full sauna access</li>
+        <li>Group & sparring sessions</li>
+        <li>Elite coaching team</li>
+        <li>Competition preparation</li>
+      </ul>
+      <a href="https://buy.stripe.com/dRm7sK7fp8N0cnIdLLbbG00" class="btn btn--solid" target="_blank" rel="noopener">
+        <span>Join Now</span>
+      </a>
+    </div>
+
+    <!-- X5 Weekly Discounted -->
+    <div class="card">
+      <div class="card-tier">Tier 03</div>
+      <div class="card-name">X5 Weekly</div>
+      <div class="card-sessions">5 sessions per week · Member rate</div>
+      <div class="card-price">€105</div>
+      <div class="card-period">per month</div>
+      <div class="card-rule"></div>
+      <ul class="card-features">
+        <li>5 training sessions weekly</li>
+        <li>Group & sparring sessions</li>
+        <li>Elite coaching team</li>
+        <li>Competition preparation</li>
+        <li>Discounted member rate</li>
+      </ul>
+      <a href="https://buy.stripe.com/fZueVc8jt3sG2N80YZbbG01" class="btn btn--gold" target="_blank" rel="noopener">
+        <span>Join Now</span>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Footer note -->
+  <div class="footer-note">
+    <div class="footer-note-inner">
+      <p>All memberships are billed monthly. Cancel any time. First session is a free introduction.<br>
+      Questions? Reach us at <a href="mailto:info@prestigegroupmt.com">info@prestigegroupmt.com</a> or <a href="https://wa.me/35699999999">WhatsApp</a>.</p>
+    </div>
+    <div class="secure-badge">
+      <span>🔒</span> Secure checkout powered by Stripe
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Particle system
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+window.addEventListener('resize', resize); resize();
+
+class P {
+  constructor(init){ this.reset(init ?? true); }
+  reset(init){
+    this.x = Math.random()*W; this.y = init ? Math.random()*H : H+12;
+    this.r = Math.random()*1.7+.2;
+    this.vx = (Math.random()-.5)*.38; this.vy = -(Math.random()*.48+.1);
+    this.life = 0; this.max = Math.random()*360+160;
+    this.w = Math.random()*Math.PI*2; this.ws = Math.random()*.02+.008;
+    this.sq = Math.random()<.12; this.ma = Math.random()*.48+.05;
+  }
+  tick(){
+    this.w+=this.ws; this.x+=this.vx+Math.sin(this.w)*.3; this.y+=this.vy;
+    this.life++; this.a = this.ma*Math.sin(Math.PI*this.life/this.max);
+    if(this.life>=this.max) this.reset(false);
+  }
+  draw(){
+    ctx.save(); ctx.globalAlpha=this.a; ctx.fillStyle='rgba(212,175,55,1)';
+    if(this.sq){ ctx.translate(this.x,this.y); ctx.rotate(this.w*2); ctx.fillRect(-this.r,-this.r,this.r*2,this.r*2); }
+    else { ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fill(); }
+    ctx.restore();
+  }
+}
+class O {
+  constructor(){ this.reset(true); }
+  reset(init){
+    this.x=Math.random()*W; this.y=init?Math.random()*H:H+90;
+    this.r=Math.random()*72+22; this.vy=-(Math.random()*.1+.03);
+    this.vx=(Math.random()-.5)*.1; this.life=0;
+    this.max=Math.random()*700+380; this.ma=Math.random()*.036+.007;
+  }
+  tick(){ this.x+=this.vx; this.y+=this.vy; this.life++; this.a=this.ma*Math.sin(Math.PI*this.life/this.max); if(this.life>=this.max) this.reset(false); }
+  draw(){
+    const g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r);
+    g.addColorStop(0,`rgba(212,175,55,${this.a})`); g.addColorStop(1,'rgba(212,175,55,0)');
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
+  }
+}
+const ps = Array.from({length:105},(_,i)=>new P(i<78));
+const os = Array.from({length:8},()=>new O());
+function loop(){ ctx.clearRect(0,0,W,H); os.forEach(o=>{o.tick();o.draw();}); ps.forEach(p=>{p.tick();p.draw();}); requestAnimationFrame(loop); }
+loop();
+</script>
+</body>
+</html>
