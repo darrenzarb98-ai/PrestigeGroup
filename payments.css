@@ -41,9 +41,9 @@ canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .nav-back a:hover { color: var(--gold); }
 .nav-back-logo { width: 36px; height: 36px; filter: drop-shadow(0 0 12px rgba(212,175,55,0.4)); }
 
-.wrap { position: relative; z-index: 10; max-width: 1000px; margin: 0 auto; padding: 120px 24px 80px; }
+.wrap { position: relative; z-index: 10; max-width: 1000px; margin: 0 auto; padding: 70px 24px 80px; }
 
-.hero { text-align: center; margin-bottom: 72px; animation: fadeUp 1.6s cubic-bezier(0.22,1,0.36,1) both 0.2s; opacity: 0; }
+.hero { text-align: center; margin-bottom: 40px; animation: fadeUp 1.6s cubic-bezier(0.22,1,0.36,1) both 0.2s; opacity: 0; }
 .hero-eyebrow { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 6px; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 18px; }
 .hero-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(26px, 4vw, 48px); font-weight: 700; letter-spacing: 4px; background: linear-gradient(105deg, var(--gold-deep) 0%, var(--gold-dark) 15%, var(--gold) 35%, var(--gold-light) 50%, var(--gold) 65%, var(--gold-dark) 85%, var(--gold-deep) 100%); background-size: 300% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 5s linear infinite; margin-bottom: 20px; }
 .hero-divider { display: flex; align-items: center; gap: 12px; max-width: 320px; margin: 0 auto 20px; }
