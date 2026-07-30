@@ -27,22 +27,27 @@
 
 <div class="wrap">
 
-  <!-- Hero with watermark + centered logo -->
-  <div class="hero" style="position:relative;overflow:hidden;">
+  <!-- Brand banner -->
+  <div style="display:flex;align-items:center;gap:24px;background:rgba(212,175,55,0.04);border:1px solid rgba(212,175,55,0.15);padding:20px 32px;margin-bottom:60px;animation:fadeUp 1.4s cubic-bezier(0.22,1,0.36,1) both 0.1s;opacity:0;">
+    <img src="PrinceBoxingLogo.jpg" alt="Prince Boxing Club" style="width:72px;height:72px;border-radius:10px;flex-shrink:0;filter:drop-shadow(0 0 14px rgba(212,175,55,0.35)) brightness(1.05);">
+    <div style="flex:1;border-left:1px solid rgba(212,175,55,0.15);padding-left:24px;">
+      <div style="font-family:'Cinzel Decorative',serif;font-size:clamp(16px,2.5vw,24px);background:linear-gradient(105deg,#8a6a12,#d4af37,#f5e27a,#d4af37);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s linear infinite;letter-spacing:2px;">Prince Boxing Club</div>
+      <div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:4px;color:rgba(212,175,55,0.4);text-transform:uppercase;margin-top:5px;">Malta · Part of Prestige Group MT</div>
+    </div>
+  </div>
 
-    <!-- Big watermark behind everything -->
-    <img src="PrinceBoxingLogo.jpg" alt="" aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:20px;opacity:0.07;filter:blur(0px) saturate(0) brightness(1.4);pointer-events:none;z-index:0;">
-
-    <div class="hero-eyebrow" style="position:relative;z-index:1;">Prince Boxing Club · Malta</div>
-    <h1 class="hero-title" style="position:relative;z-index:1;">Boxing Memberships</h1>
-    <div class="hero-divider" style="position:relative;z-index:1;">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-eyebrow">Choose Your Membership</div>
+    <h1 class="hero-title">Boxing Memberships</h1>
+    <div class="hero-divider">
       <div class="hero-divider-line"></div>
       <div class="diamond diamond--sm"></div>
       <div class="diamond"></div>
       <div class="diamond diamond--sm"></div>
       <div class="hero-divider-line"></div>
     </div>
-    <p class="hero-sub" style="position:relative;z-index:1;">Choose the plan that fits your commitment. All memberships are billed monthly and include access to our elite coaching team.</p>
+    <p class="hero-sub">All memberships are billed monthly and include access to our elite coaching team.</p>
   </div>
 
   <div class="cards">
