@@ -28,7 +28,13 @@
 <div class="wrap">
 
   <div class="hero">
-    <img src="PrinceBoxingLogo.jpg" alt="Prince Boxing Club" style="width:86px;height:86px;border-radius:8px;margin:0 auto 16px;display:block;filter:drop-shadow(0 0 18px rgba(212,175,55,0.3));">
+    <div style="position:relative;width:140px;height:140px;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(212,175,55,0.35);animation:ringPulse 3s ease-in-out infinite;"></div>
+      <div style="position:absolute;inset:-18px;border-radius:50%;border:1px solid rgba(212,175,55,0.12);animation:ringPulse 3s ease-in-out infinite 0.5s;"></div>
+      <div style="position:absolute;inset:0;border-radius:12px;background:radial-gradient(circle,rgba(212,175,55,0.15) 0%,transparent 70%);"></div>
+      <img src="PrinceBoxingLogo.jpg" alt="Prince Boxing Club" style="width:140px;height:140px;border-radius:12px;display:block;position:relative;z-index:1;filter:drop-shadow(0 0 24px rgba(212,175,55,0.5)) brightness(1.1);">
+    </div>
+    <style>@keyframes ringPulse{0%,100%{transform:scale(1);opacity:0.5;}50%{transform:scale(1.05);opacity:1;}}</style>
     <div class="hero-eyebrow">Prince Boxing Club · Malta</div>
     <h1 class="hero-title">Boxing Memberships</h1>
     <div class="hero-divider">
