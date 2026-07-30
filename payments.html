@@ -27,15 +27,12 @@
 
 <div class="wrap">
 
-  <div class="hero">
-    <div style="position:relative;width:140px;height:140px;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;">
-      <div style="position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(212,175,55,0.35);animation:ringPulse 3s ease-in-out infinite;"></div>
-      <div style="position:absolute;inset:-18px;border-radius:50%;border:1px solid rgba(212,175,55,0.12);animation:ringPulse 3s ease-in-out infinite 0.5s;"></div>
-      <div style="position:absolute;inset:0;border-radius:12px;background:radial-gradient(circle,rgba(212,175,55,0.15) 0%,transparent 70%);"></div>
-      <img src="PrinceBoxingLogo.jpg" alt="Prince Boxing Club" style="width:140px;height:140px;border-radius:12px;display:block;position:relative;z-index:1;filter:drop-shadow(0 0 24px rgba(212,175,55,0.5)) brightness(1.1);">
-    </div>
-    <style>@keyframes ringPulse{0%,100%{transform:scale(1);opacity:0.5;}50%{transform:scale(1.05);opacity:1;}}</style>
-    <div class="hero-eyebrow">Prince Boxing Club · Malta</div>
+  <div class="hero" style="position:relative;">
+    <!-- Watermark behind everything -->
+    <img src="PrinceBoxingLogo.jpg" alt="" aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:420px;height:420px;border-radius:16px;opacity:0.06;filter:blur(2px) brightness(1.3);pointer-events:none;z-index:0;">
+    <!-- Small logo above text -->
+    <img src="PrinceBoxingLogo.jpg" alt="Prince Boxing Club" style="width:80px;height:80px;border-radius:10px;margin:0 auto 18px;display:block;position:relative;z-index:1;filter:drop-shadow(0 0 16px rgba(212,175,55,0.45)) brightness(1.1);">
+    <div class="hero-eyebrow" style="position:relative;z-index:1;">Prince Boxing Club · Malta</div>
     <h1 class="hero-title">Boxing Memberships</h1>
     <div class="hero-divider">
       <div class="hero-divider-line"></div>
