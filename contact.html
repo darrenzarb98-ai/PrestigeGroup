@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050403">
+<title>Contact · Prestige Group Malta</title>
+<meta name="description" content="Contact Prestige Group Malta — 24/7 emergency towing, Prince Boxing enquiries, WhatsApp, and general contact across Malta and Gozo.">
+<link rel="canonical" href="https://prestigegroup.mt/contact.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Prestige Group Malta">
+<meta property="og:title" content="Contact · Prestige Group Malta">
+<meta property="og:description" content="Call, WhatsApp, or message Prestige Group — the right route for your enquiry.">
+<meta property="og:image" content="Coverphoto.png">
+
+<link rel="icon" type="image/png" href="profilepic.png">
+<link rel="apple-touch-icon" href="profilepic.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page" id="main-content" role="main">
+
+  <section class="hero" style="min-height:52vh;">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="Coverphoto.png" alt="" style="filter:saturate(.35) brightness(.3);" fetchpriority="high">
+      <div class="hero-bg-grad"></div>
+    </div>
+    <div class="hero-content">
+      <div style="display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(212,175,55,.15);padding:9px 24px;margin-bottom:28px;animation:fadeUp 1.4s cubic-bezier(0.22,1,0.36,1) both .2s;opacity:0;">
+        <span style="width:6px;height:6px;background:#d4af37;border-radius:50%;animation:blink 2s ease-in-out infinite;display:block;box-shadow:0 0 8px rgba(212,175,55,.6);"></span>
+        <span style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:5px;color:#8a6a12;text-transform:uppercase;">We're Here · 24 / 7</span>
+      </div>
+      <h1 class="hero-name" style="font-size:clamp(36px,6vw,72px);animation-delay:.35s;">Contact Us</h1>
+      <div class="hero-rule" style="animation-delay:.5s;">
+        <div class="hero-rule-line"></div>
+        <div class="gem gem--s"></div><div class="gem"></div><div class="gem gem--s"></div>
+        <div class="hero-rule-line"></div>
+      </div>
+      <p class="hero-body" style="animation-delay:.65s;">Choose the right route for your enquiry — towing emergencies, roadside requests, or boxing information.</p>
+    </div>
+  </section>
+
+  <div class="hr hr--heavy"></div>
+
+  <section class="section--sm">
+    <div class="wrap">
+      <div class="contact-info-cards reveal">
+        <div class="ci-card">
+          <div class="ci-icon" aria-hidden="true">📞</div>
+          <div class="ci-label">Phone</div>
+          <div class="ci-val"><a href="tel:+35699999999">+356 9999 9999</a><br><span style="font-size:12px;color:#7a6a42;">Best for emergencies</span></div>
+        </div>
+        <div class="ci-card">
+          <div class="ci-icon" aria-hidden="true">💬</div>
+          <div class="ci-label">WhatsApp</div>
+          <div class="ci-val"><a href="https://wa.me/35699999999" target="_blank" rel="noopener">Message us now</a><br><span style="font-size:12px;color:#7a6a42;">Fast general contact</span></div>
+        </div>
+        <div class="ci-card">
+          <div class="ci-icon" aria-hidden="true">📍</div>
+          <div class="ci-label">Coverage</div>
+          <div class="ci-val">Malta &amp; Gozo<br><span style="font-size:12px;color:#7a6a42;">Roadside support available</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="contact-grid">
+
+        <div class="reveal reveal-l">
+          <div class="eyebrow">Send a Message</div>
+          <h2 class="heading">Get In Touch</h2>
+          <div class="heading-rule"></div>
+          <p class="body-text" style="margin-bottom:28px;">For towing emergencies, call directly. For general enquiries, use the form below and select the right service.</p>
+
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="cf-first">First Name</label>
+                <input class="form-input" id="cf-first" type="text" name="first_name" placeholder="Your first name…" autocomplete="given-name" required>
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="cf-last">Last Name</label>
+                <input class="form-input" id="cf-last" type="text" name="last_name" placeholder="Your last name…" autocomplete="family-name" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="cf-email">Email Address</label>
+                <input class="form-input" id="cf-email" type="email" name="email" placeholder="your@email.com…" autocomplete="email" required>
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="cf-phone">Phone Number</label>
+                <input class="form-input" id="cf-phone" type="tel" name="phone" placeholder="+356 …" autocomplete="tel">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="contactServiceSelect">Service</label>
+                <select class="form-input form-select" name="service" id="contactServiceSelect" required>
+                  <option value="" disabled selected>Select a service…</option>
+                  <option value="towing">Towing &amp; Recovery</option>
+                  <option value="boxing">Prince Boxing Malta</option>
+                  <option value="general">General Enquiry</option>
+                </select>
+              </div>
+              <div class="form-field contact-urgent-field" id="contactUrgentField" style="display:none;">
+                <label class="form-label" for="cf-urgency">Urgency</label>
+                <select class="form-input form-select" id="cf-urgency" name="urgency">
+                  <option value="" disabled selected>Select urgency…</option>
+                  <option>Emergency</option>
+                  <option>As Soon As Possible</option>
+                  <option>General Enquiry</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row contact-towing-row" id="contactTowingRow" style="display:none;">
+              <div class="form-field">
+                <label class="form-label" for="cf-pickup">Pickup Location</label>
+                <input class="form-input" id="cf-pickup" type="text" name="pickup_location" placeholder="Road, town, landmark…">
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="cf-vehicle">Vehicle Type</label>
+                <input class="form-input" id="cf-vehicle" type="text" name="vehicle_type" placeholder="Car, van, motorcycle…">
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="cf-message">Message</label>
+              <textarea class="form-input" id="cf-message" rows="5" name="message" placeholder="Tell us how we can help…" required></textarea>
+            </div>
+            <button type="submit" class="btn btn--gold form-submit" style="width:100%;justify-content:center;padding:16px 34px;">
+              <span>Send Message</span>
+            </button>
+          </form>
+        </div>
+
+        <div class="reveal reveal-r d2 contact-sidebar">
+          <div class="sidebar-logo-card">
+            <img src="profilepic.png" alt="Prestige Group crest" loading="lazy">
+            <div class="sidebar-logo-name">Prestige Group</div>
+            <div class="sidebar-logo-sub">Malta · Est. 2026</div>
+          </div>
+
+          <div class="sidebar-block">
+            <div class="sidebar-block-title"><span aria-hidden="true">🚗</span> &nbsp;Emergency Towing</div>
+            <p class="sidebar-block-body">For immediate roadside assistance, call us directly or go straight to the towing request page.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <a href="tel:+35699999999" class="btn btn--solid" style="flex:1;justify-content:center;padding:14px;display:flex;">
+                <span>Call Now</span>
+              </a>
+              <a href="towing.html#request-recovery" class="btn btn--dark" style="flex:1;justify-content:center;padding:14px;display:flex;">
+                <span>Open Form</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="sidebar-block">
+            <div class="sidebar-block-title"><span aria-hidden="true">🥊</span> &nbsp;Prince Boxing Malta</div>
+            <p class="sidebar-block-body">Interested in training, private coaching, or visiting the gym? Use the form or go to the boxing page for details.</p>
+            <a href="boxing.html" class="btn btn--dark" style="width:100%;justify-content:center;padding:14px;display:flex;">
+              <span>Learn More</span>
+            </a>
+          </div>
+
+          <div style="border:1px solid rgba(212,175,55,.1);padding:24px;text-align:center;background:rgba(8,6,2,.5);">
+            <div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#8a6a12;text-transform:uppercase;margin-bottom:10px;">Best Practice</div>
+            <div style="font-family:'Cinzel Decorative',serif;font-size:28px;background:linear-gradient(120deg,#8a6a12,#d4af37,#f5e27a);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s linear infinite;">Call First</div>
+            <div style="font-size:12px;font-style:italic;color:#7a6a42;margin-top:6px;">For breakdowns or unsafe roadside situations, calling is always fastest.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+<style>@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}</style>
+<script src="shared-layout.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

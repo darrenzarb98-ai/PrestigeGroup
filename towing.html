@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050403">
+<title>Towing Services · Prestige Group Malta</title>
+<meta name="description" content="24/7 emergency towing and roadside recovery across Malta and Gozo. Call Prestige Group or send your recovery request now.">
+<link rel="canonical" href="https://prestigegroup.mt/towing.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Prestige Group Malta">
+<meta property="og:title" content="Emergency Towing · Prestige Group Malta">
+<meta property="og:description" content="24/7 roadside recovery across Malta and Gozo. Rapid dispatch, clear process, professional handling.">
+<meta property="og:image" content="Coverphoto.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/png" href="profilepic.png">
+<link rel="apple-touch-icon" href="profilepic.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutomotiveBusiness",
+  "name": "Prestige Group Towing",
+  "description": "24/7 emergency towing and roadside recovery across Malta and Gozo.",
+  "url": "https://prestigegroup.mt/towing.html",
+  "telephone": "+356 9999 9999",
+  "areaServed": ["Malta", "Gozo"],
+  "openingHours": "Mo-Su 00:00-24:00",
+  "priceRange": "€€"
+}
+</script>
+</head>
+<body>
+<div class="page" id="main-content" role="main">
+
+  <section class="hero towing-hero" style="min-height:72vh;">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="Coverphoto.png" alt="" style="object-position:center 60%;filter:saturate(.55) brightness(.5);" fetchpriority="high">
+      <div class="hero-bg-grad"></div>
+    </div>
+    <div class="hero-content">
+      <div aria-hidden="true" style="font-size:56px;margin-bottom:18px;animation:fadeUp 1.2s cubic-bezier(0.22,1,0.36,1) both .15s;opacity:0;filter:drop-shadow(0 0 28px rgba(212,175,55,.25));">🚗</div>
+      <div class="hero-kicker" style="animation-delay:.3s;">Prestige Group · Service 01</div>
+      <h1 class="hero-name" style="font-size:clamp(32px,6vw,72px);animation-delay:.45s;">Emergency<br>Towing</h1>
+      <div class="hero-tagline-sub" style="animation-delay:.6s;">24 / 7 · Malta &amp; Gozo · Rapid Dispatch</div>
+      <div class="hero-rule" style="animation-delay:.75s;">
+        <div class="hero-rule-line"></div>
+        <div class="gem gem--s"></div><div class="gem"></div><div class="gem gem--s"></div>
+        <div class="hero-rule-line"></div>
+      </div>
+      <p class="hero-body" style="animation-delay:.9s;max-width:650px;">Breakdown, accident, tyre issue, dead battery, or vehicle transport — we keep the next step clear and fast.</p>
+      <div class="hero-actions" style="animation-delay:1.05s;">
+        <a href="tel:+35699999999" class="btn btn--solid" aria-label="Call Prestige Group Towing now"><span><span aria-hidden="true">📞 &nbsp;</span>Call Now</span></a>
+        <a href="#request-recovery" class="btn btn--gold"><span>Request Recovery</span></a>
+        <a href="https://wa.me/35699999999" class="btn btn--dark" target="_blank" rel="noopener"><span>WhatsApp Us</span></a>
+      </div>
+
+      <div class="urgent-strip reveal d2">
+        <div class="urgent-pill"><strong>Available:</strong> 24/7</div>
+        <div class="urgent-pill"><strong>Coverage:</strong> Malta &amp; Gozo</div>
+        <div class="urgent-pill"><strong>Vehicles:</strong> Cars, Vans, Motorcycles</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr hr--heavy"></div>
+
+  <section class="section--sm" id="request-recovery">
+    <div class="wrap">
+      <div class="request-shell reveal">
+        <div class="request-shell-main">
+          <div class="eyebrow">Fast Request</div>
+          <h2 class="heading">Request Roadside Assistance</h2>
+          <div class="heading-rule"></div>
+          <p class="body-text" style="margin-bottom:28px;max-width:700px;">This is the fastest form on the site. Fill in the essentials and we can call you back with the next step. For urgent emergencies, calling is still best.</p>
+
+          <form id="recoveryForm" class="recovery-form" novalidate>
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="rf-name">Full Name</label>
+                <input class="form-input" id="rf-name" type="text" name="name" placeholder="Your name" autocomplete="name" required>
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="rf-phone">Phone Number</label>
+                <input class="form-input" id="rf-phone" type="tel" name="phone" placeholder="+356 …" autocomplete="tel" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="rf-pickup">Pickup Location</label>
+                <input class="form-input" id="rf-pickup" type="text" name="pickup" placeholder="Road, town, landmark…" autocomplete="street-address" required>
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="rf-dropoff">Destination / Garage</label>
+                <input class="form-input" id="rf-dropoff" type="text" name="dropoff" placeholder="Optional destination">
+              </div>
+            </div>
+
+            <div class="form-row towing-form-grid-3">
+              <div class="form-field">
+                <label class="form-label" for="rf-vehicle">Vehicle Type</label>
+                <select class="form-input form-select" id="rf-vehicle" name="vehicle" required>
+                  <option value="" disabled selected>Select vehicle type…</option>
+                  <option>Car</option>
+                  <option>Van</option>
+                  <option>Motorcycle</option>
+                  <option>SUV</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="rf-issue">Issue Type</label>
+                <select class="form-input form-select" id="rf-issue" name="issue" required>
+                  <option value="" disabled selected>Select issue…</option>
+                  <option>Breakdown</option>
+                  <option>Accident Recovery</option>
+                  <option>Flat Tyre</option>
+                  <option>Dead Battery</option>
+                  <option>Transport / Tow</option>
+                  <option>Locked Out</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="rf-urgency">Urgency</label>
+                <select class="form-input form-select" id="rf-urgency" name="urgency" required>
+                  <option value="" disabled selected>Select urgency…</option>
+                  <option>Emergency</option>
+                  <option>As Soon As Possible</option>
+                  <option>Today</option>
+                  <option>Scheduled</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="rf-details">Extra Details</label>
+              <textarea class="form-input" id="rf-details" rows="5" name="details" placeholder="Tell us what happened, whether the vehicle rolls freely, and anything our driver should know…"></textarea>
+            </div>
+
+            <div class="request-actions">
+              <button type="button" class="btn btn--dark location-share-btn" id="shareLocationBtn" aria-describedby="locationStatus"><span><span aria-hidden="true">📍 &nbsp;</span>Use My Location</span></button>
+              <button type="submit" class="btn btn--gold form-submit"><span>Send Recovery Request</span></button>
+            </div>
+            <div class="location-status" id="locationStatus" role="status" aria-live="polite">Location not added yet.</div>
+          </form>
+        </div>
+
+        <aside class="request-shell-side">
+          <div class="urgent-side-card urgent-side-card--call">
+            <div class="urgent-side-label">Fastest Route</div>
+            <div class="urgent-side-title">Need immediate help?</div>
+            <p class="urgent-side-copy">Call us directly for breakdowns, unsafe locations, or active roadside emergencies.</p>
+            <a href="tel:+35699999999" class="btn btn--solid" style="width:100%;justify-content:center;" aria-label="Call +356 9999 9999"><span><span aria-hidden="true">📞 &nbsp;</span>Call +356 9999 9999</span></a>
+          </div>
+
+          <div class="urgent-side-card">
+            <div class="urgent-side-label">Quick Facts</div>
+            <ul class="feature-list feature-list--tight">
+              <li>Roadside recovery across Malta &amp; Gozo</li>
+              <li>Cars, vans, motorcycles</li>
+              <li>Battery, tyre, lockout, and tow support</li>
+              <li>Professional handling from dispatch to drop-off</li>
+            </ul>
+          </div>
+
+          <div class="trust-stack">
+            <div class="trust-chip">24/7 Service</div>
+            <div class="trust-chip">Insured Handling</div>
+            <div class="trust-chip">Fast Contact Flow</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <div class="feature-band reveal">
+    <div class="feature-band-visual">
+      <img src="Coverphoto.png" alt="Towing services Malta" style="object-position:left center;" loading="lazy">
+      <div class="feature-band-visual-overlay" aria-hidden="true"></div>
+      <div class="feature-band-visual-badge">
+        <div class="feature-band-visual-badge-label">Response</div>
+        <div class="feature-band-visual-badge-val">24 / 7</div>
+      </div>
+    </div>
+    <div class="feature-band-content">
+      <div class="eyebrow">Why Choose Us</div>
+      <h2 class="heading">Built For Malta's Roads</h2>
+      <div class="heading-rule"></div>
+      <p class="body-text" style="margin-bottom:20px;">When your vehicle breaks down, the website should help you act fast. That is why this page is built around immediate contact, simple information, and a direct request flow.</p>
+      <p class="body-text" style="margin-bottom:36px;">We keep the process clear from the first call to final drop-off.</p>
+      <ul class="feature-list">
+        <li>24/7 emergency response — any time, any day</li>
+        <li>Full coverage across Malta and Gozo</li>
+        <li>Cars, vans, motorcycles, and recovery support</li>
+        <li>Accident recovery and tow-away service</li>
+        <li>Roadside assistance and jump-starts</li>
+        <li>Flat tyre changes on-site</li>
+        <li>Clear dispatch and confirmation process</li>
+        <li>Professional, premium service standard</li>
+      </ul>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="tel:+35699999999" class="btn btn--gold" aria-label="Call Prestige Group Towing"><span><span aria-hidden="true">📞 &nbsp;</span>Call Now</span></a>
+        <a href="https://wa.me/35699999999" class="btn btn--dark" target="_blank" rel="noopener"><span>WhatsApp Us</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hr"></div>
+
+  <section class="section">
+    <div class="wrap" style="max-width:1100px;">
+      <div style="text-align:center;margin-bottom:68px;" class="reveal">
+        <div class="eyebrow eyebrow--center">Simple Process</div>
+        <h2 class="heading">How It Works</h2>
+        <div class="heading-rule heading-rule--center"></div>
+      </div>
+      <div class="process reveal d1 process-grid-updated">
+        <div class="process-step process-step-card">
+          <div class="process-num">01</div>
+          <div>
+            <div class="process-title">Call or Request</div>
+            <p class="process-body">Use the emergency phone button or the recovery form. We only ask for the details that matter first.</p>
+          </div>
+        </div>
+        <div class="process-step process-step-card">
+          <div class="process-num">02</div>
+          <div>
+            <div class="process-title">We Confirm</div>
+            <p class="process-body">Dispatch checks your location, vehicle type, urgency, and destination so the right unit is sent.</p>
+          </div>
+        </div>
+        <div class="process-step process-step-card">
+          <div class="process-num">03</div>
+          <div>
+            <div class="process-title">We Dispatch</div>
+            <p class="process-body">The nearest suitable towing operator is assigned and sent directly to your pickup point.</p>
+          </div>
+        </div>
+        <div class="process-step process-step-card">
+          <div class="process-num">04</div>
+          <div>
+            <div class="process-title">Vehicle Recovered</div>
+            <p class="process-body">We recover, transport, or assist on-site and keep the experience calm, professional, and efficient.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="section--sm">
+    <div class="wrap">
+      <div class="trust-band reveal">
+        <div class="trust-band-item">
+          <div class="trust-band-num">24/7</div>
+          <div class="trust-band-label">Emergency Contact</div>
+        </div>
+        <div class="trust-band-item">
+          <div class="trust-band-num">MT + GZ</div>
+          <div class="trust-band-label">Coverage</div>
+        </div>
+        <div class="trust-band-item">
+          <div class="trust-band-num">Direct</div>
+          <div class="trust-band-label">Call &amp; WhatsApp</div>
+        </div>
+        <div class="trust-band-item">
+          <div class="trust-band-num">Fast</div>
+          <div class="trust-band-label">Request Flow</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="section--sm">
+    <div class="cta-band reveal">
+      <div class="cta-band-bg"></div>
+      <div class="wrap" style="position:relative;z-index:2;text-align:center;">
+        <div class="eyebrow eyebrow--center" style="margin-bottom:14px;">Available Now</div>
+        <h2 class="heading" style="text-align:center;">Need Assistance?</h2>
+        <div class="heading-rule heading-rule--center"></div>
+        <p class="body-text" style="max-width:470px;margin:0 auto 38px;">Use whichever action is fastest for your situation. Call for emergencies. Use the form for a quick organised request.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="tel:+35699999999" class="btn btn--solid" aria-label="Call +356 9999 9999"><span><span aria-hidden="true">📞 &nbsp;</span>+356 9999 9999</span></a>
+          <a href="#request-recovery" class="btn btn--gold"><span>Request Recovery</span></a>
+          <a href="https://wa.me/35699999999" class="btn btn--dark" target="_blank" rel="noopener"><span>WhatsApp</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<a class="floating-whatsapp" href="https://wa.me/35699999999" target="_blank" rel="noopener" aria-label="WhatsApp Prestige Group"><span aria-hidden="true">💬</span></a>
+<a class="mobile-sticky-call" href="tel:+35699999999" aria-label="Call Prestige Group now"><span aria-hidden="true">📞</span><span>Call Now</span></a>
+
+<script src="shared-layout.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

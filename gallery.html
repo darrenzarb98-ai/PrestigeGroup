@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050403">
+<title>Gallery · Prestige Group Malta</title>
+<meta name="description" content="A visual record of Prestige Group Malta — towing operations, Prince Boxing sessions, fight nights, brand, and the Prestige standard in action.">
+<link rel="canonical" href="https://prestigegroup.mt/gallery.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Prestige Group Malta">
+<meta property="og:title" content="Gallery · Prestige Group Malta">
+<meta property="og:description" content="A visual portfolio of our work across Malta and Gozo.">
+<meta property="og:image" content="Coverphoto.png">
+
+<link rel="icon" type="image/png" href="profilepic.png">
+<link rel="apple-touch-icon" href="profilepic.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page" id="main-content" role="main">
+
+  <!-- HERO -->
+  <section class="hero" style="min-height:50vh;">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="Coverphoto.png" alt="" style="filter:saturate(.4) brightness(.35);" fetchpriority="high">
+      <div class="hero-bg-grad"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-kicker" style="animation-delay:.2s;">Visual Portfolio</div>
+      <h1 class="hero-name" style="font-size:clamp(36px,6vw,76px);animation-delay:.35s;">Gallery</h1>
+      <div class="hero-rule" style="animation-delay:.5s;">
+        <div class="hero-rule-line"></div>
+        <div class="gem gem--s"></div><div class="gem"></div><div class="gem gem--s"></div>
+        <div class="hero-rule-line"></div>
+      </div>
+      <p class="hero-body" style="animation-delay:.65s;">A visual record of our work, our events, and the <span class="ac">Prestige standard</span> in action.</p>
+    </div>
+  </section>
+
+  <div class="hr hr--heavy"></div>
+
+  <!-- GALLERY -->
+  <section class="section">
+    <div class="wrap">
+      <div class="gallery-tabs reveal">
+        <div class="gallery-tab-bar" role="tablist" aria-label="Gallery categories">
+          <button class="gtab active" type="button" role="tab" aria-selected="true" aria-controls="gpanel-all" onclick="switchGTab('all',this)">All</button>
+          <button class="gtab" type="button" role="tab" aria-selected="false" aria-controls="gpanel-brand" onclick="switchGTab('brand',this)">Brand</button>
+          <button class="gtab" type="button" role="tab" aria-selected="false" aria-controls="gpanel-towing" onclick="switchGTab('towing',this)">Towing</button>
+          <button class="gtab" type="button" role="tab" aria-selected="false" aria-controls="gpanel-boxing" onclick="switchGTab('boxing',this)">Boxing</button>
+        </div>
+      </div>
+
+      <!-- ALL -->
+      <div class="gallery-panel active reveal" id="gpanel-all">
+        <div class="gallery-grid">
+          <div class="g-item g-item--w2" style="aspect-ratio:16/7;" onclick="openLightbox('Coverphoto.png','Prestige Group · Cover Photo')">
+            <img src="Coverphoto.png" alt="Prestige Group cover photo" style="object-position:center 25%;" loading="lazy">
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View Full</div></div>
+          </div>
+          <div class="g-item g-item--t2" onclick="openLightbox('profilepic.png','Prestige Group · Crest Logo')">
+            <img src="profilepic.png" alt="Prestige Group crest" style="object-fit:contain;padding:8%;background:#050403;" loading="lazy">
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View Full</div></div>
+          </div>
+          <div class="g-item" onclick="openLightbox(null,'Towing · On Location')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">🚗</span><span class="g-item-ph-label">Towing · On Location</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+          <div class="g-item" onclick="openLightbox(null,'Boxing · Training Session')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">🥊</span><span class="g-item-ph-label">Boxing · Training</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+          <div class="g-item" onclick="openLightbox(null,'Towing · Night Recovery')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">🚗</span><span class="g-item-ph-label">Towing · Night Recovery</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+          <div class="g-item" onclick="openLightbox(null,'Boxing · Fight Night Malta')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">🥊</span><span class="g-item-ph-label">Boxing · Fight Night</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+          <div class="g-item g-item--w2" onclick="openLightbox(null,'Prince Boxing · Championship')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">🥊</span><span class="g-item-ph-label">Boxing · Championship Bout</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BRAND -->
+      <div class="gallery-panel reveal" id="gpanel-brand">
+        <div class="gallery-grid">
+          <div class="g-item g-item--w2" style="aspect-ratio:16/7;" onclick="openLightbox('Coverphoto.png','Prestige Group · Cover')">
+            <img src="Coverphoto.png" alt="" style="object-position:center 25%;" loading="lazy">
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View Full</div></div>
+          </div>
+          <div class="g-item g-item--t2" onclick="openLightbox('profilepic.png','Prestige Group · Crest')">
+            <img src="profilepic.png" alt="" style="object-fit:contain;padding:8%;background:#050403;" loading="lazy">
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View Full</div></div>
+          </div>
+          <div class="g-item" onclick="openLightbox(null,'Brand Assets')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">◈</span><span class="g-item-ph-label">Brand Assets</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOWING -->
+      <div class="gallery-panel reveal" id="gpanel-towing">
+        <div class="gallery-grid">
+          <div class="g-item g-item--w2" onclick="openLightbox(null,'Towing · On Location')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">🚗</span><span class="g-item-ph-label">On Location</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+          <div class="g-item" onclick="openLightbox(null,'Towing · Night Recovery')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">🚗</span><span class="g-item-ph-label">Night Recovery</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+          <div class="g-item" onclick="openLightbox(null,'Towing · Fleet')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">🚗</span><span class="g-item-ph-label">Fleet</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+          <div class="g-item" onclick="openLightbox(null,'Towing · Roadside Assist')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">🚗</span><span class="g-item-ph-label">Roadside Assist</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOXING -->
+      <div class="gallery-panel reveal" id="gpanel-boxing">
+        <div class="gallery-grid">
+          <div class="g-item g-item--t2" onclick="openLightbox(null,'Boxing · Training Session')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">🥊</span><span class="g-item-ph-label">Training Session</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+          <div class="g-item" onclick="openLightbox(null,'Boxing · Fight Night')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">🥊</span><span class="g-item-ph-label">Fight Night</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+          <div class="g-item" onclick="openLightbox(null,'Boxing · Championship')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">🥊</span><span class="g-item-ph-label">Championship</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+          <div class="g-item g-item--w2" onclick="openLightbox(null,'Boxing · Ring Setup')">
+            <div class="g-item-ph"><span class="g-item-ph-icon">🥊</span><span class="g-item-ph-label">Ring Setup</span></div>
+            <div class="g-item-overlay"><div class="g-item-overlay-label">View</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Growth note -->
+      <div style="text-align:center;margin-top:52px;" class="reveal">
+        <div style="display:inline-block;border:1px solid rgba(212,175,55,.1);padding:20px 36px;">
+          <p style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#7a6a42;text-transform:uppercase;"><span aria-hidden="true">📸</span> &nbsp; More from the field, coming soon</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="lb-inner">
+    <button class="lb-close" type="button" onclick="closeLightbox()" aria-label="Close image viewer"><span aria-hidden="true">✕</span> &nbsp; Close</button>
+    <img id="lb-img" src="" alt="" style="display:none;">
+    <div id="lb-ph" class="lb-inner-ph" style="display:none;">
+      <span aria-hidden="true" style="font-size:40px;opacity:.18;">◈</span>
+      <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:#7a6a42;text-transform:uppercase;" id="lb-ph-label"></span>
+    </div>
+  </div>
+  <div class="lb-caption" id="lb-caption"></div>
+</div>
+
+<script src="shared-layout.js"></script>
+<script src="main.js"></script>
+<script>
+// Override openLightbox to handle ph-label
+const _orig = window.openLightbox;
+window.openLightbox = function(src, cap){
+  const ph = document.getElementById('lb-ph');
+  const lbl = document.getElementById('lb-ph-label');
+  if(!src && lbl) lbl.textContent = cap||'';
+  _orig(src, cap);
+};
+</script>
+</body>
+</html>

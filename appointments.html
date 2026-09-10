@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050403">
+<title>Book an Appointment · Prestige Group Malta</title>
+<meta name="description" content="Book a scheduled towing job or a Prince Boxing session with Prestige Group Malta — pick your service, date, and time online.">
+<link rel="canonical" href="https://prestigegroup.mt/appointments.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Prestige Group Malta">
+<meta property="og:title" content="Book an Appointment · Prestige Group Malta">
+<meta property="og:description" content="Schedule a towing job or a boxing session online.">
+<meta property="og:image" content="Coverphoto.png">
+
+<link rel="icon" type="image/png" href="profilepic.png">
+<link rel="apple-touch-icon" href="profilepic.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page" id="main-content" role="main">
+
+  <section class="hero" style="min-height:48vh;">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="Coverphoto.png" alt="" style="filter:saturate(.35) brightness(.3);" fetchpriority="high">
+      <div class="hero-bg-grad"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-kicker" style="animation-delay:.2s;">Plan Ahead</div>
+      <h1 class="hero-name" style="font-size:clamp(34px,6vw,72px);animation-delay:.35s;">Book Online</h1>
+      <div class="hero-rule" style="animation-delay:.5s;">
+        <div class="hero-rule-line"></div>
+        <div class="gem gem--s"></div><div class="gem"></div><div class="gem gem--s"></div>
+        <div class="hero-rule-line"></div>
+      </div>
+      <p class="hero-body" style="animation-delay:.65s;">Schedule a non-urgent tow or reserve your spot at <span class="ac">Prince Boxing</span> — pick a service, a date, and a time slot that works for you.</p>
+    </div>
+  </section>
+
+  <div class="hr hr--heavy"></div>
+
+  <section class="section--sm">
+    <div class="wrap">
+      <div class="booking-shell reveal">
+
+        <form id="bookingForm" novalidate>
+
+          <!-- STEP 1: SERVICE -->
+          <div class="booking-step">
+            <div class="booking-step-head">
+              <div class="booking-step-num">01</div>
+              <div class="booking-step-title">Choose your service</div>
+            </div>
+            <div class="service-picker" role="radiogroup" aria-label="Service">
+              <label class="service-opt">
+                <input type="radio" name="service" value="Scheduled Tow" data-duration="60" required>
+                <div class="service-opt-title"><span aria-hidden="true">🚗</span> Scheduled Tow</div>
+                <div class="service-opt-desc">Planned vehicle transport — garage drops, pre-booked recoveries, multi-stop moves.</div>
+              </label>
+              <label class="service-opt">
+                <input type="radio" name="service" value="Roadside Inspection" data-duration="30">
+                <div class="service-opt-title"><span aria-hidden="true">🔧</span> Roadside Inspection</div>
+                <div class="service-opt-desc">Pre-purchase or post-breakdown inspection at your location.</div>
+              </label>
+              <label class="service-opt">
+                <input type="radio" name="service" value="Boxing · Intro Session" data-duration="45">
+                <div class="service-opt-title"><span aria-hidden="true">🥊</span> Boxing · Intro Session</div>
+                <div class="service-opt-desc">Free 45-minute beginner intro at Prince Boxing Malta.</div>
+              </label>
+              <label class="service-opt">
+                <input type="radio" name="service" value="Boxing · 1-to-1 Coaching" data-duration="60">
+                <div class="service-opt-title"><span aria-hidden="true">👑</span> Boxing · 1-to-1 Coaching</div>
+                <div class="service-opt-desc">Private coaching built around your goals — fitness, technique, competition.</div>
+              </label>
+            </div>
+          </div>
+
+          <!-- STEP 2: DATE -->
+          <div class="booking-step">
+            <div class="booking-step-head">
+              <div class="booking-step-num">02</div>
+              <div class="booking-step-title">Pick a date</div>
+            </div>
+            <div class="cal-head">
+              <button type="button" class="cal-nav" id="calPrev" aria-label="Previous month">‹</button>
+              <div class="cal-title" id="calTitle">Month</div>
+              <button type="button" class="cal-nav" id="calNext" aria-label="Next month">›</button>
+            </div>
+            <div class="cal-grid" id="calGrid" role="grid" aria-label="Date picker"></div>
+            <input type="hidden" name="date" id="bookDate">
+          </div>
+
+          <!-- STEP 3: TIME -->
+          <div class="booking-step">
+            <div class="booking-step-head">
+              <div class="booking-step-num">03</div>
+              <div class="booking-step-title">Pick a time</div>
+            </div>
+            <div class="slot-grid" id="slotGrid" role="radiogroup" aria-label="Time slot">
+              <div style="grid-column:1/-1;color:var(--t3);font-style:italic;font-size:14px;">Choose a date to see available slots.</div>
+            </div>
+            <input type="hidden" name="time" id="bookTime">
+          </div>
+
+          <!-- STEP 4: DETAILS -->
+          <div class="booking-step">
+            <div class="booking-step-head">
+              <div class="booking-step-num">04</div>
+              <div class="booking-step-title">Your details</div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="bk-name">Full Name</label>
+                <input class="form-input" id="bk-name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="bk-phone">Phone</label>
+                <input class="form-input" id="bk-phone" name="phone" type="tel" placeholder="+356 …" autocomplete="tel" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="bk-email">Email</label>
+                <input class="form-input" id="bk-email" name="email" type="email" placeholder="your@email.com" autocomplete="email" required>
+              </div>
+              <div class="form-field" id="locationField">
+                <label class="form-label" for="bk-location">Location</label>
+                <input class="form-input" id="bk-location" name="location" type="text" placeholder="Pickup address or gym visit" autocomplete="street-address">
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="bk-notes">Notes (optional)</label>
+              <textarea class="form-input" id="bk-notes" name="notes" rows="4" placeholder="Anything we should know — vehicle details, experience level, etc."></textarea>
+            </div>
+            <button type="submit" class="btn btn--gold form-submit" style="width:100%;justify-content:center;padding:16px 34px;">
+              <span>Confirm Booking</span>
+            </button>
+          </div>
+
+        </form>
+
+        <!-- SUMMARY -->
+        <aside>
+          <div class="summary-card">
+            <div class="eyebrow">Booking Summary</div>
+            <h2 class="heading" style="font-size:20px;margin:14px 0 10px;">Your Appointment</h2>
+            <div class="heading-rule"></div>
+            <dl class="summary-row">
+              <dt class="summary-label">Service</dt><dd class="summary-val is-empty" id="sumService">Not selected</dd>
+              <dt class="summary-label">Date</dt><dd class="summary-val is-empty" id="sumDate">Not selected</dd>
+              <dt class="summary-label">Time</dt><dd class="summary-val is-empty" id="sumTime">Not selected</dd>
+              <dt class="summary-label">Duration</dt><dd class="summary-val is-empty" id="sumDuration">—</dd>
+            </dl>
+            <div class="hr" style="margin:14px 0;"></div>
+            <p style="font-size:13px;font-style:italic;color:var(--t3);line-height:1.7;">
+              You'll receive a confirmation by email and SMS. Need to reschedule? Just reply to the confirmation or give us a call.
+            </p>
+            <div class="secure-note" style="margin-top:18px;"><span aria-hidden="true">🕑</span> &nbsp; Free rescheduling up to 2h before</div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Confirmation overlay -->
+<div class="confirm-overlay" id="confirmOverlay" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <div class="confirm-card">
+    <div class="confirm-icon" aria-hidden="true">✦</div>
+    <div class="eyebrow eyebrow--center">Confirmed</div>
+    <h2 class="heading" id="confirmTitle" style="text-align:center;">Your appointment is booked</h2>
+    <div class="heading-rule heading-rule--center"></div>
+    <p class="body-text" id="confirmBody" style="text-align:left;max-width:none;">—</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px;">
+      <button type="button" class="btn btn--gold" onclick="document.getElementById('confirmOverlay').classList.remove('open')"><span>Done</span></button>
+      <a href="index.html" class="btn btn--dark"><span>Back Home</span></a>
+    </div>
+  </div>
+</div>
+
+<script src="shared-layout.js"></script>
+<script src="main.js"></script>
+
+<script>
+// ── Appointment booking ──
+(function(){
+  const form     = document.getElementById('bookingForm');
+  const calGrid  = document.getElementById('calGrid');
+  const calTitle = document.getElementById('calTitle');
+  const calPrev  = document.getElementById('calPrev');
+  const calNext  = document.getElementById('calNext');
+  const slotGrid = document.getElementById('slotGrid');
+  const bookDate = document.getElementById('bookDate');
+  const bookTime = document.getElementById('bookTime');
+
+  const sumService  = document.getElementById('sumService');
+  const sumDate     = document.getElementById('sumDate');
+  const sumTime     = document.getElementById('sumTime');
+  const sumDuration = document.getElementById('sumDuration');
+
+  const DOWS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  const today = new Date(); today.setHours(0,0,0,0);
+  const maxDate = new Date(today); maxDate.setMonth(maxDate.getMonth() + 3); // 3 months ahead
+
+  let viewMonth = today.getMonth();
+  let viewYear  = today.getFullYear();
+  let selectedDate = null;
+
+  function fmtDate(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+  function longDate(d){ return DOWS[(d.getDay()+6)%7] + ' · ' + d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(); }
+
+  function renderCalendar(){
+    calTitle.textContent = MONTHS[viewMonth] + ' ' + viewYear;
+    calGrid.innerHTML = '';
+
+    DOWS.forEach(n => { const el = document.createElement('div'); el.className = 'cal-dow'; el.textContent = n; calGrid.appendChild(el); });
+
+    const first = new Date(viewYear, viewMonth, 1);
+    const firstCol = (first.getDay() + 6) % 7; // Mon=0
+    const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+    for (let i = 0; i < firstCol; i++){
+      const el = document.createElement('div'); el.className = 'cal-day is-blank'; calGrid.appendChild(el);
+    }
+    for (let d = 1; d <= daysInMonth; d++){
+      const dt = new Date(viewYear, viewMonth, d);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cal-day';
+      btn.textContent = d;
+      btn.setAttribute('aria-label', longDate(dt));
+
+      const past = dt < today;
+      const beyond = dt > maxDate;
+      if (past || beyond) btn.disabled = true;
+      if (dt.getTime() === today.getTime()) btn.classList.add('is-today');
+      if (selectedDate && dt.getTime() === selectedDate.getTime()) btn.classList.add('is-selected');
+
+      btn.addEventListener('click', () => selectDate(dt));
+      calGrid.appendChild(btn);
+    }
+
+    // Nav disabled states
+    const prevMin = new Date(today.getFullYear(), today.getMonth(), 1);
+    const curView = new Date(viewYear, viewMonth, 1);
+    calPrev.disabled = curView <= prevMin;
+    const viewMax = new Date(maxDate.getFullYear(), maxDate.getMonth(), 1);
+    calNext.disabled = curView >= viewMax;
+  }
+
+  function selectDate(d){
+    selectedDate = d;
+    bookDate.value = fmtDate(d);
+    sumDate.textContent = longDate(d);
+    sumDate.classList.remove('is-empty');
+    renderCalendar();
+    renderSlots(d);
+  }
+
+  // Generate deterministic but varied slots per day
+  function renderSlots(d){
+    slotGrid.innerHTML = '';
+    const weekday = (d.getDay() + 6) % 7;
+    // Sundays: limited slots
+    const times = weekday === 6
+      ? ['10:00','11:00','12:00']
+      : ['08:00','09:00','10:00','11:00','12:00','14:00','15:00','16:00','17:00','18:00','19:00'];
+
+    // Deterministic pseudo-random "booked" based on date
+    const seed = d.getDate() * 31 + d.getMonth() * 7 + d.getFullYear();
+    const bookedIdx = new Set([seed % times.length, (seed * 3) % times.length]);
+
+    times.forEach((t, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'slot';
+      btn.textContent = t;
+      btn.setAttribute('role','radio');
+      btn.setAttribute('aria-checked','false');
+      if (bookedIdx.has(i)){
+        btn.disabled = true;
+        btn.title = 'Fully booked';
+      } else {
+        btn.addEventListener('click', () => selectSlot(btn, t));
+      }
+      slotGrid.appendChild(btn);
+    });
+
+    bookTime.value = '';
+    sumTime.textContent = 'Not selected';
+    sumTime.classList.add('is-empty');
+  }
+
+  function selectSlot(btn, t){
+    slotGrid.querySelectorAll('.slot').forEach(s => { s.classList.remove('is-selected'); s.setAttribute('aria-checked','false'); });
+    btn.classList.add('is-selected');
+    btn.setAttribute('aria-checked','true');
+    bookTime.value = t;
+    sumTime.textContent = t;
+    sumTime.classList.remove('is-empty');
+  }
+
+  calPrev.addEventListener('click', () => { if (viewMonth === 0){ viewMonth = 11; viewYear--; } else viewMonth--; renderCalendar(); });
+  calNext.addEventListener('click', () => { if (viewMonth === 11){ viewMonth = 0; viewYear++; } else viewMonth++; renderCalendar(); });
+  renderCalendar();
+
+  // Service picker
+  form.querySelectorAll('input[name="service"]').forEach(r => {
+    r.addEventListener('change', () => {
+      form.querySelectorAll('.service-opt').forEach(o => o.classList.toggle('is-selected', o.contains(r) && r.checked));
+      const label = r.closest('.service-opt');
+      sumService.textContent = r.value;
+      sumService.classList.remove('is-empty');
+      sumDuration.textContent = (r.dataset.duration || '60') + ' minutes';
+      sumDuration.classList.remove('is-empty');
+    });
+  });
+
+  // Submit
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const service = form.service.value;
+    if (!service)   return alert('Please choose a service.');
+    if (!bookDate.value) return alert('Please pick a date.');
+    if (!bookTime.value) return alert('Please pick a time slot.');
+    if (!form.name.value || !form.phone.value || !form.email.value) return alert('Please fill in your contact details.');
+
+    const overlay = document.getElementById('confirmOverlay');
+    document.getElementById('confirmBody').innerHTML =
+      'Thanks, <strong>' + form.name.value + '</strong>. We\'ve booked your <strong>' + service +
+      '</strong> for <strong>' + sumDate.textContent + '</strong> at <strong>' + bookTime.value + '</strong>. ' +
+      'A confirmation is on its way to ' + form.email.value + '.';
+    overlay.classList.add('open');
+  });
+})();
+</script>
+</body>
+</html>

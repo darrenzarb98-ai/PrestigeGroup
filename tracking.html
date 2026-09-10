@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050403">
+<title>Live Driver Tracking · Prestige Group Malta</title>
+<meta name="description" content="Track your Prestige Group tow truck in real time on the map — live location, ETA, and status updates from dispatch to drop-off.">
+<link rel="canonical" href="https://prestigegroup.mt/tracking.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Prestige Group Malta">
+<meta property="og:title" content="Live Driver Tracking · Prestige Group Malta">
+<meta property="og:description" content="See your tow truck's live position and ETA on the map.">
+<meta property="og:image" content="Coverphoto.png">
+
+<link rel="icon" type="image/png" href="profilepic.png">
+<link rel="apple-touch-icon" href="profilepic.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="preconnect" href="https://a.tile.openstreetmap.org" crossorigin>
+
+<!-- Leaflet (open-source maps) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page" id="main-content" role="main">
+
+  <section class="hero" style="min-height:48vh;">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="Coverphoto.png" alt="" style="filter:saturate(.3) brightness(.28);" fetchpriority="high">
+      <div class="hero-bg-grad"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-kicker" style="animation-delay:.2s;">Dispatch · Live</div>
+      <h1 class="hero-name" style="font-size:clamp(34px,6vw,72px);animation-delay:.35s;">Driver Tracking</h1>
+      <div class="hero-rule" style="animation-delay:.5s;">
+        <div class="hero-rule-line"></div>
+        <div class="gem gem--s"></div><div class="gem"></div><div class="gem gem--s"></div>
+        <div class="hero-rule-line"></div>
+      </div>
+      <p class="hero-body" style="animation-delay:.65s;">Watch your assigned driver move across the map in real time. Enter your <span class="ac">tracking code</span> — we'll SMS it to you the moment a unit is dispatched.</p>
+    </div>
+  </section>
+
+  <div class="hr hr--heavy"></div>
+
+  <section class="section--sm">
+    <div class="wrap">
+      <div class="track-shell reveal">
+
+        <div>
+          <div class="track-card" style="margin-bottom:18px;">
+            <div class="eyebrow">Live Map</div>
+            <div class="track-code-row">
+              <input class="form-input" id="trackCode" type="text" placeholder="Tracking code (e.g. PG-4821)" aria-label="Tracking code" value="PG-DEMO">
+              <button type="button" id="trackLoad" class="btn btn--gold"><span>Track</span></button>
+            </div>
+            <div class="location-status" id="trackStatus" role="status" aria-live="polite">Demo route loaded — a driver is en route to your pickup.</div>
+          </div>
+
+          <div class="track-map-wrap">
+            <div id="trackMap" role="application" aria-label="Driver live position map"></div>
+          </div>
+        </div>
+
+        <aside class="track-panel">
+          <div class="track-card track-eta">
+            <div class="track-eta-label">Estimated Arrival</div>
+            <div class="track-eta-val" id="etaVal">—</div>
+            <div class="track-eta-sub" id="etaSub">Loading route…</div>
+          </div>
+
+          <div class="track-card">
+            <div class="eyebrow">Job Summary</div>
+            <dl class="track-kv">
+              <dt>Reference</dt><dd id="jobRef">PG-DEMO</dd>
+              <dt>Driver</dt><dd id="jobDriver">Marco · Unit 04</dd>
+              <dt>Vehicle</dt><dd id="jobVehicle">Flatbed · MLT-412</dd>
+              <dt>Pickup</dt><dd id="jobPickup">Valletta, Triq ir-Repubblika</dd>
+              <dt>Destination</dt><dd id="jobDropoff">Birkirkara Garage</dd>
+            </dl>
+          </div>
+
+          <div class="track-card">
+            <div class="eyebrow">Status</div>
+            <ol class="track-timeline" id="trackTimeline">
+              <li class="track-step is-done"><div class="track-step-title">Dispatched</div>Driver assigned and confirmed.</li>
+              <li class="track-step is-active"><div class="track-step-title">En Route</div>Heading to your pickup location.</li>
+              <li class="track-step"><div class="track-step-title">On Site</div>Driver arrives and secures vehicle.</li>
+              <li class="track-step"><div class="track-step-title">Transporting</div>Moving to your chosen drop-off.</li>
+              <li class="track-step"><div class="track-step-title">Completed</div>Vehicle delivered safely.</li>
+            </ol>
+          </div>
+
+          <div class="track-card" style="text-align:center;">
+            <div class="eyebrow eyebrow--center">Need to speak to dispatch?</div>
+            <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;justify-content:center;">
+              <a href="tel:+35699999999" class="btn btn--solid" style="flex:1;justify-content:center;min-width:130px;"><span><span aria-hidden="true">📞 &nbsp;</span>Call</span></a>
+              <a href="https://wa.me/35699999999" target="_blank" rel="noopener" class="btn btn--dark" style="flex:1;justify-content:center;min-width:130px;"><span>WhatsApp</span></a>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="section--sm">
+    <div class="wrap" style="max-width:820px;text-align:center;">
+      <div class="reveal">
+        <div class="eyebrow eyebrow--center">How Tracking Works</div>
+        <h2 class="heading">From Request to Arrival</h2>
+        <div class="heading-rule heading-rule--center"></div>
+      </div>
+      <div class="mini-process-grid reveal d1" style="margin-top:28px;">
+        <div class="mini-process-card">
+          <div class="mini-process-num">01</div>
+          <div class="mini-process-title">You Request</div>
+          <p class="mini-process-copy">Call, WhatsApp, or submit the recovery form — we create the job and generate your tracking code.</p>
+        </div>
+        <div class="mini-process-card">
+          <div class="mini-process-num">02</div>
+          <div class="mini-process-title">We Assign</div>
+          <p class="mini-process-copy">Dispatch picks the nearest suitable unit. Your code arrives by SMS the moment the driver accepts.</p>
+        </div>
+        <div class="mini-process-card">
+          <div class="mini-process-num">03</div>
+          <div class="mini-process-title">You Track</div>
+          <p class="mini-process-copy">Watch the truck's live position and ETA until arrival, with status updates at every step.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script src="shared-layout.js"></script>
+<script src="main.js"></script>
+
+<script>
+  // ── Driver tracking (demo polling) ──
+  // Wire window.PRESTIGE_TRACKING to a real endpoint in production:
+  //   window.PRESTIGE_TRACKING = async (code) => fetch('/api/track/'+code).then(r => r.json());
+  // Expected shape: { ref, driver, vehicle, pickup: [lat,lng], dropoff: [lat,lng], driverPos: [lat,lng], status: 'dispatched|enroute|onsite|transport|done', etaMinutes: 8 }
+  (function(){
+    const map = L.map('trackMap', {
+      zoomControl: true, scrollWheelZoom: false, attributionControl: true
+    }).setView([35.8997, 14.5147], 13); // Valletta default
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Demo route across Malta: Valletta → Floriana → Msida → Birkirkara
+    const demoRoute = [
+      [35.8997, 14.5147],
+      [35.8973, 14.5075],
+      [35.8950, 14.5020],
+      [35.8920, 14.4940],
+      [35.8890, 14.4870],
+      [35.8960, 14.4720],
+      [35.9020, 14.4630],
+      [35.9080, 14.4580]
+    ];
+    const pickup = demoRoute[0];
+    const dropoff = demoRoute[demoRoute.length - 1];
+
+    const driverIcon = L.divIcon({
+      className:'', html:'<div class="driver-pin" aria-hidden="true">🚛</div>',
+      iconSize:[46,46], iconAnchor:[23,23]
+    });
+    const pickupIcon = L.divIcon({
+      className:'', html:'<div class="pickup-pin" aria-hidden="true">📍</div>',
+      iconSize:[34,34], iconAnchor:[17,17]
+    });
+    const dropoffIcon = L.divIcon({
+      className:'', html:'<div class="pickup-pin" aria-hidden="true">🏁</div>',
+      iconSize:[34,34], iconAnchor:[17,17]
+    });
+
+    const pickupMarker  = L.marker(pickup,  {icon: pickupIcon,  title:'Pickup location'}).addTo(map);
+    const dropoffMarker = L.marker(dropoff, {icon: dropoffIcon, title:'Destination'}).addTo(map);
+    const driverMarker  = L.marker(demoRoute[2], {icon: driverIcon, title:'Driver position', zIndexOffset:1000}).addTo(map);
+
+    const route = L.polyline(demoRoute, {color:'#d4af37', weight:3, opacity:.85, dashArray:'6,8'}).addTo(map);
+    const travelled = L.polyline(demoRoute.slice(0,3), {color:'#f5e27a', weight:4, opacity:.95}).addTo(map);
+
+    map.fitBounds(route.getBounds(), { padding:[40,40] });
+
+    // Animate the driver along the route
+    let step = 2;
+    const etaEl = document.getElementById('etaVal');
+    const etaSub = document.getElementById('etaSub');
+    const statusEl = document.getElementById('trackStatus');
+    const timeline = document.getElementById('trackTimeline').querySelectorAll('.track-step');
+
+    function updateEta(minutes){
+      etaEl.textContent = minutes <= 0 ? 'Arrived' : minutes + ' min';
+      etaSub.textContent = minutes <= 0 ? 'Driver on site' :
+                           minutes <= 2 ? 'Arriving now' :
+                           minutes <= 5 ? 'Almost there' : 'En route to pickup';
+    }
+
+    function setStage(stage){
+      // stages: 0 dispatched, 1 enroute, 2 onsite, 3 transport, 4 done
+      timeline.forEach((el,i) => {
+        el.classList.remove('is-active','is-done');
+        if (i < stage) el.classList.add('is-done');
+        if (i === stage) el.classList.add('is-active');
+      });
+    }
+
+    let minutes = 8;
+    updateEta(minutes);
+    setStage(1);
+
+    const tickMs = 2200;
+    const tick = () => {
+      if (step >= demoRoute.length - 1) {
+        driverMarker.setLatLng(dropoff);
+        travelled.setLatLngs(demoRoute);
+        updateEta(0);
+        setStage(4);
+        statusEl.textContent = 'Driver has completed the job.';
+        clearInterval(handle);
+        return;
+      }
+      step++;
+      const pos = demoRoute[step];
+      driverMarker.setLatLng(pos);
+      travelled.setLatLngs(demoRoute.slice(0, step + 1));
+      minutes = Math.max(0, minutes - 1);
+      updateEta(minutes);
+      if (step === Math.floor(demoRoute.length * 0.55)) setStage(2); // on site demo mid
+      if (step >= demoRoute.length - 2) setStage(3);
+    };
+    const handle = setInterval(tick, tickMs);
+
+    // Tracking code input
+    const codeInput = document.getElementById('trackCode');
+    const loadBtn = document.getElementById('trackLoad');
+    loadBtn.addEventListener('click', async () => {
+      const code = codeInput.value.trim();
+      if (!code) { statusEl.textContent = 'Enter a tracking code first.'; return; }
+      statusEl.textContent = 'Looking up ' + code + '…';
+      // Real integration:
+      if (typeof window.PRESTIGE_TRACKING === 'function') {
+        try {
+          const data = await window.PRESTIGE_TRACKING(code);
+          document.getElementById('jobRef').textContent = data.ref || code;
+          if (data.driver)   document.getElementById('jobDriver').textContent   = data.driver;
+          if (data.vehicle)  document.getElementById('jobVehicle').textContent  = data.vehicle;
+          if (data.pickupLabel) document.getElementById('jobPickup').textContent = data.pickupLabel;
+          if (data.dropoffLabel) document.getElementById('jobDropoff').textContent = data.dropoffLabel;
+          if (Array.isArray(data.driverPos)) driverMarker.setLatLng(data.driverPos);
+          if (typeof data.etaMinutes === 'number') updateEta(data.etaMinutes);
+          statusEl.textContent = 'Live data connected.';
+          return;
+        } catch(err){
+          statusEl.textContent = 'Could not load tracking data. Showing demo.';
+        }
+      } else {
+        statusEl.textContent = 'Showing a simulated route — hook up window.PRESTIGE_TRACKING for live data.';
+      }
+      document.getElementById('jobRef').textContent = code;
+    });
+  })();
+</script>
+</body>
+</html>
