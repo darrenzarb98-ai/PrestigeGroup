@@ -47,7 +47,15 @@
         `).join('')}
       </ul>
 
-      <a href="contact.html" class="nav-cta"><span>Get in Touch</span></a>
+      <div class="nav-actions">
+  <a href="payments.html" class="nav-cta nav-cta--pay">
+    <span>Pay</span>
+  </a>
+
+  <a href="contact.html" class="nav-cta">
+    <span>Get in Touch</span>
+  </a>
+</div>
 
       <button class="nav-toggle" id="navToggle" type="button"
               aria-controls="navDrawer" aria-expanded="false" aria-label="Open menu">
