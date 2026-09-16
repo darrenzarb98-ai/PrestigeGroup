@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · Prestige Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --gold: #d4af37; --gold-dark: #8a6a12; --bg: #050403; --panel: rgba(8,6,2,0.92);
+}
+body { font-family: 'Cormorant Garamond', serif; background: var(--bg); color: #e8d8a0; min-height: 100vh; }
+
+/* LOGIN */
+.login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.login-box { background: var(--panel); border: 1px solid rgba(212,175,55,0.2); padding: 48px 40px; width: 100%; max-width: 420px; text-align: center; }
+.login-logo { width: 70px; height: 70px; border-radius: 10px; margin: 0 auto 24px; display: block; filter: drop-shadow(0 0 16px rgba(212,175,55,0.4)); }
+.login-title { font-family: 'Cinzel', serif; font-size: 18px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+.login-sub { font-size: 13px; color: #9a8060; margin-bottom: 32px; }
+.field { margin-bottom: 18px; text-align: left; }
+.field label { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 3px; color: var(--gold-dark); text-transform: uppercase; display: block; margin-bottom: 8px; }
+.field input { width: 100%; background: rgba(212,175,55,0.04); border: 1px solid rgba(212,175,55,0.2); color: #e8d8a0; font-family: 'Cormorant Garamond', serif; font-size: 15px; padding: 12px 16px; outline: none; transition: border-color 0.3s; }
+.field input:focus { border-color: rgba(212,175,55,0.5); }
+.btn-login { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: #000; font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; border: none; cursor: pointer; margin-top: 8px; transition: box-shadow 0.3s; }
+.btn-login:hover { box-shadow: 0 0 32px rgba(212,175,55,0.4); }
+.login-error { display: none; margin-top: 14px; padding: 10px; border: 1px solid rgba(212,0,0,0.3); background: rgba(212,0,0,0.05); color: #ff6b6b; font-size: 13px; }
+
+/* DASHBOARD */
+.dash { display: none; }
+.dash-nav { background: rgba(5,4,3,0.98); border-bottom: 1px solid rgba(212,175,55,0.1); padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.dash-nav-logo { display: flex; align-items: center; gap: 12px; }
+.dash-nav-logo img { width: 36px; height: 36px; border-radius: 6px; }
+.dash-nav-title { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+.dash-nav-right { display: flex; align-items: center; gap: 16px; }
+.dash-nav-user { font-size: 13px; color: #9a8060; }
+.btn-logout { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; padding: 8px 16px; background: transparent; border: 1px solid rgba(212,175,55,0.2); color: rgba(212,175,55,0.5); cursor: pointer; transition: all 0.3s; }
+.btn-logout:hover { border-color: var(--gold); color: var(--gold); }
+
+.dash-body { padding: 32px 24px; max-width: 1200px; margin: 0 auto; }
+
+/* Stats */
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 3px; margin-bottom: 32px; }
+.stat-box { background: var(--panel); border: 1px solid rgba(212,175,55,0.1); padding: 24px 20px; }
+.stat-num { font-family: 'Cinzel', serif; font-size: 32px; color: var(--gold); margin-bottom: 6px; }
+.stat-label { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 3px; color: #8a6a12; text-transform: uppercase; }
+
+/* Table */
+.table-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+.table-title { font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; }
+.table-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-btn { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; padding: 8px 16px; background: transparent; border: 1px solid rgba(212,175,55,0.2); color: rgba(212,175,55,0.5); cursor: pointer; transition: all 0.3s; }
+.filter-btn.active, .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+.search-input { background: rgba(212,175,55,0.04); border: 1px solid rgba(212,175,55,0.2); color: #e8d8a0; font-family: 'Cormorant Garamond', serif; font-size: 14px; padding: 8px 14px; outline: none; width: 200px; }
+.search-input:focus { border-color: rgba(212,175,55,0.5); }
+
+.table-wrap { background: var(--panel); border: 1px solid rgba(212,175,55,0.1); overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+thead th { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: #8a6a12; padding: 14px 16px; text-align: left; border-bottom: 1px solid rgba(212,175,55,0.1); white-space: nowrap; }
+tbody tr { border-bottom: 1px solid rgba(212,175,55,0.05); transition: background 0.2s; }
+tbody tr:hover { background: rgba(212,175,55,0.04); }
+tbody td { padding: 14px 16px; font-size: 14px; color: #b0a080; vertical-align: middle; }
+.member-id { font-family: 'Cinzel', serif; font-size: 11px; color: var(--gold-dark); }
+.member-name { color: #e8d8a0; font-weight: 600; }
+.badge-status { font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; }
+.badge-status--pending { background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.2); color: #8a6a12; }
+.badge-status--active { background: rgba(0,180,80,0.1); border: 1px solid rgba(0,180,80,0.3); color: #4ade80; }
+.badge-status--cancelled { background: rgba(212,0,0,0.1); border: 1px solid rgba(212,0,0,0.2); color: #f87171; }
+.action-btn { font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 1px; text-transform: uppercase; padding: 5px 10px; border: 1px solid rgba(212,175,55,0.2); background: transparent; color: rgba(212,175,55,0.5); cursor: pointer; transition: all 0.2s; margin-right: 4px; }
+.action-btn:hover { border-color: var(--gold); color: var(--gold); }
+.action-btn--danger:hover { border-color: #f87171; color: #f87171; }
+.empty-state { text-align: center; padding: 60px 24px; color: #9a8060; font-style: italic; }
+.loading { text-align: center; padding: 40px; color: #8a6a12; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; }
+
+/* Export btn */
+.btn-export { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; padding: 8px 16px; background: linear-gradient(135deg, #8a6a12, #d4af37); color: #000; border: none; cursor: pointer; transition: box-shadow 0.3s; }
+.btn-export:hover { box-shadow: 0 0 20px rgba(212,175,55,0.4); }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginPage">
+  <div class="login-box">
+    <img src="profilepic.png" class="login-logo" alt="Prestige Group">
+    <div class="login-title">Admin Panel</div>
+    <div class="login-sub">Prestige Group · Prince Boxing Club</div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="adminEmail" value="info@prestigegroup.com" placeholder="Email">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="adminPass" placeholder="Password" onkeydown="if(event.key==='Enter')login()">
+    </div>
+    <button class="btn-login" onclick="login()">Sign In</button>
+    <div class="login-error" id="loginError">Incorrect email or password.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dash" id="dashboard">
+  <div class="dash-nav">
+    <div class="dash-nav-logo">
+      <img src="PrinceBoxingLogoNew.jpg" alt="Prince Boxing">
+      <span class="dash-nav-title">Prestige Group · Admin</span>
+    </div>
+    <div class="dash-nav-right">
+      <span class="dash-nav-user">info@prestigegroup.com</span>
+      <button class="btn-logout" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="dash-body">
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num" id="stat-total">—</div>
+        <div class="stat-label">Total Members</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="stat-active">—</div>
+        <div class="stat-label">Active</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="stat-pending">—</div>
+        <div class="stat-label">Pending</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="stat-cancelled">—</div>
+        <div class="stat-label">Cancelled</div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-header">
+      <div class="table-title">Members</div>
+      <div class="table-controls">
+        <input type="text" class="search-input" placeholder="Search name or email..." oninput="filterMembers(this.value)">
+        <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+        <button class="filter-btn" onclick="setFilter('Pending', this)">Pending</button>
+        <button class="filter-btn" onclick="setFilter('Active', this)">Active</button>
+        <button class="filter-btn" onclick="setFilter('Cancelled', this)">Cancelled</button>
+        <button class="btn-export" onclick="exportCSV()">Export CSV</button>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <div class="loading" id="tableLoading">Loading members...</div>
+      <table id="membersTable" style="display:none;">
+        <thead>
+          <tr>
+            <th>Member ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Membership</th>
+            <th>Status</th>
+            <th>Joined</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="membersBody"></tbody>
+      </table>
+      <div class="empty-state" id="emptyState" style="display:none;">No members found.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://hlohgbrvrusxsxbxltni.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhsb2hnYnJ2cnVzeHN4YnhsdG5pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwMjcxMjEsImV4cCI6MjEwNDYwMzEyMX0.Meh2AtqCweK-4yaqJ7-Uabtu2xKM68f3BgZ-EcBCkbE';
+const ADMIN_EMAIL = 'info@prestigegroup.com';
+const ADMIN_PASS = 'PrestigeG2026!$';
+
+let allMembers = [];
+let currentFilter = 'all';
+
+function login() {
+  const email = document.getElementById('adminEmail').value.trim();
+  const pass = document.getElementById('adminPass').value;
+  if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    loadMembers();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+
+function logout() {
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('loginPage').style.display = 'flex';
+  document.getElementById('adminPass').value = '';
+}
+
+async function loadMembers() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/members?select=*&order=join_date.desc`, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+    });
+    allMembers = await res.json();
+    updateStats();
+    renderTable(allMembers);
+  } catch(e) {
+    document.getElementById('tableLoading').textContent = 'Error loading members.';
+  }
+}
+
+function updateStats() {
+  document.getElementById('stat-total').textContent = allMembers.length;
+  document.getElementById('stat-active').textContent = allMembers.filter(m => m.status === 'Active').length;
+  document.getElementById('stat-pending').textContent = allMembers.filter(m => m.status === 'Pending').length;
+  document.getElementById('stat-cancelled').textContent = allMembers.filter(m => m.status === 'Cancelled').length;
+}
+
+function renderTable(members) {
+  document.getElementById('tableLoading').style.display = 'none';
+  const tbody = document.getElementById('membersBody');
+  if (!members.length) {
+    document.getElementById('membersTable').style.display = 'none';
+    document.getElementById('emptyState').style.display = 'block';
+    return;
+  }
+  document.getElementById('membersTable').style.display = 'table';
+  document.getElementById('emptyState').style.display = 'none';
+  tbody.innerHTML = members.map(m => `
+    <tr id="row-${m.id}">
+      <td><span class="member-id">${m.member_id || '—'}</span></td>
+      <td><span class="member-name">${m.full_name}</span></td>
+      <td>${m.email}</td>
+      <td>${m.phone || '—'}</td>
+      <td>${m.membership_tier || '—'}</td>
+      <td><span class="badge-status badge-status--${(m.status||'pending').toLowerCase()}">${m.status || 'Pending'}</span></td>
+      <td>${m.join_date ? new Date(m.join_date).toLocaleDateString('en-GB') : '—'}</td>
+      <td>
+        <button class="action-btn" onclick="updateStatus(${m.id}, 'Active')">Activate</button>
+        <button class="action-btn" onclick="updateStatus(${m.id}, 'Cancelled')">Cancel</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilter();
+}
+
+function applyFilter() {
+  const filtered = currentFilter === 'all' ? allMembers : allMembers.filter(m => m.status === currentFilter);
+  renderTable(filtered);
+}
+
+function filterMembers(query) {
+  const q = query.toLowerCase();
+  const filtered = allMembers.filter(m =>
+    (currentFilter === 'all' || m.status === currentFilter) &&
+    (m.full_name.toLowerCase().includes(q) || m.email.toLowerCase().includes(q))
+  );
+  renderTable(filtered);
+}
+
+async function updateStatus(id, status) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/members?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ status })
+    });
+    const member = allMembers.find(m => m.id === id);
+    if (member) member.status = status;
+    updateStats();
+    applyFilter();
+  } catch(e) { alert('Error updating status.'); }
+}
+
+function exportCSV() {
+  const headers = ['Member ID', 'Name', 'Email', 'Phone', 'Membership', 'Status', 'Joined'];
+  const rows = allMembers.map(m => [
+    m.member_id || '', m.full_name, m.email, m.phone || '',
+    m.membership_tier || '', m.status || '', m.join_date ? new Date(m.join_date).toLocaleDateString('en-GB') : ''
+  ]);
+  const csv = [headers, ...rows].map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = `prestige-members-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+}
+</script>
+</body>
+</html>
