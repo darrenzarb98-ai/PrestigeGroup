@@ -168,7 +168,7 @@ button,input,textarea,select{font-family:inherit;}
   text-transform:uppercase;color:var(--g1);
   border:1px solid var(--b2);padding:9px 22px;
   transition:all .35s;
-  position:relative;overflow:hidden;
+  position:relative;overflow:visible;
 }
 .nav-cta::before{
   content:'';position:absolute;inset:0;
