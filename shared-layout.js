@@ -5,7 +5,10 @@
 
   const navItems = [
     { href: 'index.html',        label: 'Home' },
+    { href: 'towing.html',       label: 'Towing' },
     { href: 'boxing.html',       label: 'Boxing' },
+    { href: 'onspot.html',       label: 'OnSpot' },
+    { href: 'it-services.html',  label: 'IT Services' },
     { href: 'contact.html',      label: 'Contact' },
   ];
 
@@ -106,6 +109,8 @@
           <ul class="footer-links">
             <li><a href="towing.html">Towing Services</a></li>
             <li><a href="boxing.html">Prince Boxing Malta</a></li>
+            <li><a href="onspot.html">OnSpot Mobile Wash</a></li>
+            <li><a href="it-services.html">IT Services</a></li>
             <li><a href="appointments.html">Book Appointment</a></li>
             <li><a href="tracking.html">Track Driver</a></li>
             <li><a href="payments.html">Make a Payment</a></li>
