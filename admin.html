@@ -70,6 +70,7 @@ tbody td { padding: 14px 16px; font-size: 14px; color: #b0a080; vertical-align: 
 .action-btn:hover { border-color: var(--gold); color: var(--gold); }
 .action-btn--danger:hover { border-color: #f87171; color: #f87171; }
 .empty-state { text-align: center; padding: 60px 24px; color: #9a8060; font-style: italic; }
+.notes-cell { max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: help; }
 .loading { text-align: center; padding: 40px; color: #8a6a12; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; }
 
 /* Export btn */
@@ -159,6 +160,7 @@ tbody td { padding: 14px 16px; font-size: 14px; color: #b0a080; vertical-align: 
             <th>Membership</th>
             <th>Status</th>
             <th>Joined</th>
+            <th>Notes</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -236,7 +238,9 @@ function renderTable(members) {
       <td>${m.membership_tier || '—'}</td>
       <td><span class="badge-status badge-status--${(m.status||'pending').toLowerCase()}">${m.status || 'Pending'}</span></td>
       <td>${m.join_date ? new Date(m.join_date).toLocaleDateString('en-GB') : '—'}</td>
+      <td class="notes-cell" title="${(m.notes || '').replace(/"/g,'&quot;')}">${m.notes || '—'}</td>
       <td>
+        <button class="action-btn" onclick="showEditModal(${m.id})">Edit</button>
         <button class="action-btn" onclick="updateStatus(${m.id}, 'Active')">Activate</button>
         <button class="action-btn" onclick="updateStatus(${m.id}, 'Cancelled')">Cancel</button>
         <button class="action-btn action-btn--danger" onclick="deleteMember(${m.id}, '${m.full_name}')">Delete</button>
@@ -326,12 +330,19 @@ function exportCSV() {
       <label>Membership Tier *</label>
       <select id="add-tier" style="width:100%;background:rgba(8,6,2,0.9);border:1px solid rgba(212,175,55,0.2);color:#e8d8a0;font-family:'Cormorant Garamond',serif;font-size:15px;padding:12px 16px;outline:none;">
         <option value="">Select a plan...</option>
-        <option value="Single Session - €6.50">Single Session — €6.50</option>
+        <option value="Single Class Session - €10">Single Class Session — €10</option>
+        <option value="Sauna Use - €15">Sauna Use — €15</option>
+        <option value="Private Coaching - €15">Private Coaching (Bray Pace) — €15</option>
+        <option value="Gym/Rent X1 - €6.50">Gym / Rent X1 — €6.50</option>
         <option value="X3 Weekly New - €65/month">X3 Weekly (New) — €65/month</option>
         <option value="X5 Weekly New - €105/month">X5 Weekly (New) — €105/month</option>
-        <option value="X5 Weekly + Sauna - €140/month">X5 Weekly + Sauna — €140/month</option>
+        <option value="X5 Weekly + Sauna New - €140/month">X5 Weekly + Sauna (New) — €140/month</option>
         <option value="X3 Weekly Member - €50/month">X3 Weekly (Member Rate) — €50/month</option>
         <option value="X5 Weekly Member - €80/month">X5 Weekly (Member Rate) — €80/month</option>
+        <option value="X5 Weekly + Sauna Member - €110/month">X5 Weekly + Sauna (Member Rate) — €110/month</option>
+        <option value="Single Class Session Member - €5">Single Class Session (Member Rate) — €5</option>
+        <option value="Sauna Use Member - €5">Sauna Use (Member Rate) — €5</option>
+        <option value="Private Coaching Member - €15">Private Coaching (Member Rate) — €15</option>
       </select>
     </div>
     <div class="field">
@@ -339,6 +350,7 @@ function exportCSV() {
       <select id="add-status" style="width:100%;background:rgba(8,6,2,0.9);border:1px solid rgba(212,175,55,0.2);color:#e8d8a0;font-family:'Cormorant Garamond',serif;font-size:15px;padding:12px 16px;outline:none;">
         <option value="Active">Active</option>
         <option value="Pending">Pending</option>
+        <option value="Cancelled">Cancelled</option>
       </select>
     </div>
     <div class="field"><label>Notes</label><input type="text" id="add-notes" placeholder="Optional notes..."></div>
@@ -348,6 +360,56 @@ function exportCSV() {
     <div style="display:flex;gap:10px;margin-top:8px;">
       <button onclick="closeAddModal()" style="flex:1;padding:14px;background:transparent;border:1px solid rgba(212,175,55,0.2);color:#9a8060;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">Cancel</button>
       <button onclick="addMember()" style="flex:2;padding:14px;background:linear-gradient(135deg,#8a6a12,#d4af37);color:#000;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;">Add Member</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Member Modal -->
+<div id="editModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:rgba(8,6,2,0.98);border:1px solid rgba(212,175,55,0.25);padding:40px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;">
+      <div style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;">Edit Member</div>
+      <button onclick="closeEditModal()" style="background:transparent;border:none;color:#9a8060;font-size:20px;cursor:pointer;">✕</button>
+    </div>
+
+    <input type="hidden" id="edit-id">
+    <div class="field"><label>Full Name *</label><input type="text" id="edit-name" placeholder="Full name"></div>
+    <div class="field"><label>Email *</label><input type="email" id="edit-email" placeholder="email@example.com"></div>
+    <div class="field"><label>Phone</label><input type="tel" id="edit-phone" placeholder="+356 XXXX XXXX"></div>
+    <div class="field">
+      <label>Membership Tier *</label>
+      <select id="edit-tier" style="width:100%;background:rgba(8,6,2,0.9);border:1px solid rgba(212,175,55,0.2);color:#e8d8a0;font-family:'Cormorant Garamond',serif;font-size:15px;padding:12px 16px;outline:none;">
+        <option value="">Select a plan...</option>
+        <option value="Single Class Session - €10">Single Class Session — €10</option>
+        <option value="Sauna Use - €15">Sauna Use — €15</option>
+        <option value="Private Coaching - €15">Private Coaching (Bray Pace) — €15</option>
+        <option value="Gym/Rent X1 - €6.50">Gym / Rent X1 — €6.50</option>
+        <option value="X3 Weekly New - €65/month">X3 Weekly (New) — €65/month</option>
+        <option value="X5 Weekly New - €105/month">X5 Weekly (New) — €105/month</option>
+        <option value="X5 Weekly + Sauna New - €140/month">X5 Weekly + Sauna (New) — €140/month</option>
+        <option value="X3 Weekly Member - €50/month">X3 Weekly (Member Rate) — €50/month</option>
+        <option value="X5 Weekly Member - €80/month">X5 Weekly (Member Rate) — €80/month</option>
+        <option value="X5 Weekly + Sauna Member - €110/month">X5 Weekly + Sauna (Member Rate) — €110/month</option>
+        <option value="Single Class Session Member - €5">Single Class Session (Member Rate) — €5</option>
+        <option value="Sauna Use Member - €5">Sauna Use (Member Rate) — €5</option>
+        <option value="Private Coaching Member - €15">Private Coaching (Member Rate) — €15</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Status</label>
+      <select id="edit-status" style="width:100%;background:rgba(8,6,2,0.9);border:1px solid rgba(212,175,55,0.2);color:#e8d8a0;font-family:'Cormorant Garamond',serif;font-size:15px;padding:12px 16px;outline:none;">
+        <option value="Active">Active</option>
+        <option value="Pending">Pending</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
+    </div>
+    <div class="field"><label>Notes</label><input type="text" id="edit-notes" placeholder="Optional notes..."></div>
+
+    <div id="edit-error" style="display:none;margin-bottom:14px;padding:10px;border:1px solid rgba(212,0,0,0.3);background:rgba(212,0,0,0.05);color:#ff6b6b;font-size:13px;"></div>
+
+    <div style="display:flex;gap:10px;margin-top:8px;">
+      <button onclick="closeEditModal()" style="flex:1;padding:14px;background:transparent;border:1px solid rgba(212,175,55,0.2);color:#9a8060;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">Cancel</button>
+      <button onclick="saveEditMember()" style="flex:2;padding:14px;background:linear-gradient(135deg,#8a6a12,#d4af37);color:#000;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;">Save Changes</button>
     </div>
   </div>
 </div>
@@ -398,6 +460,66 @@ async function addMember() {
 
     if (res.ok || res.status === 201) {
       closeAddModal();
+      await loadMembers();
+    } else {
+      const err = await res.json();
+      errEl.textContent = err.message || 'Something went wrong.';
+      errEl.style.display = 'block';
+    }
+  } catch(e) {
+    errEl.textContent = 'Connection error. Please try again.';
+    errEl.style.display = 'block';
+  }
+}
+
+function showEditModal(id) {
+  const m = allMembers.find(x => x.id === id);
+  if (!m) return;
+  document.getElementById('edit-id').value = m.id;
+  document.getElementById('edit-name').value = m.full_name || '';
+  document.getElementById('edit-email').value = m.email || '';
+  document.getElementById('edit-phone').value = m.phone || '';
+  document.getElementById('edit-tier').value = m.membership_tier || '';
+  document.getElementById('edit-status').value = m.status || 'Active';
+  document.getElementById('edit-notes').value = m.notes || '';
+  document.getElementById('edit-error').style.display = 'none';
+  document.getElementById('editModal').style.display = 'flex';
+}
+
+function closeEditModal() {
+  document.getElementById('editModal').style.display = 'none';
+}
+
+async function saveEditMember() {
+  const id = document.getElementById('edit-id').value;
+  const name = document.getElementById('edit-name').value.trim();
+  const email = document.getElementById('edit-email').value.trim();
+  const phone = document.getElementById('edit-phone').value.trim();
+  const tier = document.getElementById('edit-tier').value;
+  const status = document.getElementById('edit-status').value;
+  const notes = document.getElementById('edit-notes').value.trim();
+  const errEl = document.getElementById('edit-error');
+
+  errEl.style.display = 'none';
+  if (!name || !email || !tier) { errEl.textContent = 'Please fill in all required fields.'; errEl.style.display = 'block'; return; }
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/members?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        full_name: name, email, phone: phone || null,
+        membership_tier: tier, status, notes: notes || null
+      })
+    });
+
+    if (res.ok || res.status === 204) {
+      closeEditModal();
       await loadMembers();
     } else {
       const err = await res.json();
