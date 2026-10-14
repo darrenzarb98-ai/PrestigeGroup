@@ -152,6 +152,13 @@
         <p class="body-text" style="max-width:500px;margin:0 auto;">All sessions available to book instantly via secure Stripe checkout.</p>
       </div>
 
+      <!-- Referral code -->
+      <div style="max-width:320px;margin:0 auto 32px;text-align:center;">
+        <label for="ref-code" style="display:block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(212,175,55,0.6);margin-bottom:10px;">Referral Code (optional)</label>
+        <input type="text" id="ref-code" autocomplete="off" maxlength="30" placeholder="Enter code" style="width:100%;box-sizing:border-box;text-align:center;font-family:'Cinzel',serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;padding:12px 16px;background:rgba(8,6,2,0.75);border:1px solid rgba(212,175,55,0.3);color:#e8d8a0;outline:none;">
+        <div id="ref-msg" style="min-height:20px;margin-top:8px;font-size:13px;font-style:italic;color:#9a8060;"></div>
+      </div>
+
       <!-- Toggle -->
       <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:0;margin-bottom:48px;">
         <button id="btn-new" onclick="showPricing('new')" style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:14px 32px;cursor:pointer;border:1px solid rgba(212,175,55,0.3);background:linear-gradient(135deg,#8a6a12,#d4af37);color:#000;transition:all 0.3s;">Members &amp; Fitness Programme</button>
@@ -325,6 +332,30 @@
       b.style.color = on ? '#000' : 'rgba(212,175,55,0.5)';
     });
   }
+
+  // Referral code: tags Stripe checkout links so payments can be traced to the referrer
+  var REF_CODES = ['MARKO'];
+  (function () {
+    var input = document.getElementById('ref-code');
+    var msg = document.getElementById('ref-msg');
+    var links = document.querySelectorAll('a[href^="https://buy.stripe.com/"]');
+    links.forEach(function (a) { a.dataset.orig = a.getAttribute('href'); });
+    function apply(raw) {
+      var code = (raw || '').trim().toUpperCase().replace(/[^A-Z0-9_-]/g, '');
+      var ok = REF_CODES.indexOf(code) !== -1;
+      links.forEach(function (a) {
+        a.setAttribute('href', ok ? a.dataset.orig + '?client_reference_id=' + encodeURIComponent(code) : a.dataset.orig);
+      });
+      if (!code) { msg.textContent = ''; }
+      else if (ok) { msg.textContent = 'Referral applied: ' + code; msg.style.color = '#d4af37'; }
+      else { msg.textContent = 'Code not recognised'; msg.style.color = '#9a8060'; }
+      try { if (ok) sessionStorage.setItem('refCode', code); else sessionStorage.removeItem('refCode'); } catch (e) {}
+    }
+    input.addEventListener('input', function () { apply(input.value); });
+    var start = '';
+    try { start = new URLSearchParams(location.search).get('ref') || sessionStorage.getItem('refCode') || ''; } catch (e) {}
+    if (start) { input.value = start.toUpperCase(); apply(start); }
+  })();
   </script>
 
   <div class="hr"></div>
