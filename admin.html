@@ -403,6 +403,7 @@ function exportCSV() {
         <option value="Cancelled">Cancelled</option>
       </select>
     </div>
+    <div class="field"><label>Joined Date</label><input type="date" id="edit-date" style="color-scheme:dark;"></div>
     <div class="field"><label>Notes</label><input type="text" id="edit-notes" placeholder="Optional notes..."></div>
 
     <div id="edit-error" style="display:none;margin-bottom:14px;padding:10px;border:1px solid rgba(212,0,0,0.3);background:rgba(212,0,0,0.05);color:#ff6b6b;font-size:13px;"></div>
@@ -482,6 +483,9 @@ function showEditModal(id) {
   document.getElementById('edit-tier').value = m.membership_tier || '';
   document.getElementById('edit-status').value = m.status || 'Active';
   document.getElementById('edit-notes').value = m.notes || '';
+  const jd = m.join_date ? String(m.join_date).slice(0,10) : '';
+  const de = document.getElementById('edit-date');
+  de.value = jd; de.dataset.orig = jd;
   document.getElementById('edit-error').style.display = 'none';
   document.getElementById('editModal').style.display = 'flex';
 }
@@ -498,6 +502,7 @@ async function saveEditMember() {
   const tier = document.getElementById('edit-tier').value;
   const status = document.getElementById('edit-status').value;
   const notes = document.getElementById('edit-notes').value.trim();
+  const dateEl = document.getElementById('edit-date');
   const errEl = document.getElementById('edit-error');
 
   errEl.style.display = 'none';
@@ -512,10 +517,10 @@ async function saveEditMember() {
         'Authorization': `Bearer ${SUPABASE_KEY}`,
         'Prefer': 'return=minimal'
       },
-      body: JSON.stringify({
+      body: JSON.stringify(Object.assign({
         full_name: name, email, phone: phone || null,
         membership_tier: tier, status, notes: notes || null
-      })
+      }, (dateEl.value && dateEl.value !== dateEl.dataset.orig) ? { join_date: dateEl.value } : {}))
     });
 
     if (res.ok || res.status === 204) {
