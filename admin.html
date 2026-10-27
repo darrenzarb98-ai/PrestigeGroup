@@ -65,6 +65,7 @@ tbody td { padding: 14px 16px; font-size: 14px; color: #b0a080; vertical-align: 
 .badge-status { font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; }
 .badge-status--pending { background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.2); color: #8a6a12; }
 .badge-status--active { background: rgba(0,180,80,0.1); border: 1px solid rgba(0,180,80,0.3); color: #4ade80; }
+.badge-status--inactive { background: rgba(150,150,150,0.1); border: 1px solid rgba(150,150,150,0.3); color: #a0a0a0; }
 .badge-status--cancelled { background: rgba(212,0,0,0.1); border: 1px solid rgba(212,0,0,0.2); color: #f87171; }
 .action-btn { font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 1px; text-transform: uppercase; padding: 5px 10px; border: 1px solid rgba(212,175,55,0.2); background: transparent; color: rgba(212,175,55,0.5); cursor: pointer; transition: all 0.2s; margin-right: 4px; }
 .action-btn:hover { border-color: var(--gold); color: var(--gold); }
@@ -142,6 +143,7 @@ tbody td { padding: 14px 16px; font-size: 14px; color: #b0a080; vertical-align: 
         <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
         <button class="filter-btn" onclick="setFilter('Pending', this)">Pending</button>
         <button class="filter-btn" onclick="setFilter('Active', this)">Active</button>
+        <button class="filter-btn" onclick="setFilter('Inactive', this)">Inactive</button>
         <button class="filter-btn" onclick="setFilter('Cancelled', this)">Cancelled</button>
         <button class="btn-export" onclick="showAddModal()">+ Add Member</button>
         <button class="btn-export" onclick="exportCSV()">Export CSV</button>
@@ -158,8 +160,10 @@ tbody td { padding: 14px 16px; font-size: 14px; color: #b0a080; vertical-align: 
             <th>Email</th>
             <th>Phone</th>
             <th>Membership</th>
+            <th>Payment</th>
             <th>Status</th>
             <th>Joined</th>
+            <th>Expires</th>
             <th>Notes</th>
             <th>Actions</th>
           </tr>
@@ -263,6 +267,27 @@ function updateStats() {
   document.getElementById('stat-cancelled').textContent = allMembers.filter(m => m.status === 'Cancelled').length;
 }
 
+function todayStr() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+// Cash members: monthly plans last 30 days, everything else (single session) 1 day
+function expiryDate(m) {
+  if (m.payment_method !== 'Cash' || !m.paid_on) return null;
+  const days = (m.membership_tier || '').indexOf('/month') !== -1 ? 30 : 1;
+  const d = new Date(String(m.paid_on).slice(0, 10) + 'T00:00:00');
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+function togglePaid(pre) {
+  const cash = document.getElementById(pre + '-pay').value === 'Cash';
+  document.getElementById(pre + '-paid-wrap').style.display = cash ? 'block' : 'none';
+  const f = document.getElementById(pre + '-paid');
+  if (cash && !f.value) f.value = todayStr();
+}
+
 function renderTable(members) {
   document.getElementById('tableLoading').style.display = 'none';
   const tbody = document.getElementById('membersBody');
@@ -280,12 +305,14 @@ function renderTable(members) {
       <td>${m.email}</td>
       <td>${m.phone || '—'}</td>
       <td>${m.membership_tier || '—'}</td>
+      <td>${m.payment_method || 'Card'}</td>
       <td><span class="badge-status badge-status--${(m.status||'pending').toLowerCase()}">${m.status || 'Pending'}</span></td>
       <td>${m.join_date ? new Date(m.join_date).toLocaleDateString('en-GB') : '—'}</td>
+      <td>${expiryDate(m) ? expiryDate(m).toLocaleDateString('en-GB') : '—'}</td>
       <td class="notes-cell" title="${(m.notes || '').replace(/"/g,'&quot;')}">${m.notes || '—'}</td>
       <td>
         <button class="action-btn" onclick="showEditModal(${m.id})">Edit</button>
-        <button class="action-btn" onclick="updateStatus(${m.id}, 'Active')">Activate</button>
+        <button class="action-btn" onclick="updateStatus(${m.id}, 'Active')">${m.payment_method === 'Cash' ? 'Renew' : 'Activate'}</button>
         <button class="action-btn" onclick="updateStatus(${m.id}, 'Cancelled')">Cancel</button>
         <button class="action-btn action-btn--danger" onclick="deleteMember(${m.id}, '${m.full_name}')">Delete</button>
       </td>
@@ -315,6 +342,10 @@ function filterMembers(query) {
 }
 
 async function updateStatus(id, status) {
+  const target = allMembers.find(m => m.id === id);
+  const patch = { status };
+  // Activating/renewing a cash member restarts their paid period so they are not switched off again
+  if (status === 'Active' && target && target.payment_method === 'Cash') patch.paid_on = todayStr();
   try {
     await sbFetch(`${SUPABASE_URL}/rest/v1/members?id=eq.${id}`, {
       method: 'PATCH',
@@ -324,10 +355,10 @@ async function updateStatus(id, status) {
         'Content-Type': 'application/json',
         'Prefer': 'return=minimal'
       },
-      body: JSON.stringify({ status })
+      body: JSON.stringify(patch)
     });
     const member = allMembers.find(m => m.id === id);
-    if (member) member.status = status;
+    if (member) Object.assign(member, patch);
     updateStats();
     applyFilter();
   } catch(e) { alert('Error updating status.'); }
@@ -394,9 +425,18 @@ function exportCSV() {
       <select id="add-status" style="width:100%;background:rgba(8,6,2,0.9);border:1px solid rgba(212,175,55,0.2);color:#e8d8a0;font-family:'Cormorant Garamond',serif;font-size:15px;padding:12px 16px;outline:none;">
         <option value="Active">Active</option>
         <option value="Pending">Pending</option>
+        <option value="Inactive">Inactive</option>
         <option value="Cancelled">Cancelled</option>
       </select>
     </div>
+    <div class="field">
+      <label>Payment Method</label>
+      <select id="add-pay" onchange="togglePaid('add')" style="width:100%;background:rgba(8,6,2,0.9);border:1px solid rgba(212,175,55,0.2);color:#e8d8a0;font-family:'Cormorant Garamond',serif;font-size:15px;padding:12px 16px;outline:none;">
+        <option value="Card">Card</option>
+        <option value="Cash">Cash</option>
+      </select>
+    </div>
+    <div class="field" id="add-paid-wrap" style="display:none;"><label>Paid On (cash — starts the countdown)</label><input type="date" id="add-paid" style="color-scheme:dark;"></div>
     <div class="field"><label>Notes</label><input type="text" id="add-notes" placeholder="Optional notes..."></div>
 
     <div id="add-error" style="display:none;margin-bottom:14px;padding:10px;border:1px solid rgba(212,0,0,0.3);background:rgba(212,0,0,0.05);color:#ff6b6b;font-size:13px;"></div>
@@ -444,9 +484,18 @@ function exportCSV() {
       <select id="edit-status" style="width:100%;background:rgba(8,6,2,0.9);border:1px solid rgba(212,175,55,0.2);color:#e8d8a0;font-family:'Cormorant Garamond',serif;font-size:15px;padding:12px 16px;outline:none;">
         <option value="Active">Active</option>
         <option value="Pending">Pending</option>
+        <option value="Inactive">Inactive</option>
         <option value="Cancelled">Cancelled</option>
       </select>
     </div>
+    <div class="field">
+      <label>Payment Method</label>
+      <select id="edit-pay" onchange="togglePaid('edit')" style="width:100%;background:rgba(8,6,2,0.9);border:1px solid rgba(212,175,55,0.2);color:#e8d8a0;font-family:'Cormorant Garamond',serif;font-size:15px;padding:12px 16px;outline:none;">
+        <option value="Card">Card</option>
+        <option value="Cash">Cash</option>
+      </select>
+    </div>
+    <div class="field" id="edit-paid-wrap" style="display:none;"><label>Paid On (cash — starts the countdown)</label><input type="date" id="edit-paid" style="color-scheme:dark;"></div>
     <div class="field"><label>Joined Date</label><input type="date" id="edit-date" style="color-scheme:dark;"></div>
     <div class="field"><label>Notes</label><input type="text" id="edit-notes" placeholder="Optional notes..."></div>
 
@@ -469,6 +518,9 @@ function showAddModal() {
   document.getElementById('add-tier').value = '';
   document.getElementById('add-status').value = 'Active';
   document.getElementById('add-notes').value = '';
+  document.getElementById('add-pay').value = 'Card';
+  document.getElementById('add-paid').value = '';
+  togglePaid('add');
   document.getElementById('add-error').style.display = 'none';
 }
 
@@ -483,6 +535,8 @@ async function addMember() {
   const tier = document.getElementById('add-tier').value;
   const status = document.getElementById('add-status').value;
   const notes = document.getElementById('add-notes').value.trim();
+  const pay = document.getElementById('add-pay').value;
+  const paidOn = pay === 'Cash' ? (document.getElementById('add-paid').value || todayStr()) : null;
   const errEl = document.getElementById('add-error');
 
   errEl.style.display = 'none';
@@ -499,7 +553,8 @@ async function addMember() {
       },
       body: JSON.stringify({
         full_name: name, email, phone: phone || null,
-        membership_tier: tier, status, notes: notes || null, consent: true
+        membership_tier: tier, status, notes: notes || null, consent: true,
+        payment_method: pay, paid_on: paidOn
       })
     });
 
@@ -527,6 +582,9 @@ function showEditModal(id) {
   document.getElementById('edit-tier').value = m.membership_tier || '';
   document.getElementById('edit-status').value = m.status || 'Active';
   document.getElementById('edit-notes').value = m.notes || '';
+  document.getElementById('edit-pay').value = m.payment_method || 'Card';
+  document.getElementById('edit-paid').value = m.paid_on ? String(m.paid_on).slice(0,10) : '';
+  togglePaid('edit');
   const jd = m.join_date ? String(m.join_date).slice(0,10) : '';
   const de = document.getElementById('edit-date');
   de.value = jd; de.dataset.orig = jd;
@@ -547,6 +605,8 @@ async function saveEditMember() {
   const status = document.getElementById('edit-status').value;
   const notes = document.getElementById('edit-notes').value.trim();
   const dateEl = document.getElementById('edit-date');
+  const pay = document.getElementById('edit-pay').value;
+  const paidOn = pay === 'Cash' ? (document.getElementById('edit-paid').value || todayStr()) : null;
   const errEl = document.getElementById('edit-error');
 
   errEl.style.display = 'none';
@@ -563,7 +623,8 @@ async function saveEditMember() {
       },
       body: JSON.stringify(Object.assign({
         full_name: name, email, phone: phone || null,
-        membership_tier: tier, status, notes: notes || null
+        membership_tier: tier, status, notes: notes || null,
+        payment_method: pay, paid_on: paidOn
       }, (dateEl.value && dateEl.value !== dateEl.dataset.orig) ? { join_date: dateEl.value } : {}))
     });
 
