@@ -37,7 +37,7 @@ body { font-family: 'Cormorant Garamond', serif; background: var(--bg); color: #
 .btn-logout { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; padding: 8px 16px; background: transparent; border: 1px solid rgba(212,175,55,0.2); color: rgba(212,175,55,0.5); cursor: pointer; transition: all 0.3s; }
 .btn-logout:hover { border-color: var(--gold); color: var(--gold); }
 
-.dash-body { padding: 32px 24px; max-width: 1200px; margin: 0 auto; }
+.dash-body { padding: 32px 24px; max-width: 1500px; margin: 0 auto; }
 
 /* Stats */
 .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 3px; margin-bottom: 32px; }
@@ -56,10 +56,11 @@ body { font-family: 'Cormorant Garamond', serif; background: var(--bg); color: #
 
 .table-wrap { background: var(--panel); border: 1px solid rgba(212,175,55,0.1); overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; }
-thead th { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: #8a6a12; padding: 14px 16px; text-align: left; border-bottom: 1px solid rgba(212,175,55,0.1); white-space: nowrap; }
+thead th { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: #8a6a12; padding: 14px 10px; text-align: left; border-bottom: 1px solid rgba(212,175,55,0.1); white-space: nowrap; }
 tbody tr { border-bottom: 1px solid rgba(212,175,55,0.05); transition: background 0.2s; }
 tbody tr:hover { background: rgba(212,175,55,0.04); }
-tbody td { padding: 14px 16px; font-size: 14px; color: #b0a080; vertical-align: middle; }
+tbody td { padding: 14px 10px; font-size: 14px; color: #b0a080; vertical-align: middle; }
+.table-wrap th:last-child, .table-wrap td:last-child { position: sticky; right: 0; background: var(--panel); white-space: nowrap; box-shadow: -8px 0 12px rgba(0,0,0,0.5); }
 .member-id { font-family: 'Cinzel', serif; font-size: 11px; color: var(--gold-dark); }
 .member-name { color: #e8d8a0; font-weight: 600; }
 .badge-status { font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; }
