@@ -282,6 +282,8 @@ async function sbFetch(url, opts) {
 }
 
 function showDashboard() {
+  const who = document.querySelector('.dash-nav-user');
+  if (who && session && session.email) who.textContent = session.email;
   document.getElementById('loginPage').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
   loadMembers();
@@ -295,6 +297,7 @@ async function login() {
   let s = null;
   try { s = await authRequest('password', { email: email, password: pass }); } catch (e) {}
   if (s) {
+    s.email = email;
     saveSession(s);
     document.getElementById('adminPass').value = '';
     showDashboard();
