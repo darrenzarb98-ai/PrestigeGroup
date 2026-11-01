@@ -72,7 +72,7 @@ body { font-family: 'Cormorant Garamond', serif; background: var(--bg); color: #
 
       <div class="recent"><h4>Recent</h4><div id="recent"></div></div>
 
-      <div class="note">Your phone's location is checked and saved each time you clock in or out. You must be at the workplace.</div>
+      <div class="note" id="locNote"></div>
       <button class="btn btn-ghost" onclick="signOut()">Sign Out</button>
     </div>
   </div>
@@ -84,6 +84,7 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 let session = null;
 try { session = JSON.parse(sessionStorage.getItem('pgStaffSession') || 'null'); } catch (e) {}
+const REQUIRE_LOCATION = false;   // set to true (and in the database function) to bring back the location check
 let me = null, entries = [], tick = null;
 
 function $(id) { return document.getElementById(id); }
@@ -142,6 +143,7 @@ async function start() {
     const rows = await r.json();
     if (!Array.isArray(rows) || !rows.length) { signOut(); show($('loginMsg'), 'This login is not set up for clocking. Please ask your manager.', 'err'); return; }
     me = rows[0];
+    if (REQUIRE_LOCATION) $('locNote').textContent = 'Your location is checked and saved each time you clock in or out. You must be at the workplace.';
     $('who').textContent = me.full_name;
     await loadEntries();
     if (tick) clearInterval(tick);
@@ -212,13 +214,15 @@ function getPosition() {
 async function punch() {
   const btn = $('punchBtn'), msg = $('msg');
   hide(msg); btn.disabled = true;
-  const label = btn.textContent; btn.textContent = 'Checking location…';
+  const label = btn.textContent;
   try {
-    const pos = await getPosition();
-    const r = await sb('/rest/v1/rpc/punch', {
-      method: 'POST',
-      body: JSON.stringify({ p_lat: pos.coords.latitude, p_lng: pos.coords.longitude, p_acc: pos.coords.accuracy })
-    });
+    let body = {};
+    if (REQUIRE_LOCATION) {
+      btn.textContent = 'Checking location…';
+      const pos = await getPosition();
+      body = { p_lat: pos.coords.latitude, p_lng: pos.coords.longitude, p_acc: pos.coords.accuracy };
+    }
+    const r = await sb('/rest/v1/rpc/punch', { method: 'POST', body: JSON.stringify(body) });
     const d = await r.json();
     if (!r.ok) { show(msg, d.message || 'Something went wrong. Please try again.', 'err'); btn.textContent = label; btn.disabled = false; return; }
     show(msg, d.status === 'in' ? 'You are clocked in. Have a good shift!' : 'You are clocked out. See you next time!', 'ok');
