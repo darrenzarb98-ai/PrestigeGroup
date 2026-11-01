@@ -116,6 +116,13 @@ tbody td { padding: 14px 10px; font-size: 14px; color: #b0a080; vertical-align: 
 
   <div class="dash-body">
 
+    <div style="display:flex;gap:8px;margin-bottom:24px;">
+      <button class="filter-btn active" id="tab-members" onclick="showTab('members')">Members</button>
+      <button class="filter-btn" id="tab-hours" onclick="showTab('hours')">Staff Hours</button>
+    </div>
+
+    <div id="membersSection">
+
     <!-- Stats -->
     <div class="stats-row">
       <div class="stat-box">
@@ -174,6 +181,61 @@ tbody td { padding: 14px 10px; font-size: 14px; color: #b0a080; vertical-align: 
       <div class="empty-state" id="emptyState" style="display:none;">No members found.</div>
     </div>
 
+    </div><!-- /membersSection -->
+
+    <!-- STAFF HOURS -->
+    <div id="hoursSection" style="display:none;">
+      <div class="table-header">
+        <div class="table-title">Staff Hours</div>
+        <div class="table-controls">
+          <label style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:#8a6a12;text-transform:uppercase;align-self:center;">Month</label>
+          <input type="month" id="hrMonth" onchange="loadHours()" class="search-input" style="width:170px;color-scheme:dark;">
+          <button class="btn-export" onclick="exportHoursCSV()">Export CSV</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <div class="loading" id="hoursLoading">Loading hours...</div>
+        <table id="hoursTable" style="display:none;">
+          <thead><tr>
+            <th>Name</th><th>Now</th><th>This week</th><th>Month hours</th><th>Rate</th><th>Month pay</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="hoursBody"></tbody>
+        </table>
+      </div>
+
+      <div id="hoursDetail" style="display:none;margin-top:32px;">
+        <div class="table-header">
+          <div class="table-title" id="detailTitle">—</div>
+          <div class="table-controls">
+            <button class="btn-export" onclick="showEntryModal(null)">+ Add Entry</button>
+            <button class="filter-btn" onclick="closeDetail()">Close</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Date</th><th>Clock in</th><th>Clock out</th><th>Hours</th><th>Distance in / out</th><th>Note</th><th>Actions</th></tr></thead>
+            <tbody id="detailBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Entry Modal -->
+<div id="entryModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#080602;border:1px solid rgba(212,175,55,0.25);padding:32px;width:100%;max-width:420px;">
+    <div style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:20px;" id="entryTitle">Time Entry</div>
+    <input type="hidden" id="entry-id">
+    <div class="field"><label>Clock in</label><input type="datetime-local" id="entry-in" style="color-scheme:dark;"></div>
+    <div class="field"><label>Clock out (leave empty if still working)</label><input type="datetime-local" id="entry-out" style="color-scheme:dark;"></div>
+    <div class="field"><label>Note</label><input type="text" id="entry-note" placeholder="e.g. forgot to clock out"></div>
+    <div id="entry-error" style="display:none;margin-bottom:14px;padding:10px;border:1px solid rgba(212,0,0,0.3);background:rgba(212,0,0,0.05);color:#ff6b6b;font-size:13px;"></div>
+    <div style="display:flex;gap:10px;">
+      <button onclick="closeEntryModal()" style="flex:1;padding:14px;background:transparent;border:1px solid rgba(212,175,55,0.2);color:rgba(212,175,55,0.6);font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">Cancel</button>
+      <button onclick="saveEntry()" style="flex:2;padding:14px;background:linear-gradient(135deg,#8a6a12,#d4af37);color:#000;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;">Save</button>
+    </div>
   </div>
 </div>
 
@@ -641,6 +703,177 @@ async function saveEditMember() {
     errEl.textContent = 'Connection error. Please try again.';
     errEl.style.display = 'block';
   }
+}
+
+// ---- Staff hours ----
+let hrStaff = [], hrEntries = [], hrSelected = null;
+
+function showTab(t) {
+  document.getElementById('membersSection').style.display = t === 'members' ? 'block' : 'none';
+  document.getElementById('hoursSection').style.display = t === 'hours' ? 'block' : 'none';
+  document.getElementById('tab-members').classList.toggle('active', t === 'members');
+  document.getElementById('tab-hours').classList.toggle('active', t === 'hours');
+  if (t === 'hours') {
+    const m = document.getElementById('hrMonth');
+    if (!m.value) m.value = todayStr().slice(0, 7);
+    loadHours();
+  }
+}
+
+function monthRange() {
+  const v = document.getElementById('hrMonth').value || todayStr().slice(0, 7);
+  const y = +v.slice(0, 4), mo = +v.slice(5, 7) - 1;
+  return { from: new Date(y, mo, 1), to: new Date(y, mo + 1, 1) };
+}
+function hrWeekStart() {
+  const d = new Date(); d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  return d;
+}
+function hrMs(e, from, to) {
+  const a = Math.max(new Date(e.clock_in).getTime(), from.getTime());
+  const b = Math.min((e.clock_out ? new Date(e.clock_out) : new Date()).getTime(), to.getTime());
+  return Math.max(0, b - a);
+}
+function hrFmt(ms) { const m = Math.round(ms / 60000); return Math.floor(m / 60) + 'h ' + String(m % 60).padStart(2, '0') + 'm'; }
+function hrT(d) { return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); }
+function esc(v) { return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+
+async function loadHours() {
+  const range = monthRange();
+  const from = new Date(Math.min(range.from.getTime(), hrWeekStart().getTime()));
+  document.getElementById('hoursLoading').style.display = 'block';
+  document.getElementById('hoursLoading').textContent = 'Loading hours...';
+  document.getElementById('hoursTable').style.display = 'none';
+  try {
+    const rs = await sbFetch(`${SUPABASE_URL}/rest/v1/staff?select=*&order=full_name`);
+    hrStaff = await rs.json();
+    const re = await sbFetch(`${SUPABASE_URL}/rest/v1/time_entries?select=*&clock_in=gte.${encodeURIComponent(new Date(from.getTime() - 864e5).toISOString())}&order=clock_in.desc`);
+    hrEntries = await re.json();
+    if (!Array.isArray(hrStaff) || !Array.isArray(hrEntries)) throw new Error('bad data');
+    renderHours();
+  } catch (e) {
+    document.getElementById('hoursLoading').textContent = 'Error loading hours. Has the clock-in database step been run?';
+  }
+}
+
+function staffTotals(uid) {
+  const r = monthRange(), now = new Date(), far = new Date(now.getTime() + 864e5), ws = hrWeekStart();
+  const mine = hrEntries.filter(e => e.user_id === uid);
+  return {
+    open: mine.find(e => !e.clock_out),
+    week: mine.reduce((s, e) => s + hrMs(e, ws, far), 0),
+    month: mine.reduce((s, e) => s + hrMs(e, r.from, r.to), 0)
+  };
+}
+
+function renderHours() {
+  document.getElementById('hoursLoading').style.display = 'none';
+  document.getElementById('hoursTable').style.display = 'table';
+  document.getElementById('hoursBody').innerHTML = hrStaff.map(st => {
+    const t = staffTotals(st.user_id), pay = (t.month / 3600000) * Number(st.hourly_rate || 0);
+    return `<tr>
+      <td><span class="member-name">${esc(st.full_name)}</span></td>
+      <td>${t.open ? '<span class="badge-status badge-status--active">In since ' + hrT(new Date(t.open.clock_in)) + '</span>' : '<span class="badge-status badge-status--inactive">Out</span>'}</td>
+      <td>${hrFmt(t.week)}</td>
+      <td>${hrFmt(t.month)}</td>
+      <td>€${Number(st.hourly_rate || 0).toFixed(2)}</td>
+      <td>€${pay.toFixed(2)}</td>
+      <td><button class="action-btn" onclick="openDetail('${st.user_id}')">View</button></td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="7" style="text-align:center;padding:30px;">No staff found.</td></tr>';
+  if (hrSelected) renderDetail();
+}
+
+function openDetail(uid) { hrSelected = uid; document.getElementById('hoursDetail').style.display = 'block'; renderDetail(); document.getElementById('hoursDetail').scrollIntoView({ behavior: 'smooth' }); }
+function closeDetail() { hrSelected = null; document.getElementById('hoursDetail').style.display = 'none'; }
+
+function renderDetail() {
+  const st = hrStaff.find(x => x.user_id === hrSelected);
+  if (!st) return closeDetail();
+  const r = monthRange();
+  document.getElementById('detailTitle').textContent = st.full_name + ' · ' + r.from.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+  const rows = hrEntries.filter(e => e.user_id === hrSelected && new Date(e.clock_in) >= r.from && new Date(e.clock_in) < r.to);
+  document.getElementById('detailBody').innerHTML = rows.map(e => {
+    const a = new Date(e.clock_in), b = e.clock_out ? new Date(e.clock_out) : null;
+    return `<tr>
+      <td>${a.toLocaleDateString('en-GB')}</td>
+      <td>${hrT(a)}</td>
+      <td>${b ? hrT(b) : '<span style="color:#4ade80;">still in</span>'}</td>
+      <td>${b ? hrFmt(b - a) : hrFmt(Date.now() - a)}</td>
+      <td>${e.in_distance_m != null ? e.in_distance_m + ' m' : '—'} / ${e.out_distance_m != null ? e.out_distance_m + ' m' : '—'}</td>
+      <td>${esc(e.note || '')}${e.edited_by_admin ? ' <span style="color:#8a6a12;">(edited)</span>' : ''}</td>
+      <td><button class="action-btn" onclick="showEntryModal(${e.id})">Edit</button>
+          <button class="action-btn action-btn--danger" onclick="deleteEntry(${e.id})">Delete</button></td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="7" style="text-align:center;padding:30px;">No entries this month.</td></tr>';
+}
+
+function toLocalInput(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0') + 'T' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+}
+
+function showEntryModal(id) {
+  const e = id ? hrEntries.find(x => x.id === id) : null;
+  document.getElementById('entryTitle').textContent = e ? 'Edit Entry' : 'Add Entry';
+  document.getElementById('entry-id').value = e ? e.id : '';
+  document.getElementById('entry-in').value = e ? toLocalInput(e.clock_in) : '';
+  document.getElementById('entry-out').value = e ? toLocalInput(e.clock_out) : '';
+  document.getElementById('entry-note').value = e ? (e.note || '') : '';
+  document.getElementById('entry-error').style.display = 'none';
+  document.getElementById('entryModal').style.display = 'flex';
+}
+function closeEntryModal() { document.getElementById('entryModal').style.display = 'none'; }
+
+async function saveEntry() {
+  const id = document.getElementById('entry-id').value;
+  const vin = document.getElementById('entry-in').value, vout = document.getElementById('entry-out').value;
+  const note = document.getElementById('entry-note').value.trim();
+  const err = document.getElementById('entry-error');
+  err.style.display = 'none';
+  if (!vin) { err.textContent = 'Please set the clock in time.'; err.style.display = 'block'; return; }
+  const cin = new Date(vin), cout = vout ? new Date(vout) : null;
+  if (cout && cout <= cin) { err.textContent = 'Clock out must be after clock in.'; err.style.display = 'block'; return; }
+  const body = { clock_in: cin.toISOString(), clock_out: cout ? cout.toISOString() : null, note: note || null, edited_by_admin: true };
+  try {
+    let res;
+    if (id) {
+      res = await sbFetch(`${SUPABASE_URL}/rest/v1/time_entries?id=eq.${id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, body: JSON.stringify(body) });
+    } else {
+      body.user_id = hrSelected;
+      res = await sbFetch(`${SUPABASE_URL}/rest/v1/time_entries`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, body: JSON.stringify(body) });
+    }
+    if (res.ok) { closeEntryModal(); await loadHours(); }
+    else { const d = await res.json(); err.textContent = d.message || 'Something went wrong.'; err.style.display = 'block'; }
+  } catch (e) { err.textContent = 'Connection error. Please try again.'; err.style.display = 'block'; }
+}
+
+async function deleteEntry(id) {
+  if (!confirm('Delete this time entry? This cannot be undone.')) return;
+  try { await sbFetch(`${SUPABASE_URL}/rest/v1/time_entries?id=eq.${id}`, { method: 'DELETE' }); await loadHours(); }
+  catch (e) { alert('Error deleting entry.'); }
+}
+
+function exportHoursCSV() {
+  const r = monthRange();
+  const lines = [['Name', 'Date', 'Clock in', 'Clock out', 'Hours', 'Rate', 'Pay']];
+  hrStaff.forEach(st => {
+    let totalMs = 0;
+    hrEntries.filter(e => e.user_id === st.user_id && new Date(e.clock_in) >= r.from && new Date(e.clock_in) < r.to)
+      .sort((a, b) => new Date(a.clock_in) - new Date(b.clock_in)).forEach(e => {
+        const a = new Date(e.clock_in), b = e.clock_out ? new Date(e.clock_out) : null, ms = b ? b - a : 0;
+        totalMs += ms;
+        lines.push([st.full_name, a.toLocaleDateString('en-GB'), hrT(a), b ? hrT(b) : 'still in', (ms / 3600000).toFixed(2), '', '']);
+      });
+    lines.push([st.full_name + ' TOTAL', '', '', '', (totalMs / 3600000).toFixed(2), Number(st.hourly_rate).toFixed(2), ((totalMs / 3600000) * Number(st.hourly_rate)).toFixed(2)]);
+  });
+  const csv = lines.map(l => l.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'staff-hours-' + (document.getElementById('hrMonth').value || todayStr().slice(0, 7)) + '.csv';
+  a.click();
 }
 
 if (session) showDashboard();
