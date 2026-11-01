@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Staff Clock · Prestige Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --gold: #d4af37; --gold-dark: #8a6a12; --bg: #050403; --panel: rgba(8,6,2,0.92); }
+body { font-family: 'Cormorant Garamond', serif; background: var(--bg); color: #e8d8a0; min-height: 100vh; }
+.wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px 16px; }
+.box { background: var(--panel); border: 1px solid rgba(212,175,55,0.2); padding: 40px 28px; width: 100%; max-width: 420px; text-align: center; }
+.logo { width: 64px; height: 64px; border-radius: 10px; margin: 0 auto 20px; display: block; filter: drop-shadow(0 0 16px rgba(212,175,55,0.4)); }
+.title { font-family: 'Cinzel', serif; font-size: 16px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+.sub { font-size: 14px; color: #9a8060; margin-bottom: 26px; }
+.field { text-align: left; margin-bottom: 16px; }
+.field label { display: block; font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 3px; color: #8a6a12; text-transform: uppercase; margin-bottom: 8px; }
+.field input { width: 100%; background: rgba(8,6,2,0.9); border: 1px solid rgba(212,175,55,0.2); color: #e8d8a0; font-family: 'Cormorant Garamond', serif; font-size: 16px; padding: 12px 14px; outline: none; }
+.field input:focus { border-color: rgba(212,175,55,0.5); }
+.btn { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: #000; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; border: none; cursor: pointer; }
+.btn:disabled { opacity: 0.5; cursor: default; }
+.btn-ghost { background: transparent; border: 1px solid rgba(212,175,55,0.25); color: rgba(212,175,55,0.6); margin-top: 22px; padding: 10px; font-size: 8px; }
+.msg { margin-top: 14px; padding: 10px; font-size: 14px; display: none; }
+.msg.err { display: block; border: 1px solid rgba(212,0,0,0.3); background: rgba(212,0,0,0.05); color: #ff6b6b; }
+.msg.ok { display: block; border: 1px solid rgba(0,180,80,0.3); background: rgba(0,180,80,0.06); color: #4ade80; }
+.who { font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 3px; color: #e8d8a0; text-transform: uppercase; margin-bottom: 4px; }
+.state { font-size: 15px; color: #9a8060; margin-bottom: 22px; min-height: 22px; }
+.state b { color: var(--gold); font-weight: 600; }
+.punch { width: 190px; height: 190px; border-radius: 50%; border: 2px solid var(--gold); background: radial-gradient(circle at 50% 35%, rgba(212,175,55,0.22), rgba(212,175,55,0.05)); color: var(--gold); font-family: 'Cinzel', serif; font-size: 15px; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; margin: 0 auto 8px; display: block; transition: box-shadow .3s; }
+.punch:hover:not(:disabled) { box-shadow: 0 0 36px rgba(212,175,55,0.35); }
+.punch.out { border-color: #f87171; color: #f87171; background: radial-gradient(circle at 50% 35%, rgba(248,113,113,0.2), rgba(248,113,113,0.04)); }
+.punch:disabled { opacity: 0.5; cursor: default; }
+.totals { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 26px; }
+.tot { background: rgba(212,175,55,0.04); border: 1px solid rgba(212,175,55,0.1); padding: 14px 8px; }
+.tot .n { font-family: 'Cinzel', serif; font-size: 20px; color: var(--gold); margin-bottom: 4px; }
+.tot .l { font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 2px; color: #8a6a12; text-transform: uppercase; }
+.recent { margin-top: 24px; text-align: left; font-size: 14px; color: #b0a080; }
+.recent h4 { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 3px; color: #8a6a12; text-transform: uppercase; margin-bottom: 8px; }
+.recent div.row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(212,175,55,0.07); }
+.note { font-size: 12px; color: #6f5c3a; margin-top: 18px; font-style: italic; }
+#app { display: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="box">
+    <img src="profilepic.png" class="logo" alt="Prestige Group">
+
+    <!-- SIGN IN -->
+    <div id="loginView">
+      <div class="title">Staff Clock</div>
+      <div class="sub">Prestige Group · Prince Boxing &amp; Fitness Club</div>
+      <div class="field"><label for="email">Email</label><input type="email" id="email" autocomplete="username" placeholder="Email"></div>
+      <div class="field"><label for="pass">Password</label><input type="password" id="pass" autocomplete="current-password" placeholder="Password" onkeydown="if(event.key==='Enter')signIn()"></div>
+      <button class="btn" id="signInBtn" onclick="signIn()">Sign In</button>
+      <div class="msg" id="loginMsg"></div>
+    </div>
+
+    <!-- CLOCK -->
+    <div id="app">
+      <div class="who" id="who">—</div>
+      <div class="state" id="state">Loading…</div>
+      <button class="punch" id="punchBtn" onclick="punch()" disabled>…</button>
+      <div class="msg" id="msg"></div>
+
+      <div class="totals">
+        <div class="tot"><div class="n" id="tWeek">—</div><div class="l">This week</div></div>
+        <div class="tot"><div class="n" id="tMonth">—</div><div class="l">This month</div></div>
+      </div>
+
+      <div class="recent"><h4>Recent</h4><div id="recent"></div></div>
+
+      <div class="note">Your phone's location is checked and saved each time you clock in or out. You must be at the workplace.</div>
+      <button class="btn btn-ghost" onclick="signOut()">Sign Out</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://hlohgbrvrusxsxbxltni.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhsb2hnYnJ2cnVzeHN4YnhsdG5pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwMjcxMjEsImV4cCI6MjEwNDYwMzEyMX0.Meh2AtqCweK-4yaqJ7-Uabtu2xKM68f3BgZ-EcBCkbE';
+
+let session = null;
+try { session = JSON.parse(sessionStorage.getItem('pgStaffSession') || 'null'); } catch (e) {}
+let me = null, entries = [], tick = null;
+
+function $(id) { return document.getElementById(id); }
+function saveSession(s) {
+  session = s;
+  try { if (s) sessionStorage.setItem('pgStaffSession', JSON.stringify(s)); else sessionStorage.removeItem('pgStaffSession'); } catch (e) {}
+}
+function show(el, text, cls) { el.textContent = text; el.className = 'msg ' + cls; }
+function hide(el) { el.className = 'msg'; el.textContent = ''; }
+
+async function authRequest(grant, body) {
+  const r = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=' + grant, {
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY }, body: JSON.stringify(body)
+  });
+  if (!r.ok) return null;
+  const d = await r.json();
+  return { access_token: d.access_token, refresh_token: d.refresh_token, expires_at: Date.now() + (d.expires_in - 60) * 1000 };
+}
+
+async function sb(path, opts) {
+  opts = opts || {};
+  if (!session) { signOut(); throw new Error('Not signed in'); }
+  if (Date.now() > session.expires_at) {
+    const s = await authRequest('refresh_token', { refresh_token: session.refresh_token });
+    if (!s) { signOut(); throw new Error('Session expired'); }
+    saveSession(s);
+  }
+  opts.headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers, { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + session.access_token });
+  const r = await fetch(SUPABASE_URL + path, opts);
+  if (r.status === 401) signOut();
+  return r;
+}
+
+async function signIn() {
+  const btn = $('signInBtn'); hide($('loginMsg'));
+  btn.disabled = true;
+  let s = null;
+  try { s = await authRequest('password', { email: $('email').value.trim(), password: $('pass').value }); } catch (e) {}
+  btn.disabled = false;
+  if (!s) { show($('loginMsg'), 'Incorrect email or password.', 'err'); return; }
+  saveSession(s); $('pass').value = '';
+  start();
+}
+
+function signOut() {
+  saveSession(null); me = null; entries = [];
+  if (tick) clearInterval(tick);
+  $('app').style.display = 'none'; $('loginView').style.display = 'block';
+}
+
+async function start() {
+  $('loginView').style.display = 'none'; $('app').style.display = 'block';
+  $('state').textContent = 'Loading…'; $('punchBtn').disabled = true;
+  try {
+    const r = await sb('/rest/v1/staff?select=full_name,hourly_rate,active');
+    const rows = await r.json();
+    if (!Array.isArray(rows) || !rows.length) { signOut(); show($('loginMsg'), 'This login is not set up for clocking. Please ask your manager.', 'err'); return; }
+    me = rows[0];
+    $('who').textContent = me.full_name;
+    await loadEntries();
+    if (tick) clearInterval(tick);
+    tick = setInterval(render, 30000);
+  } catch (e) { $('state').textContent = 'Could not load. Check your connection and refresh.'; }
+}
+
+async function loadEntries() {
+  const from = new Date(); from.setDate(1); from.setHours(0, 0, 0, 0); from.setDate(from.getDate() - 8);
+  const r = await sb('/rest/v1/time_entries?select=id,clock_in,clock_out&clock_in=gte.' + encodeURIComponent(from.toISOString()) + '&order=clock_in.desc');
+  entries = await r.json();
+  if (!Array.isArray(entries)) entries = [];
+  render();
+}
+
+function fmtHM(ms) {
+  const m = Math.max(0, Math.round(ms / 60000));
+  return Math.floor(m / 60) + 'h ' + String(m % 60).padStart(2, '0') + 'm';
+}
+function entryMs(e, from, to) {
+  const a = Math.max(new Date(e.clock_in).getTime(), from.getTime());
+  const b = Math.min((e.clock_out ? new Date(e.clock_out) : new Date()).getTime(), to.getTime());
+  return Math.max(0, b - a);
+}
+function weekStart() {
+  const d = new Date(); d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  return d;
+}
+
+function render() {
+  if (!me) return;
+  const open = entries.find(e => !e.clock_out);
+  const btn = $('punchBtn');
+  btn.disabled = false;
+  if (open) {
+    btn.textContent = 'Clock Out'; btn.className = 'punch out';
+    $('state').innerHTML = 'Clocked in since <b>' + new Date(open.clock_in).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) + '</b> · ' + fmtHM(Date.now() - new Date(open.clock_in).getTime());
+  } else {
+    btn.textContent = 'Clock In'; btn.className = 'punch';
+    $('state').textContent = 'You are clocked out';
+  }
+  const now = new Date(), far = new Date(now.getTime() + 864e5);
+  const ws = weekStart(), ms = new Date(now.getFullYear(), now.getMonth(), 1);
+  $('tWeek').textContent = fmtHM(entries.reduce((s, e) => s + entryMs(e, ws, far), 0));
+  $('tMonth').textContent = fmtHM(entries.reduce((s, e) => s + entryMs(e, ms, far), 0));
+  $('recent').innerHTML = entries.slice(0, 5).map(e => {
+    const a = new Date(e.clock_in), b = e.clock_out ? new Date(e.clock_out) : null;
+    const t = d => d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    return '<div class="row"><span>' + a.toLocaleDateString('en-GB') + '</span><span>' + t(a) + ' – ' + (b ? t(b) : 'now') + '</span></div>';
+  }).join('') || '<div class="row"><span>No records yet</span></div>';
+}
+
+function getPosition() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) return reject(new Error('This phone or browser cannot share its location.'));
+    navigator.geolocation.getCurrentPosition(resolve, err => {
+      reject(new Error(err.code === 1
+        ? 'Location is blocked. Allow location for this page in your browser settings, then try again.'
+        : 'Could not get your location. Try again near a window or outside.'));
+    }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 });
+  });
+}
+
+async function punch() {
+  const btn = $('punchBtn'), msg = $('msg');
+  hide(msg); btn.disabled = true;
+  const label = btn.textContent; btn.textContent = 'Checking location…';
+  try {
+    const pos = await getPosition();
+    const r = await sb('/rest/v1/rpc/punch', {
+      method: 'POST',
+      body: JSON.stringify({ p_lat: pos.coords.latitude, p_lng: pos.coords.longitude, p_acc: pos.coords.accuracy })
+    });
+    const d = await r.json();
+    if (!r.ok) { show(msg, d.message || 'Something went wrong. Please try again.', 'err'); btn.textContent = label; btn.disabled = false; return; }
+    show(msg, d.status === 'in' ? 'You are clocked in. Have a good shift!' : 'You are clocked out. See you next time!', 'ok');
+    await loadEntries();
+  } catch (e) {
+    show(msg, e.message || 'Something went wrong. Please try again.', 'err');
+    btn.textContent = label; btn.disabled = false;
+  }
+}
+
+if (session) start();
+</script>
+</body>
+</html>
