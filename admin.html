@@ -197,7 +197,7 @@ tbody td { padding: 14px 10px; font-size: 14px; color: #b0a080; vertical-align: 
         <div class="loading" id="hoursLoading">Loading hours...</div>
         <table id="hoursTable" style="display:none;">
           <thead><tr>
-            <th>Name</th><th>Now</th><th>This week</th><th>Month hours</th><th>Rate</th><th>Month pay</th><th>Actions</th>
+            <th>Name</th><th>Now</th><th>This week</th><th>Month hours</th><th>Month pay</th><th>Actions</th>
           </tr></thead>
           <tbody id="hoursBody"></tbody>
         </table>
@@ -780,11 +780,10 @@ function renderHours() {
       <td>${t.open ? '<span class="badge-status badge-status--active">In since ' + hrT(new Date(t.open.clock_in)) + '</span>' : '<span class="badge-status badge-status--inactive">Out</span>'}</td>
       <td>${hrFmt(t.week)}</td>
       <td>${hrFmt(t.month)}</td>
-      <td>€${Number(st.hourly_rate || 0).toFixed(2)}</td>
       <td>€${pay.toFixed(2)}</td>
       <td><button class="action-btn" onclick="openDetail('${st.user_id}')">View</button></td>
     </tr>`;
-  }).join('') || '<tr><td colspan="7" style="text-align:center;padding:30px;">No staff found.</td></tr>';
+  }).join('') || '<tr><td colspan="6" style="text-align:center;padding:30px;">No staff found.</td></tr>';
   if (hrSelected) renderDetail();
 }
 
