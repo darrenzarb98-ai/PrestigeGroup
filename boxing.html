@@ -234,6 +234,7 @@
       <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:0;margin-bottom:48px;">
         <button id="btn-new" onclick="showPricing('new')" style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:14px 32px;cursor:pointer;border:1px solid rgba(212,175,55,0.3);background:linear-gradient(135deg,#8a6a12,#d4af37);color:#000;transition:all 0.3s;">Members &amp; Fitness Programme</button>
         <button id="btn-existing" onclick="showPricing('existing')" style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:14px 32px;cursor:pointer;border:1px solid rgba(212,175,55,0.3);background:transparent;color:rgba(212,175,55,0.5);transition:all 0.3s;">Fighters</button>
+        <button id="btn-elite" onclick="showPricing('elite')" style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:14px 32px;cursor:pointer;border:1px solid rgba(212,175,55,0.3);background:transparent;color:rgba(212,175,55,0.5);transition:all 0.3s;">Elite Programme</button>
         <button id="btn-private" onclick="showPricing('private')" style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:14px 32px;cursor:pointer;border:1px solid rgba(212,175,55,0.3);background:transparent;color:rgba(212,175,55,0.5);transition:all 0.3s;">Private Coaching</button>
       </div>
 
@@ -359,6 +360,55 @@
 
         </div>
 
+      <!-- ELITE PROGRAMME -->
+      <div id="pricing-elite" style="display:none;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:3px;">
+
+        <div style="background:rgba(12,9,3,0.92);border:1px solid rgba(212,175,55,0.35);padding:24px;position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;">
+          <img src="CoachChris.png" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 10%;opacity:0.3;z-index:-1;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);">
+          <div style="position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#8a6a12,#d4af37);color:#000;font-family:'Cinzel',serif;font-size:7px;letter-spacing:2px;padding:4px 10px;text-transform:uppercase;">Elite</div>
+          <div class="svc-card-tag">5 sessions weekly</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:30px;background:linear-gradient(105deg,#8a6a12,#d4af37,#f5e27a,#d4af37);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin:16px 0 4px;">1 Month</div>
+          <div style="font-size:12px;color:#9a8060;letter-spacing:1px;margin-bottom:16px;">1-month programme</div>
+          <div style="height:1px;background:linear-gradient(to right,transparent,rgba(212,175,55,0.2),transparent);margin-bottom:16px;"></div>
+          <div class="svc-card-name">Elite Program by Chris Moninga Elombo</div>
+          <p class="svc-card-copy">Five sessions every week with Coach Chris Moninga Elombo.</p>
+          <div style="margin-top:auto;padding-top:20px;">
+            <a href="https://buy.stripe.com/14A3cudDNfbo1J4azzbbG0h" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;padding:13px 16px;margin-top:10px;border:1px solid rgba(212,175,55,0.45);text-decoration:none;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#e8d8a0;transition:all .3s;" onmouseover="this.style.background='rgba(212,175,55,0.12)'" onmouseout="this.style.background='transparent'"><span>Non-members</span><span style="color:#d4af37;font-size:15px;">€260</span></a>
+            <a href="https://buy.stripe.com/8x214marB0gu4VgfTTbbG0i" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;padding:13px 16px;margin-top:10px;border:1px solid #d4af37;text-decoration:none;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#000;background:linear-gradient(135deg,#8a6a12,#d4af37);transition:all .3s;"><span>Members</span><span style="font-size:15px;">€200</span></a>
+          </div>
+        </div>
+
+        <div style="background:rgba(12,9,3,0.92);border:1px solid rgba(212,175,55,0.35);padding:24px;position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;">
+          <img src="CoachChris.png" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 10%;opacity:0.3;z-index:-1;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);">
+          <div style="position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#8a6a12,#d4af37);color:#000;font-family:'Cinzel',serif;font-size:7px;letter-spacing:2px;padding:4px 10px;text-transform:uppercase;">Elite</div>
+          <div class="svc-card-tag">5 sessions weekly</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:30px;background:linear-gradient(105deg,#8a6a12,#d4af37,#f5e27a,#d4af37);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin:16px 0 4px;">3 Months</div>
+          <div style="font-size:12px;color:#9a8060;letter-spacing:1px;margin-bottom:16px;">3-month programme</div>
+          <div style="height:1px;background:linear-gradient(to right,transparent,rgba(212,175,55,0.2),transparent);margin-bottom:16px;"></div>
+          <div class="svc-card-name">Elite Program by Chris Moninga Elombo</div>
+          <p class="svc-card-copy">Five sessions every week with Coach Chris Moninga Elombo.</p>
+          <div style="margin-top:auto;padding-top:20px;">
+            <a href="https://buy.stripe.com/28E28qczJ3sG73o233bbG0k" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;padding:13px 16px;margin-top:10px;border:1px solid rgba(212,175,55,0.45);text-decoration:none;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#e8d8a0;transition:all .3s;" onmouseover="this.style.background='rgba(212,175,55,0.12)'" onmouseout="this.style.background='transparent'"><span>Non-members</span><span style="color:#d4af37;font-size:15px;">€780</span></a>
+            <a href="https://buy.stripe.com/14A5kCgPZ2oC73oazzbbG0j" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;padding:13px 16px;margin-top:10px;border:1px solid #d4af37;text-decoration:none;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#000;background:linear-gradient(135deg,#8a6a12,#d4af37);transition:all .3s;"><span>Members</span><span style="font-size:15px;">€600</span></a>
+          </div>
+        </div>
+
+        <div style="background:rgba(12,9,3,0.92);border:1px solid rgba(212,175,55,0.35);padding:24px;position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;">
+          <img src="CoachChris.png" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 10%;opacity:0.3;z-index:-1;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);">
+          <div style="position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#8a6a12,#d4af37);color:#000;font-family:'Cinzel',serif;font-size:7px;letter-spacing:2px;padding:4px 10px;text-transform:uppercase;">Elite</div>
+          <div class="svc-card-tag">5 sessions weekly</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:30px;background:linear-gradient(105deg,#8a6a12,#d4af37,#f5e27a,#d4af37);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin:16px 0 4px;">6 Months</div>
+          <div style="font-size:12px;color:#9a8060;letter-spacing:1px;margin-bottom:16px;">6-month programme</div>
+          <div style="height:1px;background:linear-gradient(to right,transparent,rgba(212,175,55,0.2),transparent);margin-bottom:16px;"></div>
+          <div class="svc-card-name">Elite Program by Chris Moninga Elombo</div>
+          <p class="svc-card-copy">Five sessions every week with Coach Chris Moninga Elombo.</p>
+          <div style="margin-top:auto;padding-top:20px;">
+            <a href="https://buy.stripe.com/fZu8wOgPZbZcevQePPbbG0l" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;padding:13px 16px;margin-top:10px;border:1px solid rgba(212,175,55,0.45);text-decoration:none;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#e8d8a0;transition:all .3s;" onmouseover="this.style.background='rgba(212,175,55,0.12)'" onmouseout="this.style.background='transparent'"><span>Non-members</span><span style="color:#d4af37;font-size:15px;">€1,560</span></a>
+            <a href="https://buy.stripe.com/6oUcN4dDN7IW2N8cHHbbG0m" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;padding:13px 16px;margin-top:10px;border:1px solid #d4af37;text-decoration:none;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#000;background:linear-gradient(135deg,#8a6a12,#d4af37);transition:all .3s;"><span>Members</span><span style="font-size:15px;">€1,200</span></a>
+          </div>
+        </div>
+      </div>
+
       <!-- PRIVATE COACHING -->
       <div id="pricing-private" style="display:none;grid-template-columns:repeat(auto-fit,minmax(220px,360px));justify-content:center;gap:3px;">
 
@@ -374,15 +424,51 @@
           <div style="margin-top:auto;padding-top:20px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#d4af37;text-transform:uppercase;">Book Now →</div>
         </a>
 
-        <a href="https://buy.stripe.com/3cIcN49nx6ES5Zk377bbG0d" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;background:rgba(12,9,3,0.92);border:1px solid rgba(212,175,55,0.35);padding:24px;transition:border-color 0.4s,transform 0.3s;position:relative;isolation:isolate;overflow:hidden;" onmouseover="this.style.borderColor='rgba(212,175,55,0.6)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(212,175,55,0.35)';this.style.transform='translateY(0)'">
+        <a href="https://buy.stripe.com/eVqdR843d0guafA4bbbbG0g" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;background:rgba(12,9,3,0.92);border:1px solid rgba(212,175,55,0.35);padding:24px;transition:border-color 0.4s,transform 0.3s;position:relative;isolation:isolate;overflow:hidden;" onmouseover="this.style.borderColor='rgba(212,175,55,0.6)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(212,175,55,0.35)';this.style.transform='translateY(0)'">
           <img src="ZionAssistingCoach.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 17%;opacity:0.35;z-index:-1;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);">
           <div style="position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#8a6a12,#d4af37);color:#000;font-family:'Cinzel',serif;font-size:7px;letter-spacing:2px;padding:4px 10px;text-transform:uppercase;">Premium</div>
           <div class="svc-card-tag">1-to-1</div>
-          <div style="font-family:'Cinzel Decorative',serif;font-size:38px;background:linear-gradient(105deg,#8a6a12,#d4af37,#f5e27a,#d4af37);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin:16px 0 4px;">€12.50</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:38px;background:linear-gradient(105deg,#8a6a12,#d4af37,#f5e27a,#d4af37);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin:16px 0 4px;">€15</div>
           <div style="font-size:12px;color:#9a8060;letter-spacing:1px;margin-bottom:16px;">per session</div>
           <div style="height:1px;background:linear-gradient(to right,transparent,rgba(212,175,55,0.2),transparent);margin-bottom:16px;"></div>
           <div class="svc-card-name">Private Coaching with Zion Mercieca</div>
           <p class="svc-card-copy">One-to-one session with Coach Zion Mercieca. Personalised training built around your goals.</p>
+          <div style="margin-top:auto;padding-top:20px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#d4af37;text-transform:uppercase;">Book Now →</div>
+        </a>
+
+        <a href="https://buy.stripe.com/8x24gy57h8N0fzUfTTbbG0n" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;background:rgba(12,9,3,0.92);border:1px solid rgba(212,175,55,0.35);padding:24px;transition:border-color 0.4s,transform 0.3s;position:relative;isolation:isolate;overflow:hidden;" onmouseover="this.style.borderColor='rgba(212,175,55,0.6)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(212,175,55,0.35)';this.style.transform='translateY(0)'">
+          <img src="CoachChris.png" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 10%;opacity:0.35;z-index:-1;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);">
+          <div style="position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#8a6a12,#d4af37);color:#000;font-family:'Cinzel',serif;font-size:7px;letter-spacing:2px;padding:4px 10px;text-transform:uppercase;">Premium</div>
+          <div class="svc-card-tag">1-to-1</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:38px;background:linear-gradient(105deg,#8a6a12,#d4af37,#f5e27a,#d4af37);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin:16px 0 4px;">€60</div>
+          <div style="font-size:12px;color:#9a8060;letter-spacing:1px;margin-bottom:16px;">1 hour session</div>
+          <div style="height:1px;background:linear-gradient(to right,transparent,rgba(212,175,55,0.2),transparent);margin-bottom:16px;"></div>
+          <div class="svc-card-name">Private Coaching with Chris Moninga Elombo</div>
+          <p class="svc-card-copy">One-to-one 1 hour session with Coach Chris Moninga Elombo. Personalised training built around your goals.</p>
+          <div style="margin-top:auto;padding-top:20px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#d4af37;text-transform:uppercase;">Book Now →</div>
+        </a>
+
+        <a href="https://buy.stripe.com/3cI5kCarB1ky4Vg7nnbbG0o" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;background:rgba(12,9,3,0.92);border:1px solid rgba(212,175,55,0.35);padding:24px;transition:border-color 0.4s,transform 0.3s;position:relative;isolation:isolate;overflow:hidden;" onmouseover="this.style.borderColor='rgba(212,175,55,0.6)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(212,175,55,0.35)';this.style.transform='translateY(0)'">
+          <img src="CoachChris.png" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 10%;opacity:0.35;z-index:-1;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);">
+          <div style="position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#8a6a12,#d4af37);color:#000;font-family:'Cinzel',serif;font-size:7px;letter-spacing:2px;padding:4px 10px;text-transform:uppercase;">Premium</div>
+          <div class="svc-card-tag">1-to-1</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:38px;background:linear-gradient(105deg,#8a6a12,#d4af37,#f5e27a,#d4af37);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin:16px 0 4px;">€120</div>
+          <div style="font-size:12px;color:#9a8060;letter-spacing:1px;margin-bottom:16px;">2 hour session</div>
+          <div style="height:1px;background:linear-gradient(to right,transparent,rgba(212,175,55,0.2),transparent);margin-bottom:16px;"></div>
+          <div class="svc-card-name">Private Coaching with Chris Moninga Elombo</div>
+          <p class="svc-card-copy">One-to-one 2 hour session with Coach Chris Moninga Elombo. Personalised training built around your goals.</p>
+          <div style="margin-top:auto;padding-top:20px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#d4af37;text-transform:uppercase;">Book Now →</div>
+        </a>
+
+        <a href="https://buy.stripe.com/bJefZg1V50gu73o7nnbbG0p" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;background:rgba(12,9,3,0.92);border:1px solid rgba(212,175,55,0.35);padding:24px;transition:border-color 0.4s,transform 0.3s;position:relative;isolation:isolate;overflow:hidden;" onmouseover="this.style.borderColor='rgba(212,175,55,0.6)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(212,175,55,0.35)';this.style.transform='translateY(0)'">
+          <img src="CoachChris.png" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 10%;opacity:0.35;z-index:-1;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);mask-image:linear-gradient(to bottom,#000 0%,#000 35%,transparent 85%);">
+          <div style="position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#8a6a12,#d4af37);color:#000;font-family:'Cinzel',serif;font-size:7px;letter-spacing:2px;padding:4px 10px;text-transform:uppercase;">Premium</div>
+          <div class="svc-card-tag">10 sessions</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:38px;background:linear-gradient(105deg,#8a6a12,#d4af37,#f5e27a,#d4af37);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin:16px 0 4px;">€500</div>
+          <div style="font-size:12px;color:#9a8060;letter-spacing:1px;margin-bottom:16px;">10 × 1 hour sessions</div>
+          <div style="height:1px;background:linear-gradient(to right,transparent,rgba(212,175,55,0.2),transparent);margin-bottom:16px;"></div>
+          <div class="svc-card-name">Private Coaching with Chris Moninga Elombo</div>
+          <p class="svc-card-copy">A pack of ten 1 hour one-to-one sessions with Coach Chris Moninga Elombo.</p>
           <div style="margin-top:auto;padding-top:20px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#d4af37;text-transform:uppercase;">Book Now →</div>
         </a>
 
@@ -395,7 +481,7 @@
 
   <script>
   function showPricing(type) {
-    const tabs = { new: ['pricing-new','btn-new'], existing: ['pricing-existing','btn-existing'], private: ['pricing-private','btn-private'] };
+    const tabs = { new: ['pricing-new','btn-new'], existing: ['pricing-existing','btn-existing'], elite: ['pricing-elite','btn-elite'], private: ['pricing-private','btn-private'] };
     Object.keys(tabs).forEach(function (k) {
       const on = k === type;
       document.getElementById(tabs[k][0]).style.display = on ? 'grid' : 'none';
@@ -443,66 +529,76 @@
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;">
-        <div class="reveal" style="background:rgba(8,6,2,0.75);border:1px solid rgba(212,175,55,0.15);width:100%;overflow:hidden;transition:border-color 0.4s,transform 0.3s;" onmouseover="this.style.borderColor='rgba(212,175,55,0.4)';this.style.transform='translateY(-6px)'" onmouseout="this.style.borderColor='rgba(212,175,55,0.15)';this.style.transform='translateY(0)'">
+
+        <div class="reveal" style="background:rgba(8,6,2,0.75);border:1px solid rgba(212,175,55,0.15);width:100%;overflow:hidden;display:flex;flex-direction:column;transition:border-color 0.4s,transform 0.3s;" onmouseover="this.style.borderColor='rgba(212,175,55,0.4)';this.style.transform='translateY(-6px)';var m=this.querySelector('img');if(m)m.style.transform='scale(1.04)'" onmouseout="this.style.borderColor='rgba(212,175,55,0.15)';this.style.transform='translateY(0)';var m=this.querySelector('img');if(m)m.style.transform='scale(1)'">
+          <div style="height:2px;background:linear-gradient(to right,transparent,#d4af37,transparent);"></div>
           <!-- Photo -->
           <div style="position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;">
-            <img src="BrayCoach.png" alt="Bray Pace" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;filter:brightness(0.9) contrast(1.05);transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,4,3,0.9) 0%,rgba(5,4,3,0.2) 50%,transparent 100%);"></div>
+            <img src="BrayCoach.png" alt="Bray Pace" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;filter:brightness(0.92) contrast(1.05);transition:transform 0.5s;">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,4,3,0.96) 0%,rgba(5,4,3,0.6) 24%,transparent 52%);pointer-events:none;"></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px 18px;">
+              <div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:4px;color:#d4af37;text-transform:uppercase;margin-bottom:8px;">Boxing Coach</div>
+              <div style="font-family:'Cinzel',serif;font-size:21px;color:#f0e2b0;letter-spacing:2px;line-height:1.2;">Bray Pace</div>
+            </div>
           </div>
           <!-- Info -->
-          <div style="padding:28px 24px;">
-            <div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:4px;color:#8a6a12;text-transform:uppercase;margin-bottom:10px;">Boxing Coach</div>
-            <div style="font-family:'Cinzel',serif;font-size:20px;color:#e8d8a0;letter-spacing:2px;margin-bottom:12px;">Bray Pace</div>
-            <div style="height:1px;background:linear-gradient(to right,rgba(212,175,55,0.3),transparent);margin-bottom:16px;"></div>
-            <p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:#9a8060;line-height:1.8;">Dedicated to developing discipline, technique and strength in every fighter — from first-timers to competitors.</p>
-            <a href="contact.html" style="display:inline-block;margin-top:20px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#d4af37;text-decoration:none;text-transform:uppercase;border-bottom:1px solid rgba(212,175,55,0.3);padding-bottom:2px;">Book a Session →</a>
+          <div style="padding:20px 24px 26px;display:flex;flex-direction:column;flex:1;">
+            <p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:#9a8060;line-height:1.8;flex:1;">Dedicated to developing discipline, technique and strength in every fighter — from first-timers to competitors.</p>
+            <a href="https://buy.stripe.com/3cIdR8gPZ7IWgDY377bbG06" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:22px;padding:13px 10px;border:1px solid rgba(212,175,55,0.5);font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:#d4af37;text-decoration:none;text-transform:uppercase;transition:all .3s;" onmouseover="this.style.background='linear-gradient(135deg,#8a6a12,#d4af37)';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#d4af37'">Book 1-to-1 · €15</a>
           </div>
         </div>
 
-        <div class="reveal" style="background:rgba(8,6,2,0.75);border:1px solid rgba(212,175,55,0.15);width:100%;overflow:hidden;transition:border-color 0.4s,transform 0.3s;" onmouseover="this.style.borderColor='rgba(212,175,55,0.4)';this.style.transform='translateY(-6px)'" onmouseout="this.style.borderColor='rgba(212,175,55,0.15)';this.style.transform='translateY(0)'">
+        <div class="reveal" style="background:rgba(8,6,2,0.75);border:1px solid rgba(212,175,55,0.15);width:100%;overflow:hidden;display:flex;flex-direction:column;transition:border-color 0.4s,transform 0.3s;" onmouseover="this.style.borderColor='rgba(212,175,55,0.4)';this.style.transform='translateY(-6px)';var m=this.querySelector('img');if(m)m.style.transform='scale(1.04)'" onmouseout="this.style.borderColor='rgba(212,175,55,0.15)';this.style.transform='translateY(0)';var m=this.querySelector('img');if(m)m.style.transform='scale(1)'">
+          <div style="height:2px;background:linear-gradient(to right,transparent,#d4af37,transparent);"></div>
           <!-- Photo -->
           <div style="position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;">
-            <img src="ZionAssistingCoach.png" alt="Zion Mercieca, Coach" style="width:100%;height:100%;object-fit:cover;object-position:center 12%;scale:1.15;transform-origin:center bottom;filter:brightness(0.9) contrast(1.05);transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,4,3,0.9) 0%,rgba(5,4,3,0.2) 50%,transparent 100%);"></div>
+            <img src="ZionAssistingCoach.png" alt="Zion Mercieca, Coach" style="width:100%;height:100%;object-fit:cover;object-position:center 12%;scale:1.15;transform-origin:center bottom;filter:brightness(0.92) contrast(1.05);transition:transform 0.5s;">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,4,3,0.96) 0%,rgba(5,4,3,0.6) 24%,transparent 52%);pointer-events:none;"></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px 18px;">
+              <div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:4px;color:#d4af37;text-transform:uppercase;margin-bottom:8px;">Coach</div>
+              <div style="font-family:'Cinzel',serif;font-size:21px;color:#f0e2b0;letter-spacing:2px;line-height:1.2;">Zion Mercieca</div>
+            </div>
           </div>
           <!-- Info -->
-          <div style="padding:28px 24px;">
-            <div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:4px;color:#8a6a12;text-transform:uppercase;margin-bottom:10px;">Coach</div>
-            <div style="font-family:'Cinzel',serif;font-size:20px;color:#e8d8a0;letter-spacing:2px;margin-bottom:12px;">Zion Mercieca</div>
-            <div style="height:1px;background:linear-gradient(to right,rgba(212,175,55,0.3),transparent);margin-bottom:16px;"></div>
-            <p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:#9a8060;line-height:1.8;">A skilled coach who helps every fighter sharpen their technique, build fitness and grow in confidence.</p>
-            <a href="contact.html" style="display:inline-block;margin-top:20px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#d4af37;text-decoration:none;text-transform:uppercase;border-bottom:1px solid rgba(212,175,55,0.3);padding-bottom:2px;">Book a Session →</a>
-          </div>
-        </div>
-        <div class="reveal" style="background:rgba(8,6,2,0.75);border:1px solid rgba(212,175,55,0.15);width:100%;overflow:hidden;transition:border-color 0.4s,transform 0.3s;" onmouseover="this.style.borderColor='rgba(212,175,55,0.4)';this.style.transform='translateY(-6px)'" onmouseout="this.style.borderColor='rgba(212,175,55,0.15)';this.style.transform='translateY(0)'">
-          <!-- Photo -->
-          <div style="position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;">
-            <img src="CoachChris.png" alt="Chris Moninga, Coach" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;filter:brightness(0.9) contrast(1.05);transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,4,3,0.9) 0%,rgba(5,4,3,0.2) 50%,transparent 100%);"></div>
-          </div>
-          <!-- Info -->
-          <div style="padding:28px 24px;">
-            <div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:4px;color:#8a6a12;text-transform:uppercase;margin-bottom:10px;">Coach</div>
-            <div style="font-family:'Cinzel',serif;font-size:20px;color:#e8d8a0;letter-spacing:2px;margin-bottom:12px;">Chris Moninga</div>
-            <div style="height:1px;background:linear-gradient(to right,rgba(212,175,55,0.3),transparent);margin-bottom:16px;"></div>
-            <p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:#9a8060;line-height:1.8;">A highly experienced coach, known for his technical approach and attention to detail. Chris brings years of knowledge to every session.</p>
-            <a href="contact.html" style="display:inline-block;margin-top:20px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#d4af37;text-decoration:none;text-transform:uppercase;border-bottom:1px solid rgba(212,175,55,0.3);padding-bottom:2px;">Book a Session →</a>
+          <div style="padding:20px 24px 26px;display:flex;flex-direction:column;flex:1;">
+            <p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:#9a8060;line-height:1.8;flex:1;">A skilled coach who helps every fighter sharpen their technique, build fitness and grow in confidence.</p>
+            <a href="https://buy.stripe.com/eVqdR843d0guafA4bbbbG0g" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:22px;padding:13px 10px;border:1px solid rgba(212,175,55,0.5);font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:#d4af37;text-decoration:none;text-transform:uppercase;transition:all .3s;" onmouseover="this.style.background='linear-gradient(135deg,#8a6a12,#d4af37)';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#d4af37'">Book 1-to-1 · €15</a>
           </div>
         </div>
 
-        <div class="reveal" style="background:rgba(8,6,2,0.75);border:1px solid rgba(212,175,55,0.15);width:100%;overflow:hidden;transition:border-color 0.4s,transform 0.3s;" onmouseover="this.style.borderColor='rgba(212,175,55,0.4)';this.style.transform='translateY(-6px)'" onmouseout="this.style.borderColor='rgba(212,175,55,0.15)';this.style.transform='translateY(0)'">
+        <div class="reveal" style="background:rgba(8,6,2,0.75);border:1px solid rgba(212,175,55,0.15);width:100%;overflow:hidden;display:flex;flex-direction:column;transition:border-color 0.4s,transform 0.3s;" onmouseover="this.style.borderColor='rgba(212,175,55,0.4)';this.style.transform='translateY(-6px)';var m=this.querySelector('img');if(m)m.style.transform='scale(1.04)'" onmouseout="this.style.borderColor='rgba(212,175,55,0.15)';this.style.transform='translateY(0)';var m=this.querySelector('img');if(m)m.style.transform='scale(1)'">
+          <div style="height:2px;background:linear-gradient(to right,transparent,#d4af37,transparent);"></div>
           <!-- Photo -->
           <div style="position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;">
-            <img src="CloachLittle.png" alt="Little, Coach" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;filter:brightness(0.9) contrast(1.05);transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,4,3,0.9) 0%,rgba(5,4,3,0.2) 50%,transparent 100%);"></div>
+            <img src="CoachChris.png" alt="Chris Moninga, Coach" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;filter:brightness(0.92) contrast(1.05);transition:transform 0.5s;">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,4,3,0.96) 0%,rgba(5,4,3,0.6) 24%,transparent 52%);pointer-events:none;"></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px 18px;">
+              <div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:4px;color:#d4af37;text-transform:uppercase;margin-bottom:8px;">Coach</div>
+              <div style="font-family:'Cinzel',serif;font-size:21px;color:#f0e2b0;letter-spacing:2px;line-height:1.2;">Chris Moninga</div>
+            </div>
           </div>
           <!-- Info -->
-          <div style="padding:28px 24px;">
-            <div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:4px;color:#8a6a12;text-transform:uppercase;margin-bottom:10px;">Coach</div>
-            <div style="font-family:'Cinzel',serif;font-size:20px;color:#e8d8a0;letter-spacing:2px;margin-bottom:12px;">Little</div>
-            <div style="height:1px;background:linear-gradient(to right,rgba(212,175,55,0.3),transparent);margin-bottom:16px;"></div>
-            <p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:#9a8060;line-height:1.8;">A relentless pressure fighter who never gives up, and who teaches that same drive and determination to everyone he trains.</p>
-            <a href="contact.html" style="display:inline-block;margin-top:20px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#d4af37;text-decoration:none;text-transform:uppercase;border-bottom:1px solid rgba(212,175,55,0.3);padding-bottom:2px;">Book a Session →</a>
+          <div style="padding:20px 24px 26px;display:flex;flex-direction:column;flex:1;">
+            <p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:#9a8060;line-height:1.8;flex:1;">A highly experienced coach, known for his technical approach and attention to detail. Chris brings years of knowledge to every session.</p>
+            <a href="https://buy.stripe.com/8x24gy57h8N0fzUfTTbbG0n" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:22px;padding:13px 10px;border:1px solid rgba(212,175,55,0.5);font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:#d4af37;text-decoration:none;text-transform:uppercase;transition:all .3s;" onmouseover="this.style.background='linear-gradient(135deg,#8a6a12,#d4af37)';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#d4af37'">Book 1-to-1 · €60</a>
+          </div>
+        </div>
+
+        <div class="reveal" style="background:rgba(8,6,2,0.75);border:1px solid rgba(212,175,55,0.15);width:100%;overflow:hidden;display:flex;flex-direction:column;transition:border-color 0.4s,transform 0.3s;" onmouseover="this.style.borderColor='rgba(212,175,55,0.4)';this.style.transform='translateY(-6px)';var m=this.querySelector('img');if(m)m.style.transform='scale(1.04)'" onmouseout="this.style.borderColor='rgba(212,175,55,0.15)';this.style.transform='translateY(0)';var m=this.querySelector('img');if(m)m.style.transform='scale(1)'">
+          <div style="height:2px;background:linear-gradient(to right,transparent,#d4af37,transparent);"></div>
+          <!-- Photo -->
+          <div style="position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;">
+            <img src="CloachLittle.png" alt="Little, Coach" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;filter:brightness(0.92) contrast(1.05);transition:transform 0.5s;">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,4,3,0.96) 0%,rgba(5,4,3,0.6) 24%,transparent 52%);pointer-events:none;"></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px 18px;">
+              <div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:4px;color:#d4af37;text-transform:uppercase;margin-bottom:8px;">Coach</div>
+              <div style="font-family:'Cinzel',serif;font-size:21px;color:#f0e2b0;letter-spacing:2px;line-height:1.2;">Little</div>
+            </div>
+          </div>
+          <!-- Info -->
+          <div style="padding:20px 24px 26px;display:flex;flex-direction:column;flex:1;">
+            <p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:#9a8060;line-height:1.8;flex:1;">A relentless pressure fighter who never gives up, and who teaches that same drive and determination to everyone he trains.</p>
+            <a href="contact.html" style="display:block;text-align:center;margin-top:22px;padding:13px 10px;border:1px solid rgba(212,175,55,0.5);font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:#d4af37;text-decoration:none;text-transform:uppercase;transition:all .3s;" onmouseover="this.style.background='linear-gradient(135deg,#8a6a12,#d4af37)';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#d4af37'">Book a Session</a>
           </div>
         </div>
       </div>
