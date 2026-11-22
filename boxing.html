@@ -25,18 +25,26 @@
 <div class="page" id="main-content" role="main">
 
   <!-- HERO -->
-  <section class="hero" style="min-height:65vh;">
+  <section class="hero" style="min-height:65vh;padding:48px 0 64px;">
     <div class="hero-bg" aria-hidden="true">
-      <img src="Coverphoto.png" alt="" style="filter:saturate(.4) brightness(.45) hue-rotate(5deg);" fetchpriority="high">
-      <div class="hero-bg-grad"></div>
+      <img src="Coverphoto.png" alt="" style="opacity:.5;filter:saturate(.6) brightness(.85);" fetchpriority="high">
+      <div class="hero-bg-grad" style="background:linear-gradient(to bottom,rgba(20,16,9,.55) 0%,rgba(20,16,9,.05) 30%,rgba(20,16,9,.1) 60%,rgba(20,16,9,.95) 100%),radial-gradient(ellipse 85% 75% at 50% 50%,transparent 30%,rgba(20,16,9,.8) 100%);"></div>
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 38%,rgba(212,175,55,0.18),transparent 70%);pointer-events:none;"></div>
     </div>
     <div class="hero-content">
       <div aria-hidden="true" style="margin-bottom:18px;animation:fadeUp 1.2s cubic-bezier(0.22,1,0.36,1) both .15s;opacity:0;">
-        <img src="PrinceBoxingLogoNew.jpg" alt="Prince Boxing & Fitness Club" style="width:90px;height:90px;border-radius:12px;display:block;margin:0 auto;filter:drop-shadow(0 0 20px rgba(212,175,55,0.4));">
+        <img src="PrinceBoxingLogoNew.jpg" alt="Prince Boxing & Fitness Club" style="width:130px;height:130px;border-radius:14px;display:block;margin:0 auto;border:1px solid rgba(212,175,55,0.6);padding:4px;background:rgba(8,6,2,0.6);box-shadow:0 0 50px rgba(212,175,55,0.35),0 0 0 6px rgba(212,175,55,0.08);">
       </div>
       <div class="hero-kicker" style="animation-delay:.3s;">Prestige Group · Service 02</div>
       <h1 class="hero-name" style="font-size:clamp(28px,5.5vw,64px);animation-delay:.45s;">Prince Boxing<br>&amp; Fitness Club</h1>
       <div class="hero-tagline-sub" style="animation-delay:.6s;">Elite Training · Professional Events · Malta</div>
+      <a href="index.html" aria-label="Powered by Prestige Group" style="display:inline-flex;align-items:center;gap:14px;margin-top:24px;padding:10px 24px 10px 14px;border:1px solid rgba(212,175,55,0.5);background:linear-gradient(135deg,rgba(212,175,55,0.12),rgba(8,6,2,0.75));box-shadow:0 0 34px rgba(212,175,55,0.18);text-decoration:none;">
+        <img src="profilepic.png" alt="" width="46" height="46" style="width:46px;height:46px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(212,175,55,0.6)) brightness(1.08);">
+        <span style="display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;">
+          <span style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:4px;color:#b8922a;text-transform:uppercase;">Powered by</span>
+          <span style="font-family:'Cinzel',serif;font-size:17px;letter-spacing:4px;color:#f0e2b0;text-transform:uppercase;line-height:1;">Prestige Group</span>
+        </span>
+      </a>
       <div class="hero-rule" style="animation-delay:.75s;">
         <div class="hero-rule-line"></div>
         <div class="gem gem--s"></div><div class="gem"></div><div class="gem gem--s"></div>
@@ -45,13 +53,14 @@
       <p class="hero-body" style="animation-delay:.9s;">Elite boxing training and events under the <span class="ac">Prestige banner</span> — forging discipline, strength, and champions on the island.</p>
       <div class="hero-actions" style="animation-delay:1.05s;">
         <a href="contact.html" class="btn btn--solid"><span>Join the Programme</span></a>
-        <a href="tel:+35699999999" class="btn btn--dark" aria-label="Call Prince Boxing & Fitness Club"><span><span aria-hidden="true">📞 &nbsp;</span>Call Us</span></a>
+        <a href="tel:+35699999999" class="btn btn--dark" style="color:#d4af37;border:1px solid rgba(212,175,55,0.55);" aria-label="Call Prince Boxing & Fitness Club"><span><span aria-hidden="true">📞 &nbsp;</span>Call Us</span></a>
       </div>
+      <a href="#next-fight" style="display:inline-block;margin-top:44px;padding:12px 26px;border-top:1px solid rgba(212,175,55,0.4);border-bottom:1px solid rgba(212,175,55,0.4);font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;color:#d4af37;text-transform:uppercase;text-decoration:none;background:rgba(8,6,2,0.55);">Next Fight &nbsp;·&nbsp; 5 Dec 2026 &nbsp;·&nbsp; Bray Pace vs Stefan Slavchev &nbsp;↓</a>
     </div>
   </section>
 
   <!-- NEXT FIGHT -->
-  <section class="section--sm">
+  <section class="section--sm" id="next-fight">
     <div class="wrap">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center;">
 
