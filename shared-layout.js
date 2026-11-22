@@ -5,6 +5,7 @@
 
   const navItems = [
     { href: 'index.html',        label: 'Home' },
+    { href: 'about.html',        label: 'About' },
     { href: 'towing.html',       label: 'Towing' },
     { href: 'boxing.html',       label: 'Boxing' },
     { href: 'onspot.html',       label: 'OnSpot' },
@@ -112,7 +113,6 @@
             <li><a href="onspot.html">OnSpot Mobile Wash</a></li>
             <li><a href="it-services.html">IT Services</a></li>
             <li><a href="appointments.html">Book Appointment</a></li>
-            <li><a href="tracking.html">Track Driver</a></li>
           </ul>
         </div>
 
