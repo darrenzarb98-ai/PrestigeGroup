@@ -53,26 +53,73 @@
   <!-- NEXT FIGHT -->
   <section class="section--sm">
     <div class="wrap">
-      <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:24px;">
-        <div class="reveal" style="width:520px;max-width:100%;padding:6px;background:rgba(8,6,2,0.75);border:1px solid rgba(212,175,55,0.35);box-shadow:0 0 40px rgba(212,175,55,0.12);box-sizing:border-box;">
-          <img src="bray%20fight.jpeg" alt="Fight Day: Bray Pace (The Prince), 5th December 2026, Montekristo, Malta. Team Prince Club" width="1254" height="1254" style="width:100%;height:auto;display:block;">
-        </div>
-        <div class="reveal" style="width:416px;max-width:100%;padding:6px;background:rgba(8,6,2,0.75);border:1px solid rgba(212,175,55,0.35);box-shadow:0 0 40px rgba(212,175,55,0.12);box-sizing:border-box;">
-          <img src="BrayFight2ndphoto.jpg" alt="Bray Pace versus Stefan Slavchev, 5 December 2026, Montekristo, Malta. Prize Boxing Promotions" width="1080" height="1350" style="width:100%;height:auto;display:block;">
-        </div>
-      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center;">
 
-      <div class="reveal" style="text-align:center;margin-top:48px;">
-        <div class="eyebrow eyebrow--center">Next Fight</div>
-        <h2 class="heading" style="font-size:clamp(26px,3.6vw,42px);letter-spacing:3px;">Fight Day &middot; Bray Pace</h2>
-        <div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;color:#d4af37;text-transform:uppercase;margin:6px 0 4px;">(The Prince) &nbsp;vs&nbsp; Stefan Slavchev</div>
-        <div class="heading-rule heading-rule--center"></div>
-        <div style="font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:#e8d8a0;text-transform:uppercase;line-height:2.2;">5th December 2026<br>Montekristo, Malta</div>
-        <p class="body-text" style="max-width:460px;margin:20px auto 0;">Our own Bray Pace steps into the ring for Team Prince. Come and back the club on fight day.</p>
-        <a href="#pricing" class="btn btn--solid" style="margin-top:28px;"><span>View Plans</span></a>
+        <!-- Poster slider -->
+        <div class="reveal" style="width:100%;max-width:460px;margin:0 auto;">
+          <div id="fight-slider" style="position:relative;padding:6px;background:rgba(8,6,2,0.75);border:1px solid rgba(212,175,55,0.35);box-shadow:0 0 50px rgba(212,175,55,0.14);box-sizing:border-box;" role="region" aria-roledescription="carousel" aria-label="Fight posters">
+            <div style="position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;background:#050403;touch-action:pan-y;">
+              <img class="fs-slide" src="bray%20fight.jpeg" alt="Fight Day: Bray Pace (The Prince), 5th December 2026, Montekristo, Malta. Team Prince Club" width="1254" height="1254" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:1;transition:opacity .7s ease;">
+              <img class="fs-slide" src="BrayFight2ndphoto.jpg" alt="Bray Pace versus Stefan Slavchev, 5 December 2026, Montekristo, Malta. Prize Boxing Promotions" width="1080" height="1350" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .7s ease;">
+              <button type="button" id="fs-prev" aria-label="Previous poster" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:1px solid rgba(212,175,55,0.6);background:rgba(5,4,3,0.65);color:#d4af37;font-size:18px;line-height:1;cursor:pointer;">&#8249;</button>
+              <button type="button" id="fs-next" aria-label="Next poster" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:1px solid rgba(212,175,55,0.6);background:rgba(5,4,3,0.65);color:#d4af37;font-size:18px;line-height:1;cursor:pointer;">&#8250;</button>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:center;gap:10px;margin-top:16px;">
+            <button type="button" class="fs-dot" aria-label="Show poster 1" style="width:26px;height:3px;border:0;padding:0;cursor:pointer;background:#d4af37;transition:background .4s;"></button>
+            <button type="button" class="fs-dot" aria-label="Show poster 2" style="width:26px;height:3px;border:0;padding:0;cursor:pointer;background:rgba(212,175,55,0.3);transition:background .4s;"></button>
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div class="reveal" style="text-align:left;">
+          <div class="eyebrow">Next Fight</div>
+          <h2 class="heading" style="font-size:clamp(26px,3.6vw,42px);letter-spacing:3px;">Fight Day<br>Bray Pace</h2>
+          <div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;color:#d4af37;text-transform:uppercase;margin:6px 0 4px;">(The Prince) &nbsp;vs&nbsp; Stefan Slavchev</div>
+          <div class="heading-rule"></div>
+          <div style="font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:#e8d8a0;text-transform:uppercase;line-height:2.2;">5th December 2026<br>Montekristo, Malta</div>
+          <p class="body-text" style="max-width:420px;margin-top:20px;">Our own Bray Pace steps into the ring for Team Prince. Come and back the club on fight day.</p>
+          <a href="#pricing" class="btn btn--solid" style="margin-top:28px;"><span>View Plans</span></a>
+        </div>
+
       </div>
     </div>
   </section>
+  <script>
+  (function () {
+    var box = document.getElementById('fight-slider');
+    if (!box) return;
+    var slides = box.querySelectorAll('.fs-slide');
+    var dots = document.querySelectorAll('.fs-dot');
+    var stage = slides[0].parentNode;
+    var cur = 0, timer = null;
+    function show(n) {
+      cur = (n + slides.length) % slides.length;
+      slides.forEach(function (im, k) { im.style.opacity = k === cur ? '1' : '0'; });
+      dots.forEach(function (d, k) { d.style.background = k === cur ? '#d4af37' : 'rgba(212,175,55,0.3)'; });
+    }
+    function play() {
+      stop();
+      try { if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; } catch (e) {}
+      timer = setInterval(function () { show(cur + 1); }, 6000);
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    document.getElementById('fs-prev').addEventListener('click', function () { show(cur - 1); play(); });
+    document.getElementById('fs-next').addEventListener('click', function () { show(cur + 1); play(); });
+    dots.forEach(function (d, k) { d.addEventListener('click', function () { show(k); play(); }); });
+    box.addEventListener('mouseenter', stop);
+    box.addEventListener('mouseleave', play);
+    var x0 = null;
+    stage.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; stop(); }, { passive: true });
+    stage.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) show(dx < 0 ? cur + 1 : cur - 1);
+      play();
+    }, { passive: true });
+    play();
+  })();
+  </script>
 
   <div class="hr hr--heavy"></div>
 
