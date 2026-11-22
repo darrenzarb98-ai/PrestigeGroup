@@ -25,9 +25,19 @@
 <div class="page" id="main-content" role="main">
 
   <!-- HERO -->
+  <style>
+@media(min-width:1200px){
+  .hero-crest{left:76%!important;}
+  .hero-crest img{opacity:.9!important;}
+  .hero .hero-content{width:100%;max-width:600px;align-self:flex-start;margin:0 0 0 8vw;padding:0;text-align:left;}
+  .hero .hero-content > div:first-child img{margin:0!important;}
+  .hero .hero-rule,.hero .hero-actions{justify-content:flex-start!important;}
+  .hero .hero-body{margin-left:0!important;margin-right:0!important;max-width:560px;}
+}
+</style>
   <section class="hero" style="min-height:65vh;padding:48px 0 64px;">
     <div class="hero-bg" aria-hidden="true">
-      <div style="position:absolute;top:0;bottom:0;left:50%;aspect-ratio:3/2;transform:translateX(-71%);pointer-events:none;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 71% 50%,#000 45%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 71% 50%,#000 45%,transparent 100%);"><img src="Coverphoto.png" alt="" style="width:100%;height:100%;object-fit:cover;opacity:.26;filter:saturate(.8) brightness(.9);transform:none;animation:none;" fetchpriority="high"></div>
+      <div class="hero-crest" style="position:absolute;top:0;bottom:0;left:50%;aspect-ratio:3/2;transform:translateX(-71%);pointer-events:none;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 71% 50%,#000 45%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 71% 50%,#000 45%,transparent 100%);"><img src="Coverphoto.png" alt="" style="width:100%;height:100%;object-fit:cover;opacity:.26;filter:saturate(.8) brightness(.9);transform:none;animation:none;" fetchpriority="high"></div>
       <div class="hero-bg-grad" style="background:linear-gradient(to bottom,rgba(20,16,9,.55) 0%,rgba(20,16,9,.05) 30%,rgba(20,16,9,.1) 60%,rgba(20,16,9,.95) 100%),radial-gradient(ellipse 85% 75% at 50% 50%,transparent 30%,rgba(20,16,9,.8) 100%);"></div>
       <div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 38%,rgba(212,175,55,0.18),transparent 70%);pointer-events:none;"></div>
     </div>
@@ -55,7 +65,7 @@
         <a href="contact.html" class="btn btn--solid"><span>Join the Programme</span></a>
         <a href="tel:+35699999999" class="btn btn--dark" style="color:#d4af37;border:1px solid rgba(212,175,55,0.55);" aria-label="Call Prince Boxing & Fitness Club"><span><span aria-hidden="true">📞 &nbsp;</span>Call Us</span></a>
       </div>
-      <a href="#next-fight" style="display:inline-block;margin-top:44px;padding:12px 26px;border-top:1px solid rgba(212,175,55,0.4);border-bottom:1px solid rgba(212,175,55,0.4);font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;color:#d4af37;text-transform:uppercase;text-decoration:none;background:rgba(8,6,2,0.55);">Next Fight &nbsp;·&nbsp; 5 Dec 2026 &nbsp;·&nbsp; Bray Pace vs Stefan Slavchev &nbsp;↓</a>
+      <a href="#next-fight" style="display:inline-block;margin-top:44px;padding:12px 22px;max-width:100%;border-top:1px solid rgba(212,175,55,0.4);border-bottom:1px solid rgba(212,175,55,0.4);font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:#d4af37;text-transform:uppercase;text-decoration:none;background:rgba(8,6,2,0.55);">Next Fight &nbsp;·&nbsp; 5 Dec 2026 &nbsp;·&nbsp; Bray Pace vs Stefan Slavchev &nbsp;↓</a>
     </div>
   </section>
 
