@@ -17,13 +17,13 @@
   --g5: #4a3800;
   --glow: rgba(212,175,55,0.22);
   --bg:  #04030200;
-  --bg0: #050403;
-  --bg1: #0a0804;
-  --bg2: #0f0c05;
-  --panel: rgba(7,5,2,0.82);
+  --bg0: #15110a;
+  --bg1: #1c170d;
+  --bg2: #231c10;
+  --panel: rgba(24,19,10,0.85);
   --t1: #ede0b0;
-  --t2: #b8a872;
-  --t3: #7a6a42;
+  --t2: #cdbd88;
+  --t3: #a8966a;
   --t4: rgba(212,175,55,0.10);
   --b1: rgba(212,175,55,0.10);
   --b2: rgba(212,175,55,0.25);
@@ -109,13 +109,13 @@ button,input,textarea,select{font-family:inherit;}
   position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:200;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 52px;
-  background:linear-gradient(180deg,rgba(4,3,2,0.97) 0%,rgba(4,3,2,0.88) 100%);
+  background:linear-gradient(180deg,rgba(20,16,9,0.97) 0%,rgba(20,16,9,0.88) 100%);
   border-bottom:1px solid var(--b1);
   backdrop-filter:blur(24px) saturate(1.6);
   transition:background .4s,border-color .4s;
 }
 .nav.scrolled{
-  background:rgba(4,3,2,0.98);
+  background:rgba(20,16,9,0.98);
   border-bottom-color:var(--b2);
   box-shadow:0 8px 48px rgba(0,0,0,0.6);
 }
@@ -185,7 +185,7 @@ button,input,textarea,select{font-family:inherit;}
 
 .nav-drawer{
   display:none;position:fixed;inset:0;z-index:250;
-  background:rgba(4,3,2,0.99);backdrop-filter:blur(28px);
+  background:rgba(20,16,9,0.99);backdrop-filter:blur(28px);
   flex-direction:column;align-items:center;justify-content:center;gap:0;
 }
 .nav-drawer.open{display:flex;}
@@ -719,7 +719,7 @@ button,input,textarea,select{font-family:inherit;}
 /* Lightbox */
 .lightbox{
   display:none;position:fixed;inset:0;z-index:500;
-  background:rgba(4,3,2,.97);backdrop-filter:blur(28px);
+  background:rgba(20,16,9,.97);backdrop-filter:blur(28px);
   align-items:center;justify-content:center;flex-direction:column;gap:20px;
 }
 .lightbox.open{display:flex;}
@@ -1417,7 +1417,7 @@ html{scrollbar-color:var(--g4) var(--bg0);scrollbar-width:thin;}
 /* Confirmation dialog overlay */
 .confirm-overlay{
   display:none;position:fixed;inset:0;z-index:400;
-  background:rgba(4,3,2,.95);backdrop-filter:blur(20px);
+  background:rgba(20,16,9,.95);backdrop-filter:blur(20px);
   align-items:center;justify-content:center;padding:20px;
 }
 .confirm-overlay.open{display:flex;}
