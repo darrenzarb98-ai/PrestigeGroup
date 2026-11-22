@@ -37,7 +37,7 @@
 
     <nav class="nav" id="mainNav" aria-label="Primary">
       <a class="nav-brand" href="index.html" aria-label="Prestige Group — home">
-        <img class="nav-brand-logo" src="profilepic.png" alt="" width="56" height="56">
+        <span class="logo-ring logo-ring--nav"><img class="nav-brand-logo" src="profilepic.png" alt="" width="56" height="56"></span>
         <div class="nav-brand-text">
           <div class="nav-brand-name">Prestige</div>
           <div class="nav-brand-sub">Group · Malta</div>
@@ -87,7 +87,7 @@
 
         <div>
           <div class="footer-brand-logo">
-            <img src="profilepic.png" alt="" width="56" height="56">
+            <span class="logo-ring logo-ring--foot"><img src="profilepic.png" alt="" width="56" height="56"></span>
             Prestige Group
           </div>
           <p class="footer-brand-desc">
