@@ -37,7 +37,7 @@
 
     <nav class="nav" id="mainNav" aria-label="Primary">
       <a class="nav-brand" href="index.html" aria-label="Prestige Group — home">
-        <img class="nav-brand-logo" src="profilepic.png" alt="" width="42" height="42">
+        <img class="nav-brand-logo" src="profilepic.png" alt="" width="56" height="56">
         <div class="nav-brand-text">
           <div class="nav-brand-name">Prestige</div>
           <div class="nav-brand-sub">Group · Malta</div>
@@ -87,7 +87,7 @@
 
         <div>
           <div class="footer-brand-logo">
-            <img src="profilepic.png" alt="" width="34" height="34">
+            <img src="profilepic.png" alt="" width="56" height="56">
             Prestige Group
           </div>
           <p class="footer-brand-desc">
@@ -132,6 +132,7 @@
 
       <div class="footer-bottom">
         <div class="footer-copy">© ${year} Prestige Group Malta. All rights reserved.</div>
+        <a class="footer-copy" href="privacy.html" style="text-decoration:none;">Privacy &amp; Data Terms</a>
       </div>
     </footer>
   `);
