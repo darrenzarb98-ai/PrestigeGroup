@@ -132,7 +132,7 @@
 
       <div class="footer-bottom">
         <div class="footer-copy">© ${year} Prestige Group Malta. All rights reserved.</div>
-        <a class="footer-copy" href="privacy.html" style="text-decoration:none;">Privacy &amp; Data Terms</a>
+        <a class="footer-copy" href="privacy.html" style="text-decoration:none;color:#d4af37;font-size:10px;letter-spacing:3px;border:1px solid rgba(212,175,55,0.5);padding:9px 16px;">Privacy &amp; Data Terms</a>
       </div>
     </footer>
   `);
